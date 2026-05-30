@@ -35,7 +35,6 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   VoidCallback? onPrevRequested;
 
   MyAudioHandler() {
-    // Definimos el estado inicial base para que Android acepte registrar la sesión multimedia
     playbackState.add(
       PlaybackState(
         controls: const [
@@ -61,7 +60,12 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     });
 
     _player.onPositionChanged.listen((pos) {
-      playbackState.add(playbackState.value.copyWith(updatePosition: pos));
+      playbackState.add(
+        playbackState.value.copyWith(
+          updatePosition: pos,
+          speed: _player.state == PlayerState.playing ? 1.0 : 0.0,
+        ),
+      );
     });
 
     _player.onPlayerStateChanged.listen((state) {
@@ -70,7 +74,6 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       playbackState.add(
         playbackState.value.copyWith(
           playing: playing,
-          // 🛠️ CONFIGURACIÓN CRÍTICA: Mantenemos siempre el estado "ready" para que Android no borre la tarjeta
           processingState: AudioProcessingState.ready,
           controls: [
             MediaControl.skipToPrevious,
@@ -85,6 +88,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
             MediaAction.skipToNext,
             MediaAction.skipToPrevious,
           },
+          speed: playing ? 1.0 : 0.0,
         ),
       );
     });
@@ -115,7 +119,13 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   @override
-  Future<void> seek(Duration position) => _player.seek(position);
+  Future<void> seek(Duration position) async {
+    // 1. Le ordenamos al reproductor físico hacer el salto
+    await _player.seek(position);
+
+    // 2. Sincronizamos inmediatamente el estado de la notificación de Android
+    playbackState.add(playbackState.value.copyWith(updatePosition: position));
+  }
 
   @override
   Future<void> stop() async {
@@ -217,12 +227,24 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     _audioHandler.playerInstance.onDurationChanged.listen(
       (d) => setState(() => _duration = d),
     );
-    _audioHandler.playerInstance.onPositionChanged.listen(
-      (p) => setState(() => _position = p),
-    );
-    _audioHandler.playerInstance.onPlayerStateChanged.listen((state) {
-      setState(() => _isPlaying = state == PlayerState.playing);
+
+    // CORRECCIÓN CLAVE: Filtra y frena los desfases de tiempo que traban los sliders externos
+    _audioHandler.playerInstance.onPositionChanged.listen((p) {
+      if (mounted) {
+        setState(() {
+          _position = p.inMilliseconds > _duration.inMilliseconds
+              ? _duration
+              : p;
+        });
+      }
     });
+
+    _audioHandler.playerInstance.onPlayerStateChanged.listen((state) {
+      if (mounted) {
+        setState(() => _isPlaying = state == PlayerState.playing);
+      }
+    });
+
     _audioHandler.playerInstance.onPlayerComplete.listen(
       (event) => _nextSongWithShuffle(),
     );
@@ -499,18 +521,21 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
       }
 
       if (_isPlaying) {
-        // Si está sonando, pausamos la música usando tu método nativo
         _audioHandler.pause();
       } else {
-        // Si está pausado pero ya hay un índice válido seleccionado (mayor o igual a 0)
-        if (_currentIndex >= 0 && _currentIndex < _playlist.length) {
+        // CORRECCIÓN CLAVE: Si el índice es válido pero la posición es CERO (la app se acaba de abrir),
+        // significa que el reproductor está vacío. Forzamos la carga física del archivo.
+        if (_currentIndex >= 0 && _currentIndex < _playlist.length && _position != Duration.zero) {
           _audioHandler.play();
         } else {
-          // CORRECCIÓN: Si el índice es -1 o inválido al dar Play, forzamos la primera canción
+          // Si el índice era -1, inválido, o la app recién se abre con posición en cero,
+          // aseguramos que apunte a la primera canción y la inyectamos en el reproductor.
           setState(() {
-            _currentIndex = 0;
+            if (_currentIndex < 0 || _currentIndex >= _playlist.length) {
+              _currentIndex = 0;
+            }
           });
-          await _playCurrent(); // Llama a tu función nativa para cargar y reproducir el archivo
+          await _playCurrent(); 
         }
       }
     } catch (e) {
@@ -654,6 +679,7 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                         ), // Clave única obligatoria usando la ruta del archivo
                         direction: DismissDirection
                             .horizontal, // Permite deslizar a izquierda o derecha
+                            resizeDuration: const Duration(milliseconds: 100), 
                         background: Container(
                           color: Colors.redAccent,
                           alignment: Alignment.centerLeft,
@@ -720,7 +746,7 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                 topRight: Radius.circular(20),
               ),
               border: Border(
-                top: BorderSide(color: Colors.white.withOpacity(0.05)),
+                top: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
               ),
             ),
             child: Column(
