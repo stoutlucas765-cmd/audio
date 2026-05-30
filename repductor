@@ -7,10 +7,91 @@ import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:audio_service/audio_service.dart';
 
-void main() {
+// Variable global para interactuar con la barra de notificaciones del sistema
+late MyAudioHandler _audioHandler;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializa el servicio en segundo plano de Android
+  _audioHandler = await AudioService.init(
+    builder: () => MyAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.example.reproductor_mp3.channel.audio',
+      androidNotificationChannelName: 'Reproductor Luks-Player',
+      androidNotificationOngoing: true,
+      androidShowNotificationBadge: true,
+    ),
+  );
+
   runApp(const MyMp3PlayerApp());
 }
 
+// --- CLASE MANEJADORA DE LA NOTIFICACIÓN DE ANDROID ---
+class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
+  final AudioPlayer _player = AudioPlayer();
+
+  MyAudioHandler() {
+    // Escucha eventos del reproductor para actualizar la barra de notificaciones nativa
+    _player.onDurationChanged.listen((d) {
+      mediaItem.add(mediaItem.value?.copyWith(duration: d));
+    });
+
+    _player.onPositionChanged.listen((pos) {
+      playbackState.add(playbackState.value.copyWith(updatePosition: pos));
+    });
+
+    _player.onPlayerStateChanged.listen((state) {
+      final playing = state == PlayerState.playing;
+      playbackState.add(
+        playbackState.value.copyWith(
+          playing: playing,
+          controls: [
+            MediaControl.skipToPrevious,
+            playing ? MediaControl.pause : MediaControl.play,
+            MediaControl.skipToNext,
+          ],
+          systemActions: const {
+            MediaAction.seek,
+            MediaAction.skipToNext,
+            MediaAction.skipToPrevious,
+          },
+        ),
+      );
+    });
+  }
+
+  // Métodos que Android gatilla cuando tocas los botones de la barra de notificaciones o bloqueo
+  @override
+  Future<void> play() => _player.resume();
+
+  @override
+  Future<void> pause() => _player.pause();
+
+  @override
+  Future<void> seek(Duration position) => _player.seek(position);
+
+  @override
+  Future<void> stop() => _player.stop();
+
+  // Enlaza la reproducción de un archivo físico local con los metadatos de la pantalla de bloqueo
+  Future<void> playLocalFile(String path) async {
+    final title = p.basename(path).replaceAll('.mp3', '');
+    mediaItem.add(
+      MediaItem(
+        id: path,
+        album: "Luks Player",
+        title: title,
+        artist: "Archivo Local",
+      ),
+    );
+    await _player.play(DeviceFileSource(path));
+  }
+
+  AudioPlayer get playerInstance => _player;
+}
+
+// --- INTERFAZ GRÁFICA DE LA APLICACIÓN ---
 class MyMp3PlayerApp extends StatelessWidget {
   const MyMp3PlayerApp({super.key});
 
@@ -21,7 +102,7 @@ class MyMp3PlayerApp extends StatelessWidget {
       title: 'Luks Player Mobile',
       theme: ThemeData.dark(useMaterial3: true).copyWith(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.teal, // Color moderno y limpio para móviles
+          seedColor: Colors.teal,
           brightness: Brightness.dark,
         ),
       ),
@@ -38,7 +119,6 @@ class MainPlayerScreen extends StatefulWidget {
 }
 
 class _MainPlayerScreenState extends State<MainPlayerScreen> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   List<String> _playlist = [];
   int _currentIndex = -1;
   bool _isPlaying = false;
@@ -56,12 +136,20 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
   }
 
   void _initAudioListeners() {
-    _audioPlayer.onDurationChanged.listen((d) => setState(() => _duration = d));
-    _audioPlayer.onPositionChanged.listen((p) => setState(() => _position = p));
-    _audioPlayer.onPlayerStateChanged.listen((state) {
+    // Sincroniza la UI interna con los streams del manejador global de audio
+    _audioHandler.playerInstance.onDurationChanged.listen(
+      (d) => setState(() => _duration = d),
+    );
+    _audioHandler.playerInstance.onPositionChanged.listen(
+      (p) => setState(() => _position = p),
+    );
+    _audioHandler.playerInstance.onPlayerStateChanged.listen((state) {
       setState(() => _isPlaying = state == PlayerState.playing);
     });
-    _audioPlayer.onPlayerComplete.listen((event) => _nextSong());
+    // Salto automático respetando el modo Shuffle al terminar
+    _audioHandler.playerInstance.onPlayerComplete.listen(
+      (event) => _nextSongWithShuffle(),
+    );
   }
 
   Future<void> _loadSavedPlaylist() async {
@@ -73,64 +161,6 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         _currentIndex = 0;
       });
     }
-  }
-
-  void _toggleShuffle() {
-    setState(() {
-      _isShuffle = !_isShuffle;
-      if (_isShuffle && _playlist.isNotEmpty) {
-        // Creamos una lista con los números de posición [0, 1, 2, ...]
-        _shuffledIndices = List<int>.generate(_playlist.length, (i) => i);
-        // Mezclamos los números de posición de forma aleatoria
-        _shuffledIndices.shuffle();
-
-        // Para que no salte de canción al activar el botón, movemos el tema actual al inicio de la mezcla
-        if (_currentIndex != -1) {
-          _shuffledIndices.remove(_currentIndex);
-          _shuffledIndices.insert(0, _currentIndex);
-        }
-      }
-    });
-  }
-
-  // Modificamos la lógica de pasar de canción para que respete el modo aleatorio
-  void _nextSongWithShuffle() {
-    if (_playlist.isEmpty) return;
-
-    if (_isShuffle && _shuffledIndices.isNotEmpty) {
-      // Buscamos dónde está parada la canción actual en la lista mezclada
-      int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
-      int nextShufflePos = (currentShufflePos + 1) % _shuffledIndices.length;
-      setState(() {
-        _currentIndex = _shuffledIndices[nextShufflePos];
-      });
-    } else {
-      // Modo normal secuencial
-      setState(() {
-        _currentIndex = (_currentIndex + 1) % _playlist.length;
-      });
-    }
-    _playCurrent();
-  }
-
-  void _prevSongWithShuffle() {
-    if (_playlist.isEmpty) return;
-
-    if (_isShuffle && _shuffledIndices.isNotEmpty) {
-      int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
-      int prevShufflePos =
-          (currentShufflePos - 1 + _shuffledIndices.length) %
-          _shuffledIndices.length;
-      setState(() {
-        _currentIndex = _shuffledIndices[prevShufflePos];
-      });
-    } else {
-      setState(() {
-        _currentIndex =
-            (_currentIndex - 1 + _playlist.length) % _playlist.length;
-      });
-    }
-    _playCurrent();
   }
 
   Future<void> _savePlaylist() async {
@@ -148,14 +178,12 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         final dir = Directory(directoryPath);
         final List<String> nuevosMp3 = [];
 
-        // Escanear la nueva carpeta
         await for (var entity in dir.list(
           recursive: false,
           followLinks: false,
         )) {
           if (entity is File &&
               p.extension(entity.path).toLowerCase() == '.mp3') {
-            // Evitar agregar canciones duplicadas si seleccionas la misma carpeta
             if (!_playlist.contains(entity.path)) {
               nuevosMp3.add(entity.path);
             }
@@ -163,20 +191,21 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         }
 
         if (nuevosMp3.isNotEmpty) {
-          // Ordenar alfabéticamente los nuevos archivos antes de unirlos
           nuevosMp3.sort((a, b) => p.basename(a).compareTo(p.basename(b)));
 
           setState(() {
-            //  AQUÍ SE UNEN: Agrega los nuevos temas a la lista que ya tenías
             _playlist.addAll(nuevosMp3);
-
-            // Si no había nada sonando, seleccionamos la primera de las nuevas canciones
             if (_currentIndex == -1) {
               _currentIndex = 0;
             }
           });
 
           await _savePlaylist();
+
+          // Regenerar índices aleatorios si el modo Shuffle estaba encendido al agregar música
+          if (_isShuffle) {
+            _rebuildShuffleIndices();
+          }
 
           if (!_isPlaying &&
               _currentIndex == _playlist.indexOf(nuevosMp3.first)) {
@@ -212,18 +241,17 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
   }
 
   Future<void> _clearPlaylist() async {
-    // 1. Detener el reproductor por completo
-    await _audioPlayer.stop();
-
+    await _audioHandler.stop();
     setState(() {
-      _playlist.clear(); // 2. Vaciar la lista en pantalla
-      _currentIndex = -1; // 3. Resetear el índice
-      _isPlaying = false; // 4. Apagar estado de reproducción
+      _playlist.clear();
+      _currentIndex = -1;
+      _isPlaying = false;
+      _isShuffle = false;
+      _shuffledIndices.clear();
       _duration = Duration.zero;
       _position = Duration.zero;
     });
 
-    // 5. Borrar la lista guardada en la memoria interna del teléfono
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('saved_playlist');
 
@@ -244,30 +272,22 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     final file = File(filePath);
 
     try {
-      // 1. Verificar si el archivo existe y si tiene un peso válido (mayor a 0 bytes)
       if (!await file.exists() || await file.length() == 0) {
-        debugPrint(
-          "Archivo corrupto o vacío (0 bytes): ${p.basename(filePath)}",
-        );
         _handlePlaybackError("Archivo vacío o dañado.");
         return;
       }
 
-      // 2. Intentar reproducir el archivo de audio de forma segura
-      await _audioPlayer.play(DeviceFileSource(filePath));
+      // Llama al manejador para arrancar el audio e inyectar la notificación
+      await _audioHandler.playLocalFile(filePath);
     } catch (e) {
-      // 3. Capturar errores inesperados del codec de audio de Android
-      debugPrint("Error al decodificar el archivo MP3: $e");
-      _handlePlaybackError("Error de decodificación en el sistema.");
+      _handlePlaybackError("Error de decodificación de Android.");
     }
   }
 
   void _handlePlaybackError(String motivo) {
     if (!mounted) return;
-
     final nombreCancion = p.basename(_playlist[_currentIndex]);
 
-    // Mostrar aviso flotante rápido al usuario
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -277,43 +297,83 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
       ),
     );
 
-    // Esperar un breve instante y saltar a la siguiente canción automáticamente
     Future.delayed(const Duration(milliseconds: 500), () {
-      _audioPlayer.onPlayerComplete.listen((event) => _nextSongWithShuffle());
+      _nextSongWithShuffle();
     });
   }
 
   Future<void> _togglePlay() async {
     if (_isPlaying) {
-      await _audioPlayer.pause();
+      await _audioHandler.pause();
     } else {
       if (_playlist.isNotEmpty && _currentIndex == -1) {
         _currentIndex = 0;
+        await _playCurrent();
+      } else {
+        await _audioHandler.play();
       }
-      _playCurrent();
     }
   }
 
-  void _nextSong() {
-    if (_playlist.isEmpty) return;
+  void _toggleShuffle() {
     setState(() {
-      _currentIndex = (_currentIndex + 1) % _playlist.length;
+      _isShuffle = !_isShuffle;
+      if (_isShuffle) {
+        _rebuildShuffleIndices();
+      }
     });
+  }
+
+  void _rebuildShuffleIndices() {
+    _shuffledIndices = List<int>.generate(_playlist.length, (i) => i);
+    _shuffledIndices.shuffle();
+    if (_currentIndex != -1) {
+      _shuffledIndices.remove(_currentIndex);
+      _shuffledIndices.insert(0, _currentIndex);
+    }
+  }
+
+  void _nextSongWithShuffle() {
+    if (_playlist.isEmpty) return;
+
+    if (_isShuffle && _shuffledIndices.isNotEmpty) {
+      int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+      int nextShufflePos = (currentShufflePos + 1) % _shuffledIndices.length;
+      setState(() {
+        _currentIndex = _shuffledIndices[nextShufflePos];
+      });
+    } else {
+      setState(() {
+        _currentIndex = (_currentIndex + 1) % _playlist.length;
+      });
+    }
     _playCurrent();
   }
 
-  void _prevSong() {
+  void _prevSongWithShuffle() {
     if (_playlist.isEmpty) return;
-    setState(() {
-      _currentIndex = (_currentIndex - 1 + _playlist.length) % _playlist.length;
-    });
+    if (_isShuffle && _shuffledIndices.isNotEmpty) {
+      int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+      int prevShufflePos =
+          (currentShufflePos - 1 + _shuffledIndices.length) %
+          _shuffledIndices.length;
+      setState(() {
+        _currentIndex = _shuffledIndices[prevShufflePos];
+      });
+    } else {
+      setState(() {
+        _currentIndex =
+            (_currentIndex - 1 + _playlist.length) % _playlist.length;
+      });
+    }
     _playCurrent();
   }
 
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
   }
 
   @override
@@ -321,7 +381,6 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     String currentTrackName = _currentIndex != -1 && _playlist.isNotEmpty
         ? p.basename(_playlist[_currentIndex])
         : "Ninguna canción seleccionada";
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -330,7 +389,7 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: PopupMenuButton<String>(
+        leading: PopupMenuButton(
           icon: const Icon(Icons.menu),
           onSelected: (value) {
             if (value == 'opciones') {
@@ -347,13 +406,11 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
           ],
         ),
         actions: [
-          // Botón para Cargar/Unir Carpetas
           IconButton(
             icon: const Icon(Icons.create_new_folder),
             tooltip: 'Añadir Carpeta',
             onPressed: _pickFolder,
           ),
-          // Botón Nuevo: Limpiar Lista (Solo se muestra si hay canciones en la lista)
           if (_playlist.isNotEmpty)
             IconButton(
               icon: const Icon(
@@ -401,16 +458,14 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                                 : Colors.white,
                           ),
                         ),
-                        onTap: () {
+                        onTap: () async {
                           setState(() => _currentIndex = index);
-                          _playCurrent();
+                          await _playCurrent();
                         },
                       );
                     },
                   ),
           ),
-
-          // Controles inferiores adaptados para tacto móvil
           Container(
             padding: const EdgeInsets.only(
               bottom: 24,
@@ -459,7 +514,7 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                           final position = Duration(
                             milliseconds: value.toInt(),
                           );
-                          await _audioPlayer.seek(position);
+                          await _audioHandler.seek(position);
                         },
                       ),
                     ),
@@ -472,7 +527,6 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // BOTÓN DE SHUFFLE (ALEATORIO)
                     IconButton(
                       icon: Icon(
                         _isShuffle
@@ -485,8 +539,6 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                       onPressed: _playlist.isEmpty ? null : _toggleShuffle,
                     ),
                     const SizedBox(width: 16),
-
-                    // BOTÓN ANTERIOR
                     IconButton(
                       icon: const Icon(Icons.skip_previous_rounded, size: 40),
                       onPressed: _playlist.isEmpty
@@ -494,8 +546,6 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                           : _prevSongWithShuffle,
                     ),
                     const SizedBox(width: 20),
-
-                    // BOTÓN PLAY / PAUSA
                     IconButton(
                       icon: Icon(
                         _isPlaying
@@ -507,16 +557,12 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                       onPressed: _playlist.isEmpty ? null : _togglePlay,
                     ),
                     const SizedBox(width: 20),
-
-                    // BOTÓN SIGUIENTE
                     IconButton(
                       icon: const Icon(Icons.skip_next_rounded, size: 40),
                       onPressed: _playlist.isEmpty
                           ? null
                           : _nextSongWithShuffle,
                     ),
-
-                    // Dejamos un espacio simétrico a la derecha del mismo tamaño que el botón shuffle
                     const SizedBox(width: 42),
                   ],
                 ),
@@ -526,12 +572,5 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         ],
       ),
     );
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$minutes:$seconds";
   }
 }
