@@ -1,0 +1,653 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart' as p;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:audio_service/audio_service.dart';
+
+late MyAudioHandler _audioHandler;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  _audioHandler = await AudioService.init(
+    builder: () => MyAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.example.reproductor_mp3.channel.audio',
+      androidNotificationChannelName: 'Reproductor Luks-Player',
+      androidShowNotificationBadge: true,
+      androidNotificationIcon: 'mipmap/ic_launcher',
+      androidStopForegroundOnPause: false, // 🛠️ CAMBIADO A FALSE: Evita que desaparezca al pausar
+    ),
+  );
+
+  runApp(const MyMp3PlayerApp());
+}
+
+// --- CLASE MANEJADORA DE LA NOTIFICACIÓN DE ANDROID ---
+class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
+  final AudioPlayer _player = AudioPlayer();
+
+  VoidCallback? onNextRequested;
+  VoidCallback? onPrevRequested;
+
+  MyAudioHandler() {
+    // Definimos el estado inicial base para que Android acepte registrar la sesión multimedia
+    playbackState.add(
+      PlaybackState(
+        controls: const [
+          MediaControl.skipToPrevious,
+          MediaControl.play,
+          MediaControl.skipToNext,
+        ],
+        systemActions: const {
+          MediaAction.seek,
+          MediaAction.playPause,
+          MediaAction.skipToNext,
+          MediaAction.skipToPrevious,
+        },
+        processingState: AudioProcessingState.idle,
+        playing: false,
+      ),
+    );
+
+    _player.onDurationChanged.listen((d) {
+      if (mediaItem.value != null) {
+        mediaItem.add(mediaItem.value!.copyWith(duration: d));
+      }
+    });
+
+    _player.onPositionChanged.listen((pos) {
+      playbackState.add(playbackState.value.copyWith(updatePosition: pos));
+    });
+
+    _player.onPlayerStateChanged.listen((state) {
+      final playing = state == PlayerState.playing;
+
+      playbackState.add(
+        playbackState.value.copyWith(
+          playing: playing,
+          // 🛠️ CONFIGURACIÓN CRÍTICA: Mantenemos siempre el estado "ready" para que Android no borre la tarjeta
+          processingState: AudioProcessingState.ready,
+          controls: [
+            MediaControl.skipToPrevious,
+            playing ? MediaControl.pause : MediaControl.play,
+            MediaControl.skipToNext,
+          ],
+          systemActions: const {
+            MediaAction.seek,
+            MediaAction.play,
+            MediaAction.pause,
+            MediaAction.playPause,
+            MediaAction.skipToNext,
+            MediaAction.skipToPrevious,
+          },
+        ),
+      );
+    });
+  }
+
+  @override
+  Future<void> play() async {
+    await _player.resume();
+    // Le avisamos a Android y a Flutter de inmediato que la música está corriendo
+    playbackState.add(
+      playbackState.value.copyWith(
+        playing: true,
+        processingState: AudioProcessingState.ready,
+      ),
+    );
+  }
+
+  @override
+  Future<void> pause() async {
+    await _player.pause();
+    // Le avisamos a Android y a Flutter de inmediato que la música se pausó
+    playbackState.add(
+      playbackState.value.copyWith(
+        playing: false,
+        processingState: AudioProcessingState.ready,
+      ),
+    );
+  }
+
+  @override
+  Future<void> seek(Duration position) => _player.seek(position);
+
+  @override
+  Future<void> stop() async {
+    await _player.stop();
+    playbackState.add(
+      playbackState.value.copyWith(
+        playing: false,
+        processingState: AudioProcessingState.completed,
+      ),
+    );
+  }
+
+  @override
+  Future<void> skipToNext() async {
+    if (onNextRequested != null) onNextRequested!();
+  }
+
+  @override
+  Future<void> skipToPrevious() async {
+    if (onPrevRequested != null) onPrevRequested!();
+  }
+
+  Future<void> playLocalFile(String path) async {
+    final title = p.basename(path).replaceAll('.mp3', '');
+
+    // 1. Forzamos la actualización de metadatos completa en Android
+    mediaItem.add(
+      MediaItem(
+        id: path,
+        album: "Luks-Player",
+        title: title,
+        artist: "Archivo Local",
+        duration: const Duration(minutes: 3),
+      ),
+    );
+
+    // 2. Le avisamos a Android que la reproducción va a iniciar YA
+    playbackState.add(
+      playbackState.value.copyWith(
+        playing: true,
+        processingState: AudioProcessingState.ready,
+      ),
+    );
+
+    // 3. EVITA EL BUCLE DRM: Convertimos la ruta del archivo en una URI nativa
+    // En lugar de DeviceFileSource(path), usamos UrlSource con la ruta formateada
+    final fileUri = Uri.file(path).toString();
+    await _player.play(UrlSource(fileUri));
+  }
+
+  AudioPlayer get playerInstance => _player;
+}
+
+// --- INTERFAZ GRÁFICA DE LA APLICACIÓN ---
+class MyMp3PlayerApp extends StatelessWidget {
+  const MyMp3PlayerApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Luks-Player',
+      theme: ThemeData.dark(useMaterial3: true).copyWith(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+          brightness: Brightness.dark,
+        ),
+      ),
+      home: const MainPlayerScreen(),
+    );
+  }
+}
+
+class MainPlayerScreen extends StatefulWidget {
+  const MainPlayerScreen({super.key});
+
+  @override
+  State<MainPlayerScreen> createState() => _MainPlayerScreenState();
+}
+
+class _MainPlayerScreenState extends State<MainPlayerScreen> {
+  List<String> _playlist = [];
+  int _currentIndex = -1;
+  bool _isPlaying = false;
+  bool _isShuffle = false;
+  List<int> _shuffledIndices = [];
+
+  Duration _duration = Duration.zero;
+  Duration _position = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    _initAudioListeners();
+    _loadSavedPlaylist();
+  }
+
+  void _initAudioListeners() {
+    _audioHandler.playerInstance.onDurationChanged.listen(
+      (d) => setState(() => _duration = d),
+    );
+    _audioHandler.playerInstance.onPositionChanged.listen(
+      (p) => setState(() => _position = p),
+    );
+    _audioHandler.playerInstance.onPlayerStateChanged.listen((state) {
+      setState(() => _isPlaying = state == PlayerState.playing);
+    });
+    _audioHandler.playerInstance.onPlayerComplete.listen(
+      (event) => _nextSongWithShuffle(),
+    );
+
+    _audioHandler.onNextRequested = () => _nextSongWithShuffle();
+    _audioHandler.onPrevRequested = () => _prevSongWithShuffle();
+  }
+
+  Future<void> _loadSavedPlaylist() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedList = prefs.getStringList('saved_playlist') ?? [];
+    if (savedList.isNotEmpty) {
+      setState(() {
+        _playlist = savedList;
+        _currentIndex = 0;
+      });
+    }
+  }
+
+  Future<void> _savePlaylist() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('saved_playlist', _playlist);
+  }
+
+  Future<void> _pickFolder() async {
+    try {
+      if (await Permission.audio.request().isGranted ||
+          await Permission.storage.request().isGranted) {
+        String? directoryPath = await FilePicker.platform.getDirectoryPath();
+        if (directoryPath == null) return;
+
+        final dir = Directory(directoryPath);
+        final List<String> nuevosMp3 = [];
+
+        await for (var entity in dir.list(
+          recursive: false,
+          followLinks: false,
+        )) {
+          if (entity is File &&
+              p.extension(entity.path).toLowerCase() == '.mp3') {
+            if (!_playlist.contains(entity.path)) {
+              nuevosMp3.add(entity.path);
+            }
+          }
+        }
+
+        if (nuevosMp3.isNotEmpty) {
+          nuevosMp3.sort((a, b) => p.basename(a).compareTo(b));
+
+          setState(() {
+            _playlist.addAll(nuevosMp3);
+            if (_currentIndex == -1) {
+              _currentIndex = 0;
+            }
+          });
+
+          await _savePlaylist();
+
+          if (_isShuffle) {
+            _rebuildShuffleIndices();
+          }
+
+          if (!_isPlaying &&
+              _currentIndex == _playlist.indexOf(nuevosMp3.first)) {
+            await _playCurrent();
+          }
+
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Se añadieron ${nuevosMp3.length} canciones a la lista.',
+                ),
+                backgroundColor: Colors.teal,
+              ),
+            );
+          }
+        } else {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'No se encontraron canciones nuevas en esta carpeta.',
+                ),
+                backgroundColor: Colors.orange,
+              ),
+            );
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint("Error al unir carpetas: $e");
+    }
+  }
+
+  Future<void> _clearPlaylist() async {
+    await _audioHandler.stop();
+    setState(() {
+      _playlist.clear();
+      _currentIndex = -1;
+      _isPlaying = false;
+      _isShuffle = false;
+      _shuffledIndices.clear();
+      _duration = Duration.zero;
+      _position = Duration.zero;
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('saved_playlist');
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Lista de reproducción vaciada.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
+  Future<void> _playCurrent() async {
+    if (_currentIndex < 0 || _currentIndex >= _playlist.length) return;
+
+    final filePath = _playlist[_currentIndex];
+    final file = File(filePath);
+
+    try {
+      if (!await file.exists() || await file.length() == 0) {
+        _handlePlaybackError("Archivo vacío o dañado.");
+        return;
+      }
+
+      await _audioHandler.playLocalFile(filePath);
+    } catch (e) {
+      _handlePlaybackError("Error de decodificación de Android.");
+    }
+  }
+
+  void _handlePlaybackError(String motivo) {
+    if (!mounted) return;
+    final nombreCancion = p.basename(_playlist[_currentIndex]);
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Saltando "$nombreCancion": $motivo'),
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.amber.shade900,
+      ),
+    );
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _nextSongWithShuffle();
+    });
+  }
+
+  Future<void> _togglePlay() async {
+    if (_playlist.isEmpty) return;
+
+    if (_isPlaying) {
+      await _audioHandler.pause();
+    } else {
+      if (_currentIndex == -1) {
+        _currentIndex = 0;
+        await _playCurrent();
+      } else {
+        await _audioHandler.play();
+      }
+    }
+  }
+
+  void _toggleShuffle() {
+    setState(() {
+      _isShuffle = !_isShuffle;
+      if (_isShuffle) {
+        _rebuildShuffleIndices();
+      }
+    });
+  }
+
+  void _rebuildShuffleIndices() {
+    _shuffledIndices = List.generate(_playlist.length, (i) => i);
+    _shuffledIndices.shuffle();
+    if (_currentIndex != -1) {
+      _shuffledIndices.remove(_currentIndex);
+      _shuffledIndices.insert(0, _currentIndex);
+    }
+  }
+
+  void _nextSongWithShuffle() {
+    if (_playlist.isEmpty) return;
+    if (_isShuffle && _shuffledIndices.isNotEmpty) {
+      int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+      int nextShufflePos = (currentShufflePos + 1) % _shuffledIndices.length;
+      setState(() {
+        _currentIndex = _shuffledIndices[nextShufflePos];
+      });
+    } else {
+      setState(() {
+        _currentIndex = (_currentIndex + 1) % _playlist.length;
+      });
+    }
+    _playCurrent();
+  }
+
+  void _prevSongWithShuffle() {
+    if (_playlist.isEmpty) return;
+    if (_isShuffle && _shuffledIndices.isNotEmpty) {
+      int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+      int prevShufflePos =
+          (currentShufflePos - 1 + _shuffledIndices.length) %
+          _shuffledIndices.length;
+      setState(() {
+        _currentIndex = _shuffledIndices[prevShufflePos];
+      });
+    } else {
+      setState(() {
+        _currentIndex =
+            (_currentIndex - 1 + _playlist.length) % _playlist.length;
+      });
+    }
+    _playCurrent();
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String currentTrackName = _currentIndex != -1 && _playlist.isNotEmpty
+        ? p.basename(_playlist[_currentIndex])
+        : "Ninguna canción seleccionada";
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Luks-Player',
+          style: TextStyle(fontWeight: FontWeight.w400),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: PopupMenuButton(
+          icon: const Icon(Icons.menu),
+          onSelected: (value) {
+            if (value == 'opciones') {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Menú de opciones próximamente')),
+              );
+            }
+          },
+          itemBuilder: (BuildContext context) => [
+            const PopupMenuItem(
+              value: 'opciones',
+              child: Text('Configuraciones futuras'),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.create_new_folder),
+            tooltip: 'Añadir Carpeta',
+            onPressed: _pickFolder,
+          ),
+          if (_playlist.isNotEmpty)
+            IconButton(
+              icon: const Icon(
+                Icons.delete_sweep_rounded,
+                color: Colors.redAccent,
+              ),
+              tooltip: 'Limpiar Lista',
+              onPressed: _clearPlaylist,
+            ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: _playlist.isEmpty
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(24.0),
+                      child: Text(
+                        'Toca el ícono de carpeta arriba a la derecha para cargar tu música.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: _playlist.length,
+                    itemBuilder: (context, index) {
+                      final isSelected = index == _currentIndex;
+                      return ListTile(
+                        leading: Icon(
+                          isSelected ? Icons.play_arrow : Icons.music_note,
+                          color: isSelected ? Colors.tealAccent : Colors.grey,
+                        ),
+                        title: Text(
+                          p.basename(_playlist[index]).replaceAll('.mp3', ''),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: isSelected
+                                ? Colors.tealAccent
+                                : Colors.white,
+                          ),
+                        ),
+                        onTap: () async {
+                          setState(() => _currentIndex = index);
+                          await _playCurrent();
+                        },
+                      );
+                    },
+                  ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              bottom: 24,
+              top: 12,
+              left: 16,
+              right: 16,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black38,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              border: Border(
+                top: BorderSide(color: Colors.white.withOpacity(0.05)),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  currentTrackName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text(
+                      _formatDuration(_position),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        activeColor: Colors.tealAccent,
+                        inactiveColor: Colors.grey.shade800,
+                        value: _position.inMilliseconds.toDouble(),
+                        max: _duration.inMilliseconds.toDouble() > 0
+                            ? _duration.inMilliseconds.toDouble()
+                            : 1.0,
+                        onChanged: (value) async {
+                          final position = Duration(
+                            milliseconds: value.toInt(),
+                          );
+                          await _audioHandler.seek(position);
+                        },
+                      ),
+                    ),
+                    Text(
+                      _formatDuration(_duration),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _isShuffle
+                            ? Icons.shuffle_on_rounded
+                            : Icons.shuffle_rounded,
+                        size: 26,
+                      ),
+                      color: _isShuffle ? Colors.tealAccent : Colors.grey,
+                      tooltip: 'Modo Aleatorio',
+                      onPressed: _playlist.isEmpty ? null : _toggleShuffle,
+                    ),
+                    const SizedBox(width: 16),
+                    IconButton(
+                      icon: const Icon(Icons.skip_previous_rounded, size: 40),
+                      onPressed: _playlist.isEmpty
+                          ? null
+                          : _prevSongWithShuffle,
+                    ),
+                    const SizedBox(width: 20),
+                    IconButton(
+                      icon: Icon(
+                        _isPlaying
+                            ? Icons.pause_circle_filled_rounded
+                            : Icons.play_circle_filled_rounded,
+                        size: 64,
+                      ),
+                      color: Colors.tealAccent,
+                      onPressed: _playlist.isEmpty ? null : _togglePlay,
+                    ),
+                    const SizedBox(width: 20),
+                    IconButton(
+                      icon: const Icon(Icons.skip_next_rounded, size: 40),
+                      onPressed: _playlist.isEmpty
+                          ? null
+                          : _nextSongWithShuffle,
+                    ),
+                    const SizedBox(width: 42),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
