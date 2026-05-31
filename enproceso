@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -218,7 +219,10 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
 
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
-
+  StreamSubscription? _durationSub;
+  StreamSubscription? _positionSub;
+  StreamSubscription? _playerStateSub;
+  StreamSubscription? _playerCompleteSub;
   @override
   void initState() {
     super.initState();
@@ -226,32 +230,46 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     _loadSavedPlaylist();
   }
 
-  void _initAudioListeners() {
-    _audioHandler.playerInstance.onDurationChanged.listen(
-      (d) => setState(() => _duration = d),
-    );
+  @override
+  void dispose() {
+    // Cancelamos todos los listeners abiertos
+    _durationSub?.cancel();
+    _positionSub?.cancel();
+    _playerStateSub?.cancel();
+    _playerCompleteSub?.cancel();
+    super.dispose();
+  }
 
-    // CORRECCIÓN CLAVE: Filtra y frena los desfases de tiempo que traban los sliders externos
-    _audioHandler.playerInstance.onPositionChanged.listen((p) {
+  void _initAudioListeners() {
+    // 1. Escuchar duración (Corregido sin la comprobación de null redundante)
+    _durationSub = _audioHandler.playerInstance.onDurationChanged.listen((d) {
       if (mounted) {
-        setState(() {
-          _position = p.inMilliseconds > _duration.inMilliseconds
-              ? _duration
-              : p;
-        });
+        setState(() => _duration = d);
       }
     });
 
-    _audioHandler.playerInstance.onPlayerStateChanged.listen((state) {
+    // 2. Posición (Manteniendo tu lógica interna sin redibujar la UI)
+    _positionSub = _audioHandler.playerInstance.onPositionChanged.listen((p) {
+      _position = p.inMilliseconds > _duration.inMilliseconds ? _duration : p;
+    });
+
+    // 3. Escuchar estado del reproductor (Play/Pause)
+    _playerStateSub = _audioHandler.playerInstance.onPlayerStateChanged.listen((
+      state,
+    ) {
       if (mounted) {
         setState(() => _isPlaying = state == PlayerState.playing);
       }
     });
 
-    _audioHandler.playerInstance.onPlayerComplete.listen(
-      (event) => _nextSongWithShuffle(),
-    );
+    // 4. Escuchar fin de canción
+    _playerCompleteSub = _audioHandler.playerInstance.onPlayerComplete.listen((
+      event,
+    ) {
+      _nextSongWithShuffle();
+    });
 
+    // 5. Callbacks de audio_service para control externo
     _audioHandler.onNextRequested = () => _nextSongWithShuffle();
     _audioHandler.onPrevRequested = () => _prevSongWithShuffle();
   }
@@ -362,18 +380,35 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
 
   Future<void> _scanDirectory(String path) async {
     final dir = Directory(path);
+    if (!await dir.exists()) return; // Validación de seguridad
+
+    // 1. Optimización O(1): Convertimos a Set para búsquedas instantáneas
+    final playlistSet = _playlist.toSet();
     final List<String> nuevosMp3 = [];
 
-    await for (var entity in dir.list(recursive: false, followLinks: false)) {
+    // 2. I/O Masivo: Listamos todo el directorio de golpe en memoria
+    final entities = await dir
+        .list(recursive: false, followLinks: false)
+        .toList();
+
+    for (var entity in entities) {
       if (entity is File && p.extension(entity.path).toLowerCase() == '.mp3') {
-        if (!_playlist.contains(entity.path)) {
+        // La búsqueda en Set es inmediata, no importa si hay miles de canciones
+        if (!playlistSet.contains(entity.path)) {
           nuevosMp3.add(entity.path);
         }
       }
     }
 
     if (nuevosMp3.isNotEmpty) {
-      nuevosMp3.sort((a, b) => p.basename(a).compareTo(b));
+      // 3. Corrección de Bug: Ordenar comparando basename con basename correctamente
+      nuevosMp3.sort(
+        (a, b) =>
+            p.basename(a).toLowerCase().compareTo(p.basename(b).toLowerCase()),
+      );
+
+      // 4. Guardamos la primera canción antes de modificar la lista original
+      final primeraNuevaCancion = nuevosMp3.first;
 
       setState(() {
         _playlist.addAll(nuevosMp3);
@@ -382,13 +417,16 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         }
       });
 
+      // 5. I/O Asíncrono fuera del setState
       await _savePlaylist();
 
       if (_isShuffle) {
         _rebuildShuffleIndices();
       }
 
-      if (!_isPlaying && _currentIndex == _playlist.indexOf(nuevosMp3.first)) {
+      // 6. Optimización de búsqueda: Buscamos el índice usando el elemento guardado
+      if (!_isPlaying &&
+          _currentIndex == _playlist.indexOf(primeraNuevaCancion)) {
         await _playCurrent();
       }
 
@@ -655,6 +693,7 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     return "$minutes:$seconds";
   }
 
+  final ValueNotifier<String> _searchNotifier = ValueNotifier<String>('');
   @override
   Widget build(BuildContext context) {
     String currentTrackName = _currentIndex != -1 && _playlist.isNotEmpty
@@ -674,10 +713,9 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    _textoBusqueda = text.toLowerCase();
-                  });
+                onChanged: (value) {
+                  _searchNotifier.value =
+                      value; // Actualiza el valor de forma aislada
                 },
               )
             : const Text(
@@ -813,6 +851,8 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
               return ListView.builder(
                 itemCount:
                     cancionesFiltradas.length, // Usamos la lista filtrada
+                itemExtent: 50.0, // 👈 Optimización de scroll
+
                 itemBuilder: (context, index) {
                   final songPath =
                       cancionesFiltradas[index]; // Usamos la lista filtrada
