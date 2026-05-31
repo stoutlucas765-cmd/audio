@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/services.dart';
 
 late MyAudioHandler _audioHandler;
 
@@ -211,6 +212,8 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
   int _currentIndex = -1;
   bool _isPlaying = false;
   bool _isShuffle = false;
+  bool _estaBuscando = false;
+  String _textoBusqueda = '';
   List<int> _shuffledIndices = [];
 
   Duration _duration = Duration.zero;
@@ -525,7 +528,9 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
       } else {
         // CORRECCIÓN CLAVE: Si el índice es válido pero la posición es CERO (la app se acaba de abrir),
         // significa que el reproductor está vacío. Forzamos la carga física del archivo.
-        if (_currentIndex >= 0 && _currentIndex < _playlist.length && _position != Duration.zero) {
+        if (_currentIndex >= 0 &&
+            _currentIndex < _playlist.length &&
+            _position != Duration.zero) {
           _audioHandler.play();
         } else {
           // Si el índice era -1, inválido, o la app recién se abre con posición en cero,
@@ -535,7 +540,7 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
               _currentIndex = 0;
             }
           });
-          await _playCurrent(); 
+          await _playCurrent();
         }
       }
     } catch (e) {
@@ -577,6 +582,53 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     _playCurrent();
   }
 
+  void _mostrarDialogoConfirmacion(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor:
+              Colors.grey[900], // Fondo oscuro integrado con el diseño
+          title: const Text(
+            '¿Vaciar lista?',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          content: const Text(
+            'Esto eliminará todas las canciones del listado de reproducción actual. Los archivos físicos no se borrarán del teléfono.',
+            style: TextStyle(color: Colors.grey),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(
+                context,
+              ), // Cancela la acción y cierra el diálogo
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.teal),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+              ),
+              onPressed: () async {
+                Navigator.pop(context); // Cierra el diálogo de confirmación
+                await _clearPlaylist();
+              },
+              child: const Text(
+                'Vaciar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _prevSongWithShuffle() {
     if (_playlist.isEmpty) return;
     if (_isShuffle && _shuffledIndices.isNotEmpty) {
@@ -610,127 +662,224 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
         : "Ninguna canción seleccionada";
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Luks-Player',
-          style: TextStyle(fontWeight: FontWeight.w400),
-        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: PopupMenuButton(
-          icon: const Icon(Icons.menu),
-          onSelected: (value) {
-            if (value == 'opciones') {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Menú de opciones próximamente')),
+        // CORRECCIÓN: Si está buscando, muestra la barra de texto. Si no, muestra el título
+        title: _estaBuscando
+            ? TextField(
+                autofocus: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  hintText: 'Buscar canción...',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
+                ),
+                onChanged: (text) {
+                  setState(() {
+                    _textoBusqueda = text.toLowerCase();
+                  });
+                },
+              )
+            : const Text(
+                'Luks-Player',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal,
+                ),
+              ),
+        leading: PopupMenuButton<String>(
+          icon: const Icon(Icons.menu, color: Colors.teal),
+          onSelected: (value) async {
+            if (value == 'agregar') {
+              _mostrarMenuCarpetas(context);
+            } else if (value == 'limpiar') {
+              _mostrarDialogoConfirmacion(context);
+            } else if (value == 'cerrar') {
+              // 1. Detiene la reproducción física del archivo MP3
+              await _audioHandler.stop();
+
+              // 2. CORRECCIÓN CLAVE: Le avisa de forma drástica a Android que la sesión terminó
+              // Esto remueve inmediatamente la notificación y la tarjeta de la pantalla de bloqueo
+              _audioHandler.playbackState.add(
+                _audioHandler.playbackState.value.copyWith(
+                  playing: false,
+                  processingState:
+                      AudioProcessingState.idle, // Estado inactivo completo
+                  controls:
+                      const [], // Quitamos los botones de Play/Pausa de la barra
+                ),
               );
+
+              // 3. Cerramos la aplicación de forma limpia y segura liberando la memoria RAM
+              if (Platform.isAndroid) {
+                await SystemChannels.platform.invokeMethod(
+                  'SystemNavigator.pop',
+                );
+              } else {
+                exit(0);
+              }
             }
           },
           itemBuilder: (BuildContext context) => [
-            const PopupMenuItem(
-              value: 'opciones',
-              child: Text('Configuraciones futuras'),
+            const PopupMenuItem<String>(
+              value: 'agregar',
+              child: Row(
+                children: [
+                  Icon(Icons.create_new_folder, color: Colors.teal, size: 20),
+                  SizedBox(width: 10),
+                  Text('Añadir Carpeta'),
+                ],
+              ),
+            ),
+            if (_playlist.isNotEmpty)
+              const PopupMenuItem<String>(
+                value: 'limpiar',
+                child: Row(
+                  children: [
+                    Icon(Icons.delete_sweep, color: Colors.redAccent, size: 20),
+                    SizedBox(width: 10),
+                    Text('Vaciar lista actual'),
+                  ],
+                ),
+              ),
+            const PopupMenuDivider(),
+            const PopupMenuItem<String>(
+              value: 'cerrar',
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.power_settings_new,
+                    color: Colors.orangeAccent,
+                    size: 20,
+                  ),
+                  SizedBox(width: 10),
+                  Text('Cerrar reproductor'),
+                ],
+              ),
             ),
           ],
         ),
+        // Agregamos el icono de la lupa en el lado derecho de la AppBar de forma sutil
         actions: [
           IconButton(
-            icon: const Icon(Icons.create_new_folder),
-            onPressed: () => _mostrarMenuCarpetas(context),
-            tooltip: 'Añadir Carpeta',
-          ),
-          if (_playlist.isNotEmpty)
-            IconButton(
-              icon: const Icon(
-                Icons.delete_sweep_rounded,
-                color: Colors.redAccent,
-              ),
-              tooltip: 'Limpiar Lista',
-              onPressed: _clearPlaylist,
+            icon: Icon(
+              _estaBuscando ? Icons.close : Icons.search,
+              color: Colors.teal,
             ),
+            onPressed: () {
+              setState(() {
+                _estaBuscando = !_estaBuscando;
+                if (!_estaBuscando) {
+                  _textoBusqueda =
+                      ''; // Limpia el filtro por completo al cerrar el buscador
+                }
+              });
+            },
+          ),
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: _playlist.isEmpty
-                ? const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(24.0),
-                      child: Text(
-                        'Toca el ícono de carpeta arriba a la derecha para cargar tu música.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.grey),
+            child: () {
+              if (_playlist.isEmpty) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: Text(
+                      'Toca el ícono arriba a la izquierda para cargar tu música.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                );
+              }
+
+              // FILTRADO DE TU LISTA:
+              final cancionesFiltradas = _playlist.where((songPath) {
+                final nombreCancion = p.basename(songPath).toLowerCase();
+                return nombreCancion.contains(_textoBusqueda);
+              }).toList();
+
+              if (cancionesFiltradas.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'No se encontraron canciones.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                itemCount:
+                    cancionesFiltradas.length, // Usamos la lista filtrada
+                itemBuilder: (context, index) {
+                  final songPath =
+                      cancionesFiltradas[index]; // Usamos la lista filtrada
+                  final songName = p.basename(songPath).replaceAll('.mp3', '');
+
+                  final indiceReal = _playlist.indexOf(
+                    songPath,
+                  ); // Mantiene el índice real
+                  final isSelected = _currentIndex == indiceReal;
+
+                  return Dismissible(
+                    key: Key(songPath),
+                    direction: DismissDirection.horizontal,
+                    resizeDuration: const Duration(milliseconds: 100),
+                    background: Container(
+                      color: Colors.redAccent,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 20,
                       ),
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: _playlist.length,
-                    itemBuilder: (context, index) {
-                      final songPath = _playlist[index];
-                      final songName = p
-                          .basename(songPath)
-                          .replaceAll('.mp3', '');
-                      final isSelected = _currentIndex == index;
-
-                      // Envolvemos cada elemento de la lista en un Dismissible
-                      return Dismissible(
-                        key: Key(
-                          songPath,
-                        ), // Clave única obligatoria usando la ruta del archivo
-                        direction: DismissDirection
-                            .horizontal, // Permite deslizar a izquierda o derecha
-                            resizeDuration: const Duration(milliseconds: 100), 
-                        background: Container(
-                          color: Colors.redAccent,
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: const Icon(
-                            Icons.delete,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                        secondaryBackground: Container(
-                          color: Colors.redAccent,
-                          alignment: Alignment.centerRight,
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: const Icon(Icons.delete, color: Colors.white),
-                        ),
-                        // Esta función se ejecuta automáticamente cuando el usuario termina de deslizar
-                        onDismissed: (direction) {
-                          _eliminarCancion(index);
-                        },
-                        child: ListTile(
-                          dense:
-                              true, // CORRECCIÓN: Hace la fila mucho más delgada y finita
-                          visualDensity: VisualDensity.compact,
-                          leading: Icon(
-                            Icons.music_note,
-                            color: isSelected ? Colors.teal : Colors.grey,
-                            size: 20,
-                          ),
-                          title: Text(
-                            songName,
-                            style: TextStyle(
-                              color: isSelected ? Colors.teal : Colors.white,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              fontSize: 14,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-
-                          onTap: () {
-                            // Tu lógica actual para reproducir la canción al tocarla
-                            _currentIndex = index;
-                            _playCurrent();
-                          },
-                        ),
-                      );
+                    secondaryBackground: Container(
+                      color: Colors.redAccent,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                    onDismissed: (direction) {
+                      _eliminarCancion(indiceReal); // Borra el archivo correcto
                     },
-                  ),
+                    child: ListTile(
+                      dense: true,
+                      visualDensity: VisualDensity.compact,
+                      leading: Icon(
+                        Icons.music_note,
+                        color: isSelected ? Colors.teal : Colors.grey,
+                        size: 20,
+                      ),
+                      title: Text(
+                        songName,
+                        style: TextStyle(
+                          color: isSelected ? Colors.teal : Colors.white,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          fontSize: 14,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      onTap: () {
+                        _currentIndex =
+                            indiceReal; // Reproduce el archivo correcto
+                        _playCurrent();
+                      },
+                    ),
+                  );
+                },
+              );
+            }(),
           ),
           Container(
             padding: const EdgeInsets.only(
