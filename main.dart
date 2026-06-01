@@ -1,313 +1,186 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'video_model.dart';
+import 'video_player_screen.dart';
 
-import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_new/return_code.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.deepPurple,
-        scaffoldBackgroundColor: const Color(0xFF121212),
+      title: 'YouTube Lite',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF0F0F0F),
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF0F0F0F), elevation: 0),
       ),
-      home: const AudioReverseScreen(),
+      home: const MainSearchScreen(),
     );
   }
 }
 
-class AudioReverseScreen extends StatefulWidget {
-  const AudioReverseScreen({super.key});
+class MainSearchScreen extends StatefulWidget {
+  const MainSearchScreen({super.key});
+
   @override
-  State<AudioReverseScreen> createState() => _AudioReverseScreenState();
+  State<MainSearchScreen> createState() => _MainSearchScreenState();
 }
 
-class _AudioReverseScreenState extends State<AudioReverseScreen> {
-  bool _isProcessing = false;
-  String _statusMessage = "Selecciona una canción MP3";
-  String? _finalOutputPath;
-  double _audioSpeed = 1.0;
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  bool _isPlaying = false;
-  Duration _duration = Duration.zero;
-  Duration _position = Duration.zero;
+class _MainSearchScreenState extends State<MainSearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  final ValueNotifier<List<YouTubeVideo>> _videosNotifier = ValueNotifier<List<YouTubeVideo>>([]);
+  final ValueNotifier<bool> _isSearchingNotifier = ValueNotifier<bool>(false);
+  final YoutubeExplode _yt = YoutubeExplode();
 
-  @override
-  void initState() {
-    super.initState();
-    _audioPlayer.onPlayerStateChanged.listen(
-      (s) => setState(() => _isPlaying = s == PlayerState.playing),
-    );
-    _audioPlayer.onDurationChanged.listen((d) => setState(() => _duration = d));
-    _audioPlayer.onPositionChanged.listen((p) => setState(() => _position = p));
+  Future<void> _searchVideos(String query) async {
+    if (query.trim().isEmpty) return;
+    _isSearchingNotifier.value = true;
+
+    try {
+      final searchResult = await _yt.search.search(query);
+      final List<YouTubeVideo> loadedVideos = [];
+
+      for (final video in searchResult) {
+        loadedVideos.add(YouTubeVideo(
+          id: video.id.value,
+          title: video.title,
+          author: video.author,
+          thumbnailUrl: video.thumbnails.mediumResUrl,
+          duration: video.duration,
+        ));
+      }
+      _videosNotifier.value = loadedVideos;
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error al conectar con los servidores')),
+        );
+      }
+    } finally {
+      _isSearchingNotifier.value = false;
+    }
   }
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
+    _searchController.dispose();
+    _videosNotifier.dispose();
+    _isSearchingNotifier.dispose();
+    _yt.close();
     super.dispose();
-  }
-
-  Future<void> processAudio() async {
-    await _audioPlayer.stop();
-    FilePickerResult? res = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['mp3'],
-    );
-    if (res == null || res.files.single.path == null) {
-      setState(() => _statusMessage = "Selección cancelada");
-      return;
-    }
-    setState(() {
-      _isProcessing = true;
-      _statusMessage = "Procesando audio (Reversa + Velocidad)...";
-      _finalOutputPath = null;
-    });
-    String inputPath = res.files.single.path!;
-    final directory = await getTemporaryDirectory();
-    String outputPath = "${directory.path}/audio_invertido_velocidad.mp3";
-    final outputFile = File(outputPath);
-    if (await outputFile.exists()) await outputFile.delete();
-    String ffmpegCommand = "-i \"$inputPath\" -af \"areverse\" \"$outputPath\"";
-    await FFmpegKit.execute(ffmpegCommand).then((session) async {
-      final returnCode = await session.getReturnCode();
-      setState(() {
-        _isProcessing = false;
-        if (ReturnCode.isSuccess(returnCode)) {
-          _statusMessage = "¡Listo! Audio procesado.";
-          _finalOutputPath = outputPath;
-        } else {
-          _statusMessage = "Error en el procesamiento de FFmpeg";
-        }
-      });
-    });
-  }
-
-  Future<void> exportarLoEscuchado() async {
-  if (_finalOutputPath == null) return;
-
-  // CORRECCIÓN 1: Cambiamos al permiso de audio nativo de Android 13+ para que no salte el aviso 22
-  
-
-
-  int segundoActual = _position.inSeconds;
-  int segundoInicio = segundoActual - 10;
-  if (segundoInicio < 0) segundoInicio = 0;
-  int duracionRecorte = segundoActual - segundoInicio;
-  if (duracionRecorte <= 0) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Reproducí al menos 1 segundo")),
-    );
-    return;
-  }
-  
-  setState(() {
-    _isProcessing = true;
-    _statusMessage = "Exportando fragmento escuchado...";
-  });
-
-  // CORRECCIÓN 2: Obtener la ruta de la carpeta pública de descargas de forma correcta y segura
-  String? rutaDescargas;
-  if (Platform.isAndroid) {
-    rutaDescargas = "/storage/emulated/0/Download"; // Se mantiene la carpeta, pero validada
-  } else {
-    final directory = await getDownloadsDirectory();
-    rutaDescargas = directory?.path;
-  }
-
-  if (rutaDescargas == null) {
-    setState(() {
-      _isProcessing = false;
-      _statusMessage = "No se pudo acceder a la carpeta Descargas.";
-    });
-    return;
-  }
-
-  String rutaArchivoFinal = "$rutaDescargas/escuchado_hasta_segundo_$segundoActual.mp3";
-
-  // CORRECCIÓN 3: Ajustamos los argumentos de FFmpeg para máxima velocidad
-  List<String> argumentosCortar = [
-    "-y",
-    "-ss", segundoInicio.toString(),
-    "-t", duracionRecorte.toString(),
-    "-i", _finalOutputPath!,
-    "-c:a", "libmp3lame", // Mantenemos el códec mp3 estándar de ffmpeg_kit
-    "-q:a", "2",
-    rutaArchivoFinal,
-  ];
-
-  await FFmpegKit.executeWithArguments(argumentosCortar).then((session) async {
-    final returnCode = await session.getReturnCode();
-    if (ReturnCode.isSuccess(returnCode)) {
-      
-      // El comando 'am broadcast' requiere permisos de root en Android moderno.
-      // Reemplazamos con un chequeo nativo básico o simplemente avisamos al usuario.
-      if (await File(rutaArchivoFinal).exists()) {
-        print("Archivo verificado en disco.");
-      }
-
-      setState(() {
-        _isProcessing = false;
-        _statusMessage = "¡Guardado! Buscalo en la carpeta Descargas.";
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Guardado en Descargas con éxito")),
-      );
-    } else {
-      final failStackTrace = await session.getFailStackTrace();
-      print("FFmpeg Falló: $failStackTrace");
-      setState(() {
-        _isProcessing = false;
-        _statusMessage = "Error de FFmpeg al recortar lo escuchado";
-      });
-    }
-  });
-}
-  
-
-  Future<void> togglePlayback() async {
-    if (_finalOutputPath == null) return;
-    if (_isPlaying) {
-      await _audioPlayer.pause();
-    } else {
-      await _audioPlayer.setPlaybackRate(_audioSpeed);
-      await _audioPlayer.play(DeviceFileSource(_finalOutputPath!));
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Inversor de Audio MP3")),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              color: Colors.grey,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  _statusMessage,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.amberAccent,
-                  ),
+      appBar: AppBar(
+        title: const Text('YouTube Lite', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Buscar videos sin anuncios...',
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                filled: true,
+                fillColor: const Color(0xFF212121),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide.none,
                 ),
               ),
+              textInputAction: TextInputAction.search,
+              onSubmitted: _searchVideos,
             ),
-            const SizedBox(height: 24),
-            Text(
-              "Velocidad del Audio: ${_audioSpeed.toStringAsFixed(1)}x",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-            ),
-            const SizedBox(height: 8),
-            Slider(
-              value: _audioSpeed,
-              min: 0.5,
-              max: 2.0,
-              divisions: 15,
-              label: "${_audioSpeed.toStringAsFixed(1)}x",
-              activeColor: Colors.deepPurple,
-              onChanged: (value) async {
-                setState(() => _audioSpeed = value);
-                await _audioPlayer.setPlaybackRate(value);
+          ),
+          Expanded(
+            child: ValueListenableBuilder<bool>(
+              valueListenable: _isSearchingNotifier,
+              builder: (context, isSearching, child) {
+                if (isSearching) {
+                  return const Center(child: CircularProgressIndicator(color: Colors.red));
+                }
+                return ValueListenableBuilder<List<YouTubeVideo>>(
+                  valueListenable: _videosNotifier,
+                  builder: (context, videoList, child) {
+                    if (videoList.isEmpty) {
+                      return const Center(child: Text('Escribe algo para buscar streams directos'));
+                    }
+                     return ListView.builder(
+                      itemCount: videoList.length,
+                      itemExtent: 290.0, // Mantenemos la optimización de memoria para el scroll
+                      itemBuilder: (context, index) {
+                        final video = videoList[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VideoPlayerScreen(
+                                  videoId: video.id,
+                                  videoTitle: video.title,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: CachedNetworkImage(
+                                  imageUrl: video.thumbnailUrl,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Container(color: Colors.black12),
+                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                ),
+                              ),
+                              // CORRECCIÓN AQUÍ: Agregamos Expanded para absorber el espacio sin desbordar
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        video.title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        '${video.author} • ${video.duration != null ? video.duration.toString().split('.').first : ''}',
+                                        style: const TextStyle(color: Colors.grey, fontSize: 12),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
               },
             ),
-            const SizedBox(height: 24),
-            _isProcessing
-                ? const Center(child: CircularProgressIndicator())
-                : ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.deepPurple,
-                    ),
-                    onPressed: processAudio,
-                    icon: const Icon(Icons.compare_arrows, color: Colors.white),
-                    label: const Text(
-                      "Cargar y Procesar MP3",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-            if (_finalOutputPath != null) ...[
-              const SizedBox(height: 32),
-              const Divider(color: Colors.grey),
-              const SizedBox(height: 16),
-              const Text(
-                "Escuchar Resultado",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    iconSize: 48,
-                    icon: Icon(
-                      _isPlaying
-                          ? Icons.pause_circle_filled
-                          : Icons.play_circle_filled,
-                    ),
-                    color: Colors.amberAccent,
-                    onPressed: togglePlayback,
-                  ),
-                  Expanded(
-                    child: Slider(
-                      min: 0,
-                      max: _duration.inMilliseconds.toDouble(),
-                      value: _position.inMilliseconds.toDouble().clamp(
-                        0,
-                        _duration.inMilliseconds.toDouble(),
-                      ),
-                      onChanged: (value) async {
-                        final pos = Duration(milliseconds: value.toInt());
-                        await _audioPlayer.seek(pos);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "${_position.inMinutes}:${(_position.inSeconds % 60).toString().padLeft(2, '0')}",
-                    ),
-                    Text(
-                      "${_duration.inMinutes}:${(_duration.inSeconds % 60).toString().padLeft(2, '0')}",
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              const Divider(color: Colors.grey),
-              const SizedBox(height: 16),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  backgroundColor: Colors.teal,
-                ),
-                onPressed: _isProcessing ? null : exportarLoEscuchado,
-                icon: const Icon(Icons.download, color: Colors.white),
-                label: const Text(
-                  "Exportar últimos 10s escuchados",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-              ),
-            ],
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
