@@ -89,7 +89,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           processingState: AudioProcessingState.ready,
           controls: [
             MediaControl.skipToPrevious,
-            playing ? MediaControl.pause : MediaControl.play,
+            MediaControl.pause,
             MediaControl.skipToNext,
           ],
           systemActions: const {
@@ -161,34 +161,40 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   Future<void> playLocalFile(String path) async {
-    final title = p.basename(path).replaceAll('.mp3', '');
+  final title = p.basename(path).replaceAll('.mp3', '');
 
-    // Obtenemos la duración real para la pantalla del auto
-    final playerDuration =
-        await _player.getDuration() ?? const Duration(seconds: 0);
+  // 1. Ponemos metadatos temporales para que la pantalla no quede en blanco
+  mediaItem.add(
+    MediaItem(
+      id: path,
+      album: "Luks-Player",
+      title: title,
+      artist: "Archivo Local",
+      duration: Duration.zero, // Se actualizará automáticamente abajo
+    ),
+  );
 
-    // Actualizamos el MediaItem con la duración correcta
-    mediaItem.add(
-      MediaItem(
-        id: path,
-        album: "Luks-Player",
-        title: title,
-        artist: "Archivo Local",
-        duration: playerDuration,
-      ),
-    );
+  // 2. Cargamos y reproducimos el archivo de inmediato
+  final fileUri = Uri.file(path).toString();
+  await _player.play(UrlSource(fileUri));
 
-    // Informamos que estamos listos
-    playbackState.add(
-      playbackState.value.copyWith(
-        playing: true,
-        processingState: AudioProcessingState.ready,
-      ),
-    );
+  // 3. Esperamos un instante corto a que el motor nativo procese el audio y leemos la duración real
+  Future.delayed(const Duration(milliseconds: 400), () async {
+    final realDuration = await _player.getDuration();
+    if (realDuration != null && mediaItem.value != null) {
+      mediaItem.add(mediaItem.value!.copyWith(duration: realDuration));
+    }
+  });
 
-    final fileUri = Uri.file(path).toString();
-    await _player.play(UrlSource(fileUri));
-  }
+  // 4. Informamos a Android que el reproductor está activo
+  playbackState.add(
+    playbackState.value.copyWith(
+      playing: true,
+      processingState: AudioProcessingState.ready,
+    ),
+  );
+}
+
 
   AudioPlayer get playerInstance => _player;
 }
