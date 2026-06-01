@@ -23,6 +23,7 @@ Future<void> main() async {
       androidStopForegroundOnPause:
           false, // 🛠️ CAMBIADO A FALSE: Evita que desaparezca al pausar
     ),
+    
   );
 
   runApp(const MyMp3PlayerApp());
@@ -35,8 +36,10 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   VoidCallback? onNextRequested;
   VoidCallback? onPrevRequested;
   @override
+    @override
+  @override
   Future<void> click([MediaButton button = MediaButton.media]) async {
-    // Aquí adentro SÍ existen playbackState, pause() y play() nativos
+    // La librería mapea por defecto los clics de auriculares en MediaButton.media
     if (button == MediaButton.media) {
       if (playbackState.value.playing) {
         await pause();
@@ -45,6 +48,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       }
     }
   }
+
 
   MyAudioHandler() {
     playbackState.add(
@@ -108,26 +112,32 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   @override
   Future<void> play() async {
-    await _player.resume();
-    // Le avisamos a Android y a Flutter de inmediato que la música está corriendo
     playbackState.add(
       playbackState.value.copyWith(
         playing: true,
-        processingState: AudioProcessingState.ready,
+        controls: const [
+          MediaControl.skipToPrevious,
+          MediaControl.pause,
+          MediaControl.skipToNext,
+        ],
       ),
     );
+    await _player.resume(); // 👈 Agregá esta línea obligatoria
   }
 
   @override
   Future<void> pause() async {
-    await _player.pause();
-    // Le avisamos a Android y a Flutter de inmediato que la música se pausó
     playbackState.add(
       playbackState.value.copyWith(
         playing: false,
-        processingState: AudioProcessingState.ready,
+        controls: const [
+          MediaControl.skipToPrevious,
+          MediaControl.play,
+          MediaControl.skipToNext,
+        ],
       ),
     );
+    await _player.pause(); // 👈 Agregá esta línea obligatoria
   }
 
   @override
@@ -241,6 +251,13 @@ class _MainPlayerScreenState extends State<MainPlayerScreen> {
     super.initState();
     _initAudioListeners();
     _loadSavedPlaylist();
+    if (_audioHandler != null) {
+    _audioHandler!.playbackState.listen((state) {
+      if (mounted) {
+        setState(() {}); // Fuerza a la pantalla a redibujar el icono de Play/Pause
+      }
+    });
+  }
   }
 
   void _initAudioListeners() {
