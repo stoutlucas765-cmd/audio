@@ -1,0 +1,361 @@
+Launching lib\main.dart on moto g13 in debug mode...
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): file_picker, flutter_sharing_intent, shared_preferences_android
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+√ Built build\app\outputs\flutter-apk\app-debug.apk
+D/FlutterJNI(19014): Beginning load of flutter...
+D/FlutterJNI(19014): flutter (null) was loaded normally!
+I/flutter (19014): [IMPORTANT:flutter/shell/common/shell.cc(528)] [Action Required]: Impeller opt-out deprecated.
+I/flutter (19014):     The application opted out of Impeller by either using the
+I/flutter (19014):     `--no-enable-impeller` flag or the
+I/flutter (19014):     `io.flutter.embedding.android.EnableImpeller` `AndroidManifest.xml` entry.
+I/flutter (19014):     These options are going to go away in an upcoming Flutter release. Remove
+I/flutter (19014):     the explicit opt-out. If you need to opt-out, please report a bug describing
+I/flutter (19014):     the issue.
+I/flutter (19014):
+I/flutter (19014):     https://github.com/flutter/flutter/issues/new?template=02_bug.yml
+I/flutter (19014):
+D/FlutterRenderer(19014): Width is zero. 0,0
+I/Choreographer(19014): Skipped 118 frames!  The application may be doing too much work on its main thread.
+D/FlutterRenderer(19014): Width is zero. 0,0
+I/reproductor_mp3(19014): Compiler allocated 5960KB to compile void android.view.ViewRootImpl.performTraversals()
+D/BufferQueueConsumer(19014): [](id:4a4600000000,api:0,p:-1,c:19014) connect: controlledByApp=false
+E/FBI     (19014): Can't load library: dlopen failed: library "libmagtsync.so" not found
+D/libMEOW (19014): meow new tls: 0xb400007789d09450
+D/libMEOW (19014): applied 1 plugins for [com.example.reproductor_mp3]:
+D/libMEOW (19014):   plugin 1: [libMEOW_gift.so]: 0xb4000077998d6840
+D/libMEOW (19014): rebuild call chain: 0xb400007789d29470
+D/FlutterJNI(19014): Sending viewport metrics to the engine.
+E/OpenGLRenderer(19014): Device claims wide gamut support, cannot find matching config, error = EGL_SUCCESS
+W/OpenGLRenderer(19014): Failed to initialize 101010-2 format, error = EGL_SUCCESS
+E/OpenGLRenderer(19014): Unable to match the desired swap behavior.
+D/BufferQueueConsumer(19014): [](id:4a4600000001,api:0,p:-1,c:19014) connect: controlledByApp=false
+D/libMEOW (19014): meow new tls: 0xb400007789cc9410
+D/libMEOW (19014): applied 1 plugins for [com.example.reproductor_mp3]:
+D/libMEOW (19014):   plugin 1: [libMEOW_gift.so]: 0xb4000077998d6840
+D/libMEOW (19014): rebuild call chain: 0xb4000077899b9100
+Connecting to VM Service at ws://127.0.0.1:55595/OMkNBPZGG7E=/ws
+Connected to the VM Service.
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.software.companion_device_setup version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=true
+D/CompatibilityChangeReporter(19014): Compat change id reported: 160794467; UID 10381; state: ENABLED
+I/System.out(19014): flutterEngine warmed up
+D/FlutterJNI(19014): Sending viewport metrics to the engine.
+I/mali    (19014): [DebugProp] GPU Debug-Mechanism Disable !
+W/libc    (19014): Access denied finding property "ro.vendor.mbrain.mode"
+D/reproductor_mp3(19014): Can't load libmbrainSDK
+D/BLASTBufferQueue(19014): [SurfaceView[com.example.reproductor_mp3/com.example.reproductor_mp3.MainActivity]#1](f:0,a:1) acquireNextBufferLocked size=720x1508 mFrameNumber=1 applyTransaction=true mTimestamp=13864738465210(auto) mPendingTransactions.size=0 graphicBufferId=81664508166144 transform=0
+W/libc    (19014): Access denied finding property "ro.vendor.mbrain.mode"
+D/reproductor_mp3(19014): Can't load libmbrainSDK
+I/Choreographer(19014): Skipped 162 frames!  The application may be doing too much work on its main thread.
+I/Choreographer(19014): Skipped 50 frames!  The application may be doing too much work on its main thread.
+D/BLASTBufferQueue(19014): [VRI[MainActivity]#0](f:0,a:1) acquireNextBufferLocked size=720x1600 mFrameNumber=1 applyTransaction=true mTimestamp=13865732566441(auto) mPendingTransactions.size=0 graphicBufferId=81664508166147 transform=0
+I/OpenGLRenderer(19014): Davey! duration=860ms; Flags=1, FrameTimelineVsyncId=6365383, IntendedVsync=13864872554914, Vsync=13865705888264, InputEventId=0, HandleInputStart=13865720888518, AnimationStart=13865720891672, PerformTraversalsStart=13865720892595, DrawStart=13865723270672, FrameDeadline=13864892554914, FrameInterval=13865720311364, FrameStartTime=16666667, SyncQueued=13865724535056, SyncStart=13865724768210, IssueDrawCommandsStart=13865726137441, SwapBuffers=13865730600825, FrameCompleted=13865733639979, DequeueBufferDuration=1361307, QueueBufferDuration=652538, GpuCompleted=13865733639979, SwapBuffersCompleted=13865733456595, DisplayPresentTime=0, CommandSubmissionCompleted=13865730600825,
+D/ProfileInstaller(19014): Installing profile for com.example.reproductor_mp3
+W/reproductor_mp3(19014): userfaultfd: MOVE ioctl seems unsupported: Connection timed out
+I/ScrollIdentify(19014): on fling
+I/ScrollIdentify(19014): on fling
+I/ScrollIdentify(19014): on fling
+I/ExoPlayerImpl(19014): Init d5bd258 [AndroidXMedia3/1.4.1] [penangf, moto g13, motorola, 34]
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+I/reproductor_mp3(19014): hiddenapi: Accessing hidden method Landroid/media/AudioTrack;->getLatency()I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/media3/exoplayer/audio/AudioTrackPositionTracker; (domain=app, TargetSdkVersion=35) using reflection: allowed
+I/AudioEffect(19014): set 0xb4000078c98ff560 uuid: 0x7fcd40f5e0 timeLow 0bed4300
+I/AudioEffect(19014): set() 0xb4000078c98ff560 OK effect: Equalizer id: 1491 status 0 enabled 0 pid 19014
+D/CompatibilityChangeReporter(19014): Compat change id reported: 263076149; UID 10381; state: ENABLED
+I/AudioEffect(19014): getParameter: param: 0, param2: -1
+I/AudioEffect(19014): getParameter: param: 7, param2: -1
+I/AudioEffect(19014): getParameter: param: 8, param2: 0
+I/AudioEffect(19014): getParameter: param: 8, param2: 1
+I/AudioEffect(19014): getParameter: param: 8, param2: 2
+I/AudioEffect(19014): getParameter: param: 8, param2: 3
+I/AudioEffect(19014): getParameter: param: 8, param2: 4
+I/AudioEffect(19014): getParameter: param: 8, param2: 5
+I/AudioEffect(19014): getParameter: param: 8, param2: 6
+I/AudioEffect(19014): getParameter: param: 8, param2: 7
+I/AudioEffect(19014): getParameter: param: 8, param2: 8
+I/AudioEffect(19014): getParameter: param: 8, param2: 9
+I/AudioEffect(19014): enable 0xb4000078c98ff560
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+W/AudioCapabilities(19014): Unsupported mime audio/x-adpcm-dvi-ima
+W/AudioCapabilities(19014): Unsupported mime audio/x-adpcm-dvi-ima
+W/AudioCapabilities(19014): Unsupported mime audio/x-adpcm-ms
+W/AudioCapabilities(19014): Unsupported mime audio/x-adpcm-ms
+W/AudioCapabilities(19014): Unsupported mime audio/alac
+W/AudioCapabilities(19014): Unsupported mime audio/alac
+W/AudioCapabilities(19014): Unsupported mime audio/ape
+W/AudioCapabilities(19014): Unsupported mime audio/ape
+W/VideoCapabilities(19014): Unrecognized profile/level 32768/256 for video/mp4v-es
+W/VideoCapabilities(19014): Unrecognized profile/level 32768/256 for video/mp4v-es
+W/VideoCapabilities(19014): Unsupported mime video/x-ms-wmv
+W/VideoCapabilities(19014): Unsupported mime video/x-ms-wmv
+I/DMCodecAdapterFactory(19014): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec(19014): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel(19014): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec(19014): [0xb4000078f9982b10] init: CCodec 0xb4000078c98f7190, CCodecBufferChannel 0xb4000078a9927c00
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 1
+D/CCodec  (19014): allocate(c2.mtk.mp3.decoder)
+I/Codec2Client(19014): Available Codec2 services: "default" "default1" "software"
+I/CCodec  (19014): setting up 'default' as default (vendor) store
+I/CCodec  (19014): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel(19014): [0xb4000078a9927c00] setComponent: mName c2.mtk.mp3.decoder#995, mPipelineWatcher 0xb4000078a99280a8
+D/CCodecBufferChannel(19014): PipelineWatcher debug info [c2.mtk.mp3.decoder#995] enable=0
+D/CCodecConfig(19014): read media type: audio/mpeg
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig(19014): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig(19014): c2 config diff is Dict {
+D/CCodecConfig(19014):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig(19014):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig(19014):   c2::u32 input.delay.value = 0
+D/CCodecConfig(19014):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig(19014):   string output.media-type.value = "audio/raw"
+D/CCodecConfig(19014):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig(19014):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig(19014): }
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 2
+I/MediaCodec(19014): MediaCodec will operate in async mode
+D/MediaCodec(19014): [0xb4000078f9982b10] [c2.mtk.mp3.decoder] configure
+D/MediaCodec(19014): flushMediametrics
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 3
+D/CCodec  (19014): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig(19014): no c2 equivalents for log-session-id
+D/CCodecConfig(19014): no c2 equivalents for flags
+D/CCodecConfig(19014): config failed => CORRUPTED
+W/Codec2Client(19014): query -- param skipped: index = 1107298332.
+D/CCodec  (19014): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  (19014): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  (19014): encoding statistics level = 0
+D/CCodec  (19014): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  (19014):   int32_t bitrate = 64000
+D/CCodec  (19014):   int32_t channel-count = 2
+D/CCodec  (19014):   int32_t max-input-size = 65536
+D/CCodec  (19014):   string mime = "audio/mpeg"
+D/CCodec  (19014):   int32_t sample-rate = 44100
+D/CCodec  (19014): }
+D/CCodec  (19014): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  (19014):   int32_t channel-count = 2
+D/CCodec  (19014):   string mime = "audio/raw"
+D/CCodec  (19014):   int32_t sample-rate = 44100
+D/CCodec  (19014):   int32_t android._config-pcm-encoding = 2
+D/CCodec  (19014): }
+I/CCodecConfig(19014): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 4
+D/MediaCodec(19014): keep callback message for reclaim
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 5
+W/Codec2Client(19014): query -- param skipped: index = 1342179345.
+W/Codec2Client(19014): query -- param skipped: index = 2415921170.
+D/C2Store (19014): Using DMABUF Heaps
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] Created input block pool with allocatorID 16 => poolID 17 - OK (0)
+I/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] Created output block pool with allocatorID 16 => poolID 86 - OK
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] Configured output block pool ids 86 => OK
+D/CCodecBufferChannel(19014): [0xb4000078a9927c00] [c2.mtk.mp3.decoder#995] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers(19014): [c2.mtk.mp3.decoder#995:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+I/DMABUFHEAPS(19014): Using DMA-BUF heap named: mtk_mm
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 6
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/AudioTrack(19014): INSP: type=audio,case=1,set=0xb4000078a9944510,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1329,transfer_type=3,uid=10381,pid=19014
+D/AudioTrack(19014): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack(19014): createTrack_l(259): 0xb4000078a9944510, mCblk = 0x76f3166000, mLatency = 335, mAfLatency = 85, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack(19014): ------------volume-----------------
+D/AudioTrack(19014): setVolume(259): 0xb4000078a9944510, left = 1.000000, right = 1.000000
+D/AudioTrack(19014): start(259): 0xb4000078a9944510, prior state:STATE_STOPPED
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/AudioTrack(19014): getTimestamp_l(259): device stall time corrected using current time 13874716591903
+D/PipelineWatcher(19014): [0xb4000078a99280a8] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher(19014): [0xb4000078a99280a8] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher(19014): [0xb4000078a99280a8] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c992f548 : 5(327680 size) total buffers - 1(65536 size) used buffers - 209/214 (recycle/alloc) - 5/424 (fetch/transfer)
+I/ScrollIdentify(19014): on fling
+I/ScrollIdentify(19014): on fling
+I/ScrollIdentify(19014): on fling
+D/PipelineWatcher(19014): [0xb4000078a99280a8] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c992f548 : 5(327680 size) total buffers - 1(65536 size) used buffers - 410/415 (recycle/alloc) - 5/826 (fetch/transfer)
+D/PipelineWatcher(19014): [0xb4000078a99280a8] pipelineFull: too many frames in pipeline (4)
+I/ExoPlayerImpl(19014): Release d5bd258 [AndroidXMedia3/1.4.1] [penangf, moto g13, motorola, 34] [media3.common, media3.exoplayer, media3.decoder, media3.datasource, media3.extractor]
+D/AudioTrack(19014): pause(259): 0xb4000078a9944510, prior state:STATE_ACTIVE
+D/AudioTrackShared(19014): this(0xb400007739977690), mCblk(0x76f3166000), front(492979), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack(19014): flush(259): 0xb4000078a9944510, prior state:STATE_PAUSED
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 7
+D/AudioTrack(19014): stop(259): 0xb4000078a9944510, prior state:STATE_FLUSHED
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 8
+D/AudioTrack(19014): ~AudioTrack(259): 0xb4000078a9944510
+D/AudioTrack(19014): stop(259): 0xb4000078a9944510, prior state:STATE_FLUSHED
+D/MediaCodec(19014): keep callback message for reclaim
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 6
+I/CCodecConfig(19014): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client(19014): query -- param skipped: index = 1342179345.
+W/Codec2Client(19014): query -- param skipped: index = 2415921170.
+D/MediaCodec(19014): [0xb4000078f9982b10] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 10
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#995] MediaCodec discarded an unknown buffer
+W/MessageQueue(19014): Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue(19014): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue(19014): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue(19014): Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue(19014): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue(19014): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue(19014): Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue(19014): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue(19014): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue(19014): Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {c598c64} sending message to a Handler on a dead thread
+W/MessageQueue(19014): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue(19014): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue(19014): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue(19014): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+I/hw-BpHwBinder(19014): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec(19014): [0xb4000078f9982b10] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec(19014): [0xb4000078f9982b10] setState: 0
+D/MediaCodec(19014): flushMediametrics
+D/MediaCodec(19014): [0xb4000078f9982b10] ~MediaCodec
+D/MediaCodec(19014): flushMediametrics
+W/MediaCodec(19014): no metrics handle found
+I/ExoPlayerImpl(19014): Init 44803fc [AndroidXMedia3/1.4.1] [penangf, moto g13, motorola, 34]
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+I/AudioEffect(19014): Destructor 0xb4000078c98ff560
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+I/DMCodecAdapterFactory(19014): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec(19014): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel(19014): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec(19014): [0xb4000078f99a03e0] init: CCodec 0xb4000078c98ff560, CCodecBufferChannel 0xb4000078a994a5a0
+D/MediaCodec(19014): [0xb4000078f99a03e0] setState: 1
+D/CCodec  (19014): allocate(c2.mtk.mp3.decoder)
+I/CCodec  (19014): setting up 'default' as default (vendor) store
+I/CCodec  (19014): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel(19014): [0xb4000078a994a5a0] setComponent: mName c2.mtk.mp3.decoder#469, mPipelineWatcher 0xb4000078a994aa48
+D/CCodecBufferChannel(19014): PipelineWatcher debug info [c2.mtk.mp3.decoder#469] enable=0
+D/CCodecConfig(19014): read media type: audio/mpeg
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater(19014): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig(19014): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig(19014): c2 config diff is Dict {
+D/CCodecConfig(19014):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig(19014):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig(19014):   c2::u32 input.delay.value = 0
+D/CCodecConfig(19014):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig(19014):   string output.media-type.value = "audio/raw"
+D/CCodecConfig(19014):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig(19014):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig(19014): }
+D/MediaCodec(19014): [0xb4000078f99a03e0] setState: 2
+I/MediaCodec(19014): MediaCodec will operate in async mode
+D/MediaCodec(19014): [0xb4000078f99a03e0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec(19014): flushMediametrics
+D/MediaCodec(19014): [0xb4000078f99a03e0] setState: 3
+D/CCodec  (19014): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig(19014): no c2 equivalents for log-session-id
+D/CCodecConfig(19014): no c2 equivalents for flags
+D/CCodecConfig(19014): config failed => CORRUPTED
+W/Codec2Client(19014): query -- param skipped: index = 1107298332.
+D/CCodec  (19014): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  (19014): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  (19014): encoding statistics level = 0
+D/CCodec  (19014): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  (19014):   int32_t bitrate = 64000
+D/CCodec  (19014):   int32_t channel-count = 2
+D/CCodec  (19014):   int32_t max-input-size = 65536
+D/CCodec  (19014):   string mime = "audio/mpeg"
+D/CCodec  (19014):   int32_t sample-rate = 44100
+D/CCodec  (19014): }
+D/CCodec  (19014): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  (19014):   int32_t channel-count = 2
+D/CCodec  (19014):   string mime = "audio/raw"
+D/CCodec  (19014):   int32_t sample-rate = 44100
+D/CCodec  (19014):   int32_t android._config-pcm-encoding = 2
+D/CCodec  (19014): }
+I/CCodecConfig(19014): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec(19014): [0xb4000078f99a03e0] setState: 4
+D/MediaCodec(19014): keep callback message for reclaim
+D/MediaCodec(19014): [0xb4000078f99a03e0] setState: 5
+W/Codec2Client(19014): query -- param skipped: index = 1342179345.
+W/Codec2Client(19014): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#469] Created input block pool with allocatorID 16 => poolID 18 - OK (0)
+I/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#469] Created output block pool with allocatorID 16 => poolID 87 - OK
+D/CCodecBufferChannel(19014): [c2.mtk.mp3.decoder#469] Configured output block pool ids 87 => OK
+D/CCodecBufferChannel(19014): [0xb4000078a994a5a0] [c2.mtk.mp3.decoder#469] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers(19014): [c2.mtk.mp3.decoder#469:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec(19014): [0xb4000078f99a03e0] setState: 6
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/AudioTrack(19014): INSP: type=audio,case=1,set=0xb4000078a9946540,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1337,transfer_type=3,uid=10381,pid=19014
+D/AudioTrack(19014): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack(19014): createTrack_l(260): 0xb4000078a9946540, mCblk = 0x79d62af000, mLatency = 335, mAfLatency = 85, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack(19014): ------------volume-----------------
+D/AudioTrack(19014): setVolume(260): 0xb4000078a9946540, left = 1.000000, right = 1.000000
+D/AudioTrack(19014): start(260): 0xb4000078a9946540, prior state:STATE_STOPPED
+I/AudioEffect(19014): set 0xb4000078c99309f0 uuid: 0x7fcd40f830 timeLow 0bed4300
+I/AudioEffect(19014): set() 0xb4000078c99309f0 OK effect: Equalizer id: 1515 status 0 enabled 0 pid 19014
+I/AudioEffect(19014): getParameter: param: 0, param2: -1
+I/AudioEffect(19014): getParameter: param: 7, param2: -1
+I/AudioEffect(19014): getParameter: param: 8, param2: 0
+I/AudioEffect(19014): getParameter: param: 8, param2: 1
+I/AudioEffect(19014): getParameter: param: 8, param2: 2
+I/AudioEffect(19014): getParameter: param: 8, param2: 3
+I/AudioEffect(19014): getParameter: param: 8, param2: 4
+I/AudioEffect(19014): getParameter: param: 8, param2: 5
+I/AudioEffect(19014): getParameter: param: 8, param2: 6
+I/AudioEffect(19014): getParameter: param: 8, param2: 7
+I/AudioEffect(19014): getParameter: param: 8, param2: 8
+I/AudioEffect(19014): getParameter: param: 8, param2: 9
+I/AudioEffect(19014): enable 0xb4000078c99309f0
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager(19014): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+I/ScrollIdentify(19014): on fling
+I/ScrollIdentify(19014): on fling
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c992f548 : 0(0 size) total buffers - 0(0 size) used buffers - 445/450 (recycle/alloc) - 5/888 (fetch/transfer)
+D/BufferPoolAccessor2.0(19014): evictor expired: 1, evicted: 1
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 209/214 (recycle/alloc) - 5/424 (fetch/transfer)
+D/PipelineWatcher(19014): [0xb4000078a994aa48] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher(19014): [0xb4000078a994aa48] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 410/415 (recycle/alloc) - 5/826 (fetch/transfer)
+D/PipelineWatcher(19014): [0xb4000078a994aa48] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 611/616 (recycle/alloc) - 5/1228 (fetch/transfer)
+D/PipelineWatcher(19014): [0xb4000078a994aa48] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 811/816 (recycle/alloc) - 5/1628 (fetch/transfer)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 1011/1016 (recycle/alloc) - 5/2028 (fetch/transfer)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 1211/1216 (recycle/alloc) - 5/2430 (fetch/transfer)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 1408/1413 (recycle/alloc) - 5/2822 (fetch/transfer)
+D/PipelineWatcher(19014): [0xb4000078a994aa48] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 1608/1613 (recycle/alloc) - 5/3222 (fetch/transfer)
+D/PipelineWatcher(19014): [0xb4000078a994aa48] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0(19014): bufferpool2 0xb4000078c998a878 : 5(327680 size) total buffers - 1(65536 size) used buffers - 1804/1809 (recycle/alloc) - 5/3614 (fetch/transfer)
