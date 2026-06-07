@@ -1,0 +1,1626 @@
+D/ProfileInstaller( 2177): Installing profile for com.example.reproductor_mp3
+W/reproductor_mp3( 2177): userfaultfd: MOVE ioctl seems unsupported: Try again
+I/reproductor_mp3( 2177): Background concurrent mark compact GC freed 5020KB AllocSpace bytes, 10(252KB) LOS objects, 49% free, 3566KB/7133KB, paused 327us,5.868ms total 31.404ms
+I/ExoPlayerImpl( 2177): Init a5d8855 [AndroidXMedia3/1.4.1] [penangf, moto g13, motorola, 34]
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+I/reproductor_mp3( 2177): hiddenapi: Accessing hidden method Landroid/media/AudioTrack;->getLatency()I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/media3/exoplayer/audio/AudioTrackPositionTracker; (domain=app, TargetSdkVersion=35) using reflection: allowed
+I/flutter ( 2177): 🚀 Ecualizador enlazado con éxito a la sesión activa: 1641
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+W/AudioCapabilities( 2177): Unsupported mime audio/x-adpcm-dvi-ima
+W/AudioCapabilities( 2177): Unsupported mime audio/x-adpcm-dvi-ima
+W/AudioCapabilities( 2177): Unsupported mime audio/x-adpcm-ms
+W/AudioCapabilities( 2177): Unsupported mime audio/x-adpcm-ms
+W/AudioCapabilities( 2177): Unsupported mime audio/alac
+W/AudioCapabilities( 2177): Unsupported mime audio/alac
+W/AudioCapabilities( 2177): Unsupported mime audio/ape
+W/AudioCapabilities( 2177): Unsupported mime audio/ape
+W/VideoCapabilities( 2177): Unrecognized profile/level 32768/256 for video/mp4v-es
+W/VideoCapabilities( 2177): Unrecognized profile/level 32768/256 for video/mp4v-es
+W/VideoCapabilities( 2177): Unsupported mime video/x-ms-wmv
+W/VideoCapabilities( 2177): Unsupported mime video/x-ms-wmv
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f9994130] init: CCodec 0xb4000078c9901120, CCodecBufferChannel 0xb4000078a993b770
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/Codec2Client( 2177): Available Codec2 services: "default" "default1" "software"
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a993b770] setComponent: mName c2.mtk.mp3.decoder#305, mPipelineWatcher 0xb4000078a993bc18
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#305] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f9994130] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/C2Store ( 2177): Using DMABUF Heaps
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] Created input block pool with allocatorID 16 => poolID 17 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] Created output block pool with allocatorID 16 => poolID 98 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] Configured output block pool ids 98 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a993b770] [c2.mtk.mp3.decoder#305] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#305:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+I/DMABUFHEAPS( 2177): Using DMA-BUF heap named: mtk_mm
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 6
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9937710,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(293): 0xb4000078a9937710, mCblk = 0x79d2342000, mLatency = 335, mAfLatency = 85, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(293): 0xb4000078a9937710, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(293): 0xb4000078a9937710, prior state:STATE_STOPPED
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/ApplicationPackageManager( 2177): hasSystemFeature:name=android.hardware.type.automotive version=0 getOpPackageName=com.example.reproductor_mp3 hasSystemFeature=false
+D/AudioTrack( 2177): getTimestamp_l(293): device stall time corrected using current time 22706765778814
+D/PipelineWatcher( 2177): [0xb4000078a993bc18] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): pause(293): 0xb4000078a9937710, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773996b3f0), mCblk(0x79d2342000), front(75264), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(293): 0xb4000078a9937710, prior state:STATE_PAUSED
+D/AudioTrack( 2177): stop(293): 0xb4000078a9937710, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 7
+D/AudioTrack( 2177): ~AudioTrack(293): 0xb4000078a9937710
+D/AudioTrack( 2177): stop(293): 0xb4000078a9937710, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#305:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#305:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f9994130] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#305] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f9994130] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f9994130] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9994130] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f99994a0] init: CCodec 0xb4000078c98f47f0, CCodecBufferChannel 0xb4000078a993b770
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a993b770] setComponent: mName c2.mtk.mp3.decoder#537, mPipelineWatcher 0xb4000078a993bc18
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#537] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f99994a0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] Created input block pool with allocatorID 16 => poolID 18 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] Created output block pool with allocatorID 16 => poolID 99 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] Configured output block pool ids 99 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a993b770] [c2.mtk.mp3.decoder#537] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#537:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a993bc18] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9937710,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(294): 0xb4000078a9937710, mCblk = 0x772e845000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(294): 0xb4000078a9937710, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(294): 0xb4000078a9937710, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(294): device stall time corrected using current time 22708641257891
+I/reproductor_mp3( 2177): Background young concurrent mark compact GC freed 1416KB AllocSpace bytes, 32(2452KB) LOS objects, 29% free, 9468KB/13MB, paused 904us,8.772ms total 32.421ms
+D/AudioTrack( 2177): pause(294): 0xb4000078a9937710, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773996f650), mCblk(0x772e845000), front(77145), mIsOut 1, interrupt() FUTEX_WAKE
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 7
+D/AudioTrack( 2177): flush(294): 0xb4000078a9937710, prior state:STATE_PAUSED
+D/AudioTrack( 2177): stop(294): 0xb4000078a9937710, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): ~AudioTrack(294): 0xb4000078a9937710
+D/AudioTrack( 2177): stop(294): 0xb4000078a9937710, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f99994a0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#537] MediaCodec discarded an unknown buffer
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {5612ac9} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f99994a0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99994a0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f99978d0] init: CCodec 0xb4000078c999d2a0, CCodecBufferChannel 0xb4000078a993b770
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a993b770] setComponent: mName c2.mtk.mp3.decoder#11, mPipelineWatcher 0xb4000078a993bc18
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#11] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f99978d0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] Created input block pool with allocatorID 16 => poolID 19 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] Created output block pool with allocatorID 16 => poolID 100 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] Configured output block pool ids 100 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a993b770] [c2.mtk.mp3.decoder#11] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#11:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 6
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9937710,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(295): 0xb4000078a9937710, mCblk = 0x79d0397000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(295): 0xb4000078a9937710, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(295): 0xb4000078a9937710, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(295): device stall time corrected using current time 22710555788891
+D/AudioTrack( 2177): pause(295): 0xb4000078a9937710, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773996d5b0), mCblk(0x79d0397000), front(41395), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(295): 0xb4000078a9937710, prior state:STATE_PAUSED
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 7
+D/AudioTrack( 2177): stop(295): 0xb4000078a9937710, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#11:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#11:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#11:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/AudioTrack( 2177): ~AudioTrack(295): 0xb4000078a9937710
+D/AudioTrack( 2177): stop(295): 0xb4000078a9937710, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f99978d0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#11] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f99978d0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99978d0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f99994a0] init: CCodec 0xb4000078c98f47f0, CCodecBufferChannel 0xb4000078a99424e0
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a99424e0] setComponent: mName c2.mtk.mp3.decoder#5, mPipelineWatcher 0xb4000078a9942988
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#5] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f99994a0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] Created input block pool with allocatorID 16 => poolID 20 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] Created output block pool with allocatorID 16 => poolID 101 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] Configured output block pool ids 101 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a99424e0] [c2.mtk.mp3.decoder#5] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#5:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 6
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a99295c0,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(296): 0xb4000078a99295c0, mCblk = 0x79c9966000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(296): 0xb4000078a99295c0, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(296): 0xb4000078a99295c0, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(296): device stall time corrected using current time 22711622168583
+I/flutter ( 2177): ⏳ Esperando que termine de cargar la canción anterior...
+I/Choreographer( 2177): Skipped 35 frames!  The application may be doing too much work on its main thread.
+D/AudioTrack( 2177): pause(296): 0xb4000078a99295c0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773996e0f0), mCblk(0x79c9966000), front(65856), mIsOut 1, interrupt() FUTEX_WAKE
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 7
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 6
+D/AudioTrack( 2177): flush(296): 0xb4000078a99295c0, prior state:STATE_PAUSED
+D/AudioTrack( 2177): stop(296): 0xb4000078a99295c0, prior state:STATE_FLUSHED
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/AudioTrack( 2177): ~AudioTrack(296): 0xb4000078a99295c0
+D/AudioTrack( 2177): stop(296): 0xb4000078a99295c0, prior state:STATE_FLUSHED
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f99994a0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#5] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f99994a0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f99994a0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99994a0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f999cc40] init: CCodec 0xb4000078c998aaa0, CCodecBufferChannel 0xb4000078a99424e0
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a99424e0] setComponent: mName c2.mtk.mp3.decoder#180, mPipelineWatcher 0xb4000078a9942988
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#180] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f999cc40] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] Created input block pool with allocatorID 16 => poolID 21 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] Created output block pool with allocatorID 16 => poolID 102 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] Configured output block pool ids 102 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a99424e0] [c2.mtk.mp3.decoder#180] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#180:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a9942988] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9926f20,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+I/reproductor_mp3( 2177): Background concurrent mark compact GC freed 1672KB AllocSpace bytes, 61(4672KB) LOS objects, 49% free, 6624KB/12MB, paused 535us,6.652ms total 49.901ms
+D/AudioTrack( 2177): createTrack_l(297): 0xb4000078a9926f20, mCblk = 0x79d15e0000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(297): 0xb4000078a9926f20, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(297): 0xb4000078a9926f20, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(297): device stall time corrected using current time 22713328405507
+I/flutter ( 2177): ⏳ Esperando que termine de cargar la canción anterior...
+I/Choreographer( 2177): Skipped 34 frames!  The application may be doing too much work on its main thread.
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c99748f8 : 0(0 size) total buffers - 0(0 size) used buffers - 84/89 (recycle/alloc) - 5/166 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/AudioTrack( 2177): pause(297): 0xb4000078a9926f20, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773996ee70), mCblk(0x79d15e0000), front(67737), mIsOut 1, interrupt() FUTEX_WAKE
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 7
+D/AudioTrack( 2177): flush(297): 0xb4000078a9926f20, prior state:STATE_PAUSED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#180:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#180:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#180:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/AudioTrack( 2177): stop(297): 0xb4000078a9926f20, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/AudioTrack( 2177): ~AudioTrack(297): 0xb4000078a9926f20
+D/AudioTrack( 2177): stop(297): 0xb4000078a9926f20, prior state:STATE_FLUSHED
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f999cc40] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#180] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f999cc40] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f999cc40] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f999cc40] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f99aaac0] init: CCodec 0xb4000078c9988100, CCodecBufferChannel 0xb4000078a99424e0
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a99424e0] setComponent: mName c2.mtk.mp3.decoder#562, mPipelineWatcher 0xb4000078a9942988
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#562] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f99aaac0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] Created input block pool with allocatorID 16 => poolID 22 - OK (0)
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c99748f8 cached: 0/0M, 0/0% in use; allocs: 89, 94% recycled; transfers: 166, 97% unfetched
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] Created output block pool with allocatorID 16 => poolID 103 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] Configured output block pool ids 103 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a99424e0] [c2.mtk.mp3.decoder#562] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#562:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a9942988] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a993f7d0,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(298): 0xb4000078a993f7d0, mCblk = 0x79d1e03000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(298): 0xb4000078a993f7d0, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(298): 0xb4000078a993f7d0, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(298): device stall time corrected using current time 22715075473507
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9967d78 : 0(0 size) total buffers - 0(0 size) used buffers - 84/89 (recycle/alloc) - 5/166 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/PipelineWatcher( 2177): [0xb4000078a9942988] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c992d4e8 : 0(0 size) total buffers - 0(0 size) used buffers - 56/61 (recycle/alloc) - 5/110 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9994ef8 : 0(0 size) total buffers - 0(0 size) used buffers - 73/78 (recycle/alloc) - 5/144 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/AudioTrack( 2177): pause(298): 0xb4000078a993f7d0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773996b510), mCblk(0x79d1e03000), front(169344), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(298): 0xb4000078a993f7d0, prior state:STATE_PAUSED
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 7
+D/AudioTrack( 2177): stop(298): 0xb4000078a993f7d0, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#562:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#562:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/AudioTrack( 2177): ~AudioTrack(298): 0xb4000078a993f7d0
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 6
+D/AudioTrack( 2177): stop(298): 0xb4000078a993f7d0, prior state:STATE_FLUSHED
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f99aaac0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#562] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f99aaac0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f99aaac0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99aaac0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f99978d0] init: CCodec 0xb4000078c9982230, CCodecBufferChannel 0xb4000078a994df90
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a994df90] setComponent: mName c2.mtk.mp3.decoder#60, mPipelineWatcher 0xb4000078a994e438
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#60] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f99978d0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] Created input block pool with allocatorID 16 => poolID 23 - OK (0)
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9967d78 cached: 0/0M, 0/0% in use; allocs: 89, 94% recycled; transfers: 166, 97% unfetched
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c992d4e8 cached: 0/0M, 0/0% in use; allocs: 61, 92% recycled; transfers: 110, 95% unfetched
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9994ef8 cached: 0/0M, 0/0% in use; allocs: 78, 94% recycled; transfers: 144, 97% unfetched
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] Created output block pool with allocatorID 16 => poolID 104 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] Configured output block pool ids 104 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a994df90] [c2.mtk.mp3.decoder#60] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#60:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 6
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9944b80,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(299): 0xb4000078a9944b80, mCblk = 0x79d1e03000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(299): 0xb4000078a9944b80, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(299): 0xb4000078a9944b80, prior state:STATE_STOPPED
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9902618 : 0(0 size) total buffers - 0(0 size) used buffers - 79/84 (recycle/alloc) - 5/156 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/AudioTrack( 2177): getTimestamp_l(299): device stall time corrected using current time 22719218065199
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 0
+D/AudioTrack( 2177): pause(299): 0xb4000078a9944b80, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb4000077399714b0), mCblk(0x79d1e03000), front(48921), mIsOut 1, interrupt() FUTEX_WAKE
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 7
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#60:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#60:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/AudioTrack( 2177): flush(299): 0xb4000078a9944b80, prior state:STATE_PAUSED
+D/AudioTrack( 2177): stop(299): 0xb4000078a9944b80, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): ~AudioTrack(299): 0xb4000078a9944b80
+D/AudioTrack( 2177): stop(299): 0xb4000078a9944b80, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9944b80,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(300): 0xb4000078a9944b80, mCblk = 0x79ccc30000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(300): 0xb4000078a9944b80, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(300): 0xb4000078a9944b80, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(300): device stall time corrected using current time 22720372952892
+D/AudioTrack( 2177): pause(300): 0xb4000078a9944b80, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb400007739973e50), mCblk(0x79ccc30000), front(52684), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(300): 0xb4000078a9944b80, prior state:STATE_PAUSED
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 7
+D/AudioTrack( 2177): stop(300): 0xb4000078a9944b80, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): ~AudioTrack(300): 0xb4000078a9944b80
+D/AudioTrack( 2177): stop(300): 0xb4000078a9944b80, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#60:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#60:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#60:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f99978d0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#60] MediaCodec discarded an unknown buffer
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+W/MessageQueue( 2177): Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): java.lang.IllegalStateException: Handler (android.media.MediaCodec$EventHandler) {9cd93fe} sending message to a Handler on a dead thread
+W/MessageQueue( 2177): 	at android.os.MessageQueue.enqueueMessage(MessageQueue.java:560)
+W/MessageQueue( 2177): 	at android.os.Handler.enqueueMessage(Handler.java:786)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageAtTime(Handler.java:735)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessageDelayed(Handler.java:705)
+W/MessageQueue( 2177): 	at android.os.Handler.sendMessage(Handler.java:643)
+W/MessageQueue( 2177): 	at android.media.MediaCodec.postEventFromNative(MediaCodec.java:5222)
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f99978d0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f99978d0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99978d0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f995ab60] init: CCodec 0xb4000078c98f47f0, CCodecBufferChannel 0xb4000078a9944b80
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a9944b80] setComponent: mName c2.mtk.mp3.decoder#235, mPipelineWatcher 0xb4000078a9945028
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#235] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f995ab60] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] Created input block pool with allocatorID 16 => poolID 24 - OK (0)
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9902618 cached: 0/0M, 0/0% in use; allocs: 84, 94% recycled; transfers: 156, 97% unfetched
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] Created output block pool with allocatorID 16 => poolID 105 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] Configured output block pool ids 105 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a9944b80] [c2.mtk.mp3.decoder#235] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#235:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a9945028] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a994f950,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(301): 0xb4000078a994f950, mCblk = 0x79c9d8f000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(301): 0xb4000078a994f950, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(301): 0xb4000078a994f950, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(301): device stall time corrected using current time 22721783814122
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9922528 : 0(0 size) total buffers - 0(0 size) used buffers - 166/171 (recycle/alloc) - 5/330 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+I/ImeTracker( 2177): com.example.reproductor_mp3:710329a: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+D/InputMethodManager( 2177): showSoftInput() view=io.flutter.embedding.android.FlutterView{f619ea2 VFED..... .F....ID 0,0-720,1508 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+I/ImeTracker( 2177): com.example.reproductor_mp3:a0cd1228: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+D/InputMethodManager( 2177): showSoftInput() view=io.flutter.embedding.android.FlutterView{f619ea2 VFED..... .F....ID 0,0-720,1508 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+I/Choreographer( 2177): Skipped 31 frames!  The application may be doing too much work on its main thread.
+I/ImeTracker( 2177): com.example.reproductor_mp3:d528c382: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+W/RemoteInputConnectionImpl( 2177): getSurroundingText on inactive InputConnection
+D/BufferPoolAccessor2.0( 2177): evictor expired: 3, evicted: 0
+I/ImeTracker( 2177): com.example.reproductor_mp3:75efee01: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+D/InputMethodManager( 2177): showSoftInput() view=io.flutter.embedding.android.FlutterView{f619ea2 VFED..... .F...... 0,0-720,1508 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+W/RemoteInputConnectionImpl( 2177): requestCursorAnchorInfo on inactive InputConnection
+D/InsetsController( 2177): show(ime(), fromIme=true)
+D/InsetsController( 2177): show(ime(), fromIme=true)
+I/ImeTracker( 2177): com.example.reproductor_mp3:a0cd1228: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+I/AssistStructure( 2177): Flattened final assist data: 480 bytes, containing 1 windows, 3 views
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+I/ImeTracker( 2177): com.example.reproductor_mp3:710329a: onCancelled at PHASE_CLIENT_ANIMATION_CANCEL
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/PipelineWatcher( 2177): [0xb4000078a9945028] pipelineFull: too many frames in pipeline (4)
+W/WindowOnBackDispatcher( 2177): sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@253185284 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@f60c636
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/InsetsController( 2177): show(ime(), fromIme=true)
+I/ImeTracker( 2177): com.example.reproductor_mp3:d528c382: onCancelled at PHASE_CLIENT_ANIMATION_CANCEL
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+W/RemoteInputConnectionImpl( 2177): requestCursorAnchorInfo on inactive InputConnection
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring on
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring off
+W/reproductor_mp3( 2177): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~lgGhNwsOjdkJlQvDAMXV_g==/com.google.android.apps.translate-D1qbMvXBfiViejSCgerPDA==/base.apk' with 1 weak references
+I/ImeTracker( 2177): com.example.reproductor_mp3:75efee01: onShown
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring on
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9948c48 : 5(327680 size) total buffers - 1(65536 size) used buffers - 209/214 (recycle/alloc) - 5/424 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c99317f8 : 0(0 size) total buffers - 0(0 size) used buffers - 124/129 (recycle/alloc) - 6/244 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 2, evicted: 1
+D/AudioTrack( 2177): pause(301): 0xb4000078a994f950, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb400007739963ef0), mCblk(0x79c9d8f000), front(351859), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(301): 0xb4000078a994f950, prior state:STATE_PAUSED
+D/AudioTrack( 2177): stop(301): 0xb4000078a994f950, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 7
+D/AudioTrack( 2177): ~AudioTrack(301): 0xb4000078a994f950
+D/AudioTrack( 2177): stop(301): 0xb4000078a994f950, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#235:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#235:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f995ab60] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#235] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f995ab60] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f995ab60] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f995ab60] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f9990990] init: CCodec 0xb4000078c99c32d0, CCodecBufferChannel 0xb4000078a9909fa0
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a9909fa0] setComponent: mName c2.mtk.mp3.decoder#1, mPipelineWatcher 0xb4000078a990a448
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#1] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f9990990] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] Created input block pool with allocatorID 16 => poolID 25 - OK (0)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9922528 : 0(0 size) total buffers - 0(0 size) used buffers - 166/171 (recycle/alloc) - 5/330 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9922528 cached: 0/0M, 0/0% in use; allocs: 171, 97% recycled; transfers: 330, 98% unfetched
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c99317f8 cached: 0/0M, 0/0% in use; allocs: 129, 96% recycled; transfers: 244, 98% unfetched
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] Created output block pool with allocatorID 16 => poolID 106 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] Configured output block pool ids 106 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a9909fa0] [c2.mtk.mp3.decoder#1] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#1:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a990a448] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a993de10,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(302): 0xb4000078a993de10, mCblk = 0x79d15e0000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(302): 0xb4000078a993de10, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(302): 0xb4000078a993de10, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(302): device stall time corrected using current time 22729934358200
+I/ImeTracker( 2177): com.example.reproductor_mp3:4967baa0: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring off
+W/WindowOnBackDispatcher( 2177): sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@253185284 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@ae97dd0
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+I/ImeTracker( 2177): com.example.reproductor_mp3:da461c09: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+I/ImeTracker( 2177): com.example.reproductor_mp3:4967baa0: onHidden
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/PipelineWatcher( 2177): [0xb4000078a990a448] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9948c48 : 0(0 size) total buffers - 0(0 size) used buffers - 324/329 (recycle/alloc) - 5/646 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9962598 : 5(327680 size) total buffers - 1(65536 size) used buffers - 209/214 (recycle/alloc) - 5/424 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 2, evicted: 0
+D/AudioTrack( 2177): pause(302): 0xb4000078a993de10, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb400007739970610), mCblk(0x79d15e0000), front(242726), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(302): 0xb4000078a993de10, prior state:STATE_PAUSED
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 7
+D/AudioTrack( 2177): stop(302): 0xb4000078a993de10, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): ~AudioTrack(302): 0xb4000078a993de10
+D/AudioTrack( 2177): stop(302): 0xb4000078a993de10, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#1:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#1:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#1:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f9990990] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#1] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f9990990] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f9990990] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9990990] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f9961aa0] init: CCodec 0xb4000078c997c110, CCodecBufferChannel 0xb4000078a9974990
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a9974990] setComponent: mName c2.mtk.mp3.decoder#719, mPipelineWatcher 0xb4000078a9974e38
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#719] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f9961aa0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] Created input block pool with allocatorID 16 => poolID 26 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] Created output block pool with allocatorID 16 => poolID 107 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] Configured output block pool ids 107 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a9974990] [c2.mtk.mp3.decoder#719] start: output->outputDelay 0, output->numSlots 4
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9948c48 cached: 0/0M, 0/0% in use; allocs: 329, 98% recycled; transfers: 646, 99% unfetched
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#719:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 6
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a99539b0,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(303): 0xb4000078a99539b0, mCblk = 0x79d15e0000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(303): 0xb4000078a99539b0, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(303): 0xb4000078a99539b0, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(303): device stall time corrected using current time 22735777525508
+D/AudioTrack( 2177): pause(303): 0xb4000078a99539b0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb4000077399635f0), mCblk(0x79d15e0000), front(31987), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(303): 0xb4000078a99539b0, prior state:STATE_PAUSED
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 7
+D/AudioTrack( 2177): stop(303): 0xb4000078a99539b0, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): ~AudioTrack(303): 0xb4000078a99539b0
+D/AudioTrack( 2177): stop(303): 0xb4000078a99539b0, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#719:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#719:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f9961aa0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#719] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f9961aa0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9961aa0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f9974c90] init: CCodec 0xb4000078c99bb5f0, CCodecBufferChannel 0xb4000078a994f950
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a994f950] setComponent: mName c2.mtk.mp3.decoder#118, mPipelineWatcher 0xb4000078a994fdf8
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#118] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f9974c90] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] Created input block pool with allocatorID 16 => poolID 27 - OK (0)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] Created output block pool with allocatorID 16 => poolID 108 - OK
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] Configured output block pool ids 108 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a994f950] [c2.mtk.mp3.decoder#118] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#118:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 6
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a9958080,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(304): 0xb4000078a9958080, mCblk = 0x79d2342000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(304): 0xb4000078a9958080, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(304): 0xb4000078a9958080, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(304): device stall time corrected using current time 22736667054508
+I/ImeTracker( 2177): com.example.reproductor_mp3:43b47af2: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+D/InputMethodManager( 2177): showSoftInput() view=io.flutter.embedding.android.FlutterView{f619ea2 VFED..... .F...... 0,0-720,1508 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+I/AssistStructure( 2177): Flattened final assist data: 480 bytes, containing 1 windows, 3 views
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring on
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9962598 : 0(0 size) total buffers - 0(0 size) used buffers - 231/236 (recycle/alloc) - 5/460 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/InsetsController( 2177): show(ime(), fromIme=true)
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+I/ImeTracker( 2177): com.example.reproductor_mp3:43b47af2: onShown
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9968ff8 : 0(0 size) total buffers - 0(0 size) used buffers - 46/51 (recycle/alloc) - 5/90 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 2, evicted: 1
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c998b658 : 5(327680 size) total buffers - 3(196608 size) used buffers - 208/213 (recycle/alloc) - 5/421 (fetch/transfer)
+I/reproductor_mp3( 2177): Background concurrent mark compact GC freed 1716KB AllocSpace bytes, 19(1904KB) LOS objects, 49% free, 8876KB/17MB, paused 1.058ms,6.293ms total 60.747ms
+W/reproductor_mp3( 2177): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~lgGhNwsOjdkJlQvDAMXV_g==/com.google.android.apps.translate-D1qbMvXBfiViejSCgerPDA==/base.apk' with 1 weak references
+D/AudioTrack( 2177): pause(304): 0xb4000078a9958080, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb4000077399549b0), mCblk(0x79d2342000), front(302937), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(304): 0xb4000078a9958080, prior state:STATE_PAUSED
+D/AudioTrack( 2177): stop(304): 0xb4000078a9958080, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 7
+D/AudioTrack( 2177): ~AudioTrack(304): 0xb4000078a9958080
+D/AudioTrack( 2177): stop(304): 0xb4000078a9958080, prior state:STATE_FLUSHED
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f9974c90] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#118] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f9974c90] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f9974c90] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9974c90] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f9961aa0] init: CCodec 0xb4000078c99bb5f0, CCodecBufferChannel 0xb4000078a9958080
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a9958080] setComponent: mName c2.mtk.mp3.decoder#240, mPipelineWatcher 0xb4000078a9958528
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#240] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f9961aa0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] Created input block pool with allocatorID 16 => poolID 28 - OK (0)
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9962598 cached: 0/0M, 0/0% in use; allocs: 236, 98% recycled; transfers: 460, 99% unfetched
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] Created output block pool with allocatorID 16 => poolID 109 - OK
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c9968ff8 cached: 0/0M, 0/0% in use; allocs: 51, 90% recycled; transfers: 90, 94% unfetched
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] Configured output block pool ids 109 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a9958080] [c2.mtk.mp3.decoder#240] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#240:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a99722f0,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(305): 0xb4000078a99722f0, mCblk = 0x79d20b3000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(305): 0xb4000078a99722f0, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(305): 0xb4000078a99722f0, prior state:STATE_STOPPED
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): getTimestamp_l(305): device stall time corrected using current time 22743845656047
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+I/ImeTracker( 2177): com.example.reproductor_mp3:97959ae6: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring off
+W/WindowOnBackDispatcher( 2177): sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@253185284 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@e01e54f
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+I/ImeTracker( 2177): com.example.reproductor_mp3:60327398: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+I/ImeTracker( 2177): com.example.reproductor_mp3:97959ae6: onHidden
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c998b658 : 0(0 size) total buffers - 0(0 size) used buffers - 280/285 (recycle/alloc) - 5/558 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9950b78 : 5(327680 size) total buffers - 1(65536 size) used buffers - 206/211 (recycle/alloc) - 5/420 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 2, evicted: 0
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+I/ScrollIdentify( 2177): on fling
+I/ScrollIdentify( 2177): on fling
+D/AudioTrack( 2177): pause(305): 0xb4000078a99722f0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773997c1f0), mCblk(0x79d20b3000), front(406425), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): start(305): 0xb4000078a99722f0, prior state:STATE_PAUSED
+D/AudioTrack( 2177): getTimestamp_l(305): device stall time corrected using current time 22753610639740
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9950b78 : 5(327680 size) total buffers - 1(65536 size) used buffers - 390/395 (recycle/alloc) - 5/786 (fetch/transfer)
+D/AudioTrack( 2177): pause(305): 0xb4000078a99722f0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773997c1f0), mCblk(0x79d20b3000), front(581414), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): start(305): 0xb4000078a99722f0, prior state:STATE_PAUSED
+D/AudioTrack( 2177): getTimestamp_l(305): device stall time corrected using current time 22757800195740
+D/AudioTrack( 2177): pause(305): 0xb4000078a99722f0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773997c1f0), mCblk(0x79d20b3000), front(611519), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): start(305): 0xb4000078a99722f0, prior state:STATE_PAUSED
+D/AudioTrack( 2177): getTimestamp_l(305): device stall time corrected using current time 22759012908894
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9950b78 : 5(327680 size) total buffers - 1(65536 size) used buffers - 568/573 (recycle/alloc) - 5/1142 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9950b78 : 5(327680 size) total buffers - 1(65536 size) used buffers - 768/773 (recycle/alloc) - 5/1542 (fetch/transfer)
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+E/OpenGLRenderer( 2177): Unable to match the desired swap behavior.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/BLASTBufferQueue( 2177): [VRI[MainActivity]#0](f:0,a:4) producer disconnected before acquireNextBufferLocked
+I/ImeTracker( 2177): com.example.reproductor_mp3:af648034: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+D/InputMethodManager( 2177): showSoftInput() view=io.flutter.embedding.android.FlutterView{f619ea2 VFED..... .F...... 0,0-1438,720 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+I/AssistStructure( 2177): Flattened final assist data: 480 bytes, containing 1 windows, 3 views
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring on
+D/InsetsController( 2177): show(ime(), fromIme=true)
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9950b78 : 5(327680 size) total buffers - 1(65536 size) used buffers - 968/973 (recycle/alloc) - 5/1942 (fetch/transfer)
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+I/ImeTracker( 2177): com.example.reproductor_mp3:af648034: onShown
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/PipelineWatcher( 2177): [0xb4000078a9958528] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): pause(305): 0xb4000078a99722f0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb40000773997c1f0), mCblk(0x79d20b3000), front(1241854), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): flush(305): 0xb4000078a99722f0, prior state:STATE_PAUSED
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 7
+D/AudioTrack( 2177): stop(305): 0xb4000078a99722f0, prior state:STATE_FLUSHED
+D/AudioTrack( 2177): ~AudioTrack(305): 0xb4000078a99722f0
+D/AudioTrack( 2177): stop(305): 0xb4000078a99722f0, prior state:STATE_FLUSHED
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#240:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#240:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#240:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 8
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 6
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/MediaCodec( 2177): [0xb4000078f9961aa0] [c2.mtk.mp3.decoder] releaseAsync
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 10
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#240] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 2177): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 2177): [0xb4000078f9961aa0] [c2.mtk.mp3.decoder] kWhatReleaseCompleted
+D/MediaCodec( 2177): [0xb4000078f9961aa0] setState: 0
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f9961aa0] ~MediaCodec
+D/MediaCodec( 2177): flushMediametrics
+W/MediaCodec( 2177): no metrics handle found
+W/reproductor_mp3( 2177): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~lgGhNwsOjdkJlQvDAMXV_g==/com.google.android.apps.translate-D1qbMvXBfiViejSCgerPDA==/base.apk' with 1 weak references
+I/DMCodecAdapterFactory( 2177): Creating an asynchronous MediaCodec adapter for track type audio
+D/MediaCodec( 2177): CreateByComponentName: name c2.mtk.mp3.decoder
+D/CCodecBufferChannel( 2177): mBufferCountDebug=0 mIsUserLoad=1
+D/MediaCodec( 2177): [0xb4000078f99e08f0] init: CCodec 0xb4000078c99bcd10, CCodecBufferChannel 0xb4000078a992dc90
+D/MediaCodec( 2177): [0xb4000078f99e08f0] setState: 1
+D/CCodec  ( 2177): allocate(c2.mtk.mp3.decoder)
+I/CCodec  ( 2177): setting up 'default' as default (vendor) store
+I/CCodec  ( 2177): Created component [c2.mtk.mp3.decoder]
+D/CCodecBufferChannel( 2177): [0xb4000078a992dc90] setComponent: mName c2.mtk.mp3.decoder#723, mPipelineWatcher 0xb4000078a992e138
+D/CCodecBufferChannel( 2177): PipelineWatcher debug info [c2.mtk.mp3.decoder#723] enable=0
+D/CCodecConfig( 2177): read media type: audio/mpeg
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2177): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/CCodecConfig( 2177): c2 config diff is Dict {
+D/CCodecConfig( 2177):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2177):   c2::u32 input.buffers.max-size.value = 65536
+D/CCodecConfig( 2177):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2177):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 2177):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2177):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2177):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 2177): }
+D/MediaCodec( 2177): [0xb4000078f99e08f0] setState: 2
+I/MediaCodec( 2177): MediaCodec will operate in async mode
+D/MediaCodec( 2177): [0xb4000078f99e08f0] [c2.mtk.mp3.decoder] configure
+D/MediaCodec( 2177): flushMediametrics
+D/MediaCodec( 2177): [0xb4000078f99e08f0] setState: 3
+D/CCodec  ( 2177): [c2.mtk.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2177): no c2 equivalents for log-session-id
+D/CCodecConfig( 2177): no c2 equivalents for flags
+D/CCodecConfig( 2177): config failed => CORRUPTED
+W/Codec2Client( 2177): query -- param skipped: index = 1107298332.
+D/CCodec  ( 2177): client requested max input size 4096, which is smaller than what component recommended (65536); overriding with component recommendation.
+W/CCodec  ( 2177): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 2177): encoding statistics level = 0
+D/CCodec  ( 2177): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t bitrate = 64000
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   int32_t max-input-size = 65536
+D/CCodec  ( 2177):   string mime = "audio/mpeg"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177): }
+D/CCodec  ( 2177): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2177):   int32_t channel-count = 2
+D/CCodec  ( 2177):   string mime = "audio/raw"
+D/CCodec  ( 2177):   int32_t sample-rate = 44100
+D/CCodec  ( 2177):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2177): }
+I/CCodecConfig( 2177): query failed after returning 7 values (BAD_INDEX)
+D/MediaCodec( 2177): [0xb4000078f99e08f0] setState: 4
+D/MediaCodec( 2177): keep callback message for reclaim
+D/MediaCodec( 2177): [0xb4000078f99e08f0] setState: 5
+W/Codec2Client( 2177): query -- param skipped: index = 1342179345.
+W/Codec2Client( 2177): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#723] Created input block pool with allocatorID 16 => poolID 29 - OK (0)
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c998b658 : 0(0 size) total buffers - 0(0 size) used buffers - 280/285 (recycle/alloc) - 5/558 (fetch/transfer)
+I/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#723] Created output block pool with allocatorID 16 => poolID 110 - OK
+D/BufferPoolAccessor2.0( 2177): Destruction - bufferpool2 0xb4000078c998b658 cached: 0/0M, 0/0% in use; allocs: 285, 98% recycled; transfers: 558, 99% unfetched
+D/CCodecBufferChannel( 2177): [c2.mtk.mp3.decoder#723] Configured output block pool ids 110 => OK
+D/CCodecBufferChannel( 2177): [0xb4000078a992dc90] [c2.mtk.mp3.decoder#723] start: output->outputDelay 0, output->numSlots 4
+D/CCodecBuffers( 2177): [c2.mtk.mp3.decoder#723:1D-Output.Impl[N]] converted 0 buffers to array mode of 4
+D/MediaCodec( 2177): [0xb4000078f99e08f0] setState: 6
+D/PipelineWatcher( 2177): [0xb4000078a992e138] pipelineFull: too many frames in pipeline (4)
+D/AudioTrack( 2177): INSP: type=audio,case=1,set=0xb4000078a99424e0,stream_type=-1,sample_rate=44100,format=0x1,channel_mask=0x3,frame_count=11025,flags=0x0,notification_frames=0,session_id=1641,transfer_type=3,uid=10383,pid=2177
+D/AudioTrack( 2177): INSP: type=audio,case=1,attributes=1,content_type=2,usage=1,source=-1,flags=0xa00
+D/AudioTrack( 2177): createTrack_l(306): 0xb4000078a99424e0, mCblk = 0x79d20b3000, mLatency = 292, mAfLatency = 42, frameCount = 11025, mSampleRate = 44100, mFlags = 0x8, mReqFrameCount = 11025, mNotificationFramesAct = 3675
+D/AudioTrack( 2177): ------------volume-----------------
+D/AudioTrack( 2177): setVolume(306): 0xb4000078a99424e0, left = 1.000000, right = 1.000000
+D/AudioTrack( 2177): start(306): 0xb4000078a99424e0, prior state:STATE_STOPPED
+D/AudioTrack( 2177): getTimestamp_l(306): device stall time corrected using current time 22773670506433
+I/ImeTracker( 2177): com.example.reproductor_mp3:a2ad859b: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+D/InputConnectionAdaptor( 2177): The input method toggled cursor monitoring off
+W/WindowOnBackDispatcher( 2177): sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@253185284 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@b9c8cf5
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+I/ImeTracker( 2177): com.example.reproductor_mp3:e2d0bc7: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+I/ImeTracker( 2177): com.example.reproductor_mp3:a2ad859b: onHidden
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c9950b78 : 0(0 size) total buffers - 0(0 size) used buffers - 1098/1103 (recycle/alloc) - 5/2194 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 1
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c997c138 : 5(327680 size) total buffers - 1(65536 size) used buffers - 208/213 (recycle/alloc) - 5/422 (fetch/transfer)
+D/BufferPoolAccessor2.0( 2177): evictor expired: 1, evicted: 0
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c997c138 : 5(327680 size) total buffers - 1(65536 size) used buffers - 408/413 (recycle/alloc) - 5/822 (fetch/transfer)
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+D/FlutterJNI( 2177): Sending viewport metrics to the engine.
+E/OpenGLRenderer( 2177): Unable to match the desired swap behavior.
+D/BLASTBufferQueue( 2177): [VRI[MainActivity]#0](f:0,a:4) producer disconnected before acquireNextBufferLocked
+D/PipelineWatcher( 2177): [0xb4000078a992e138] pipelineFull: too many frames in pipeline (4)
+I/reproductor_mp3( 2177): Background young concurrent mark compact GC freed 3700KB AllocSpace bytes, 12(1964KB) LOS objects, 30% free, 12MB/18MB, paused 517us,6.891ms total 37.202ms
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c997c138 : 5(327680 size) total buffers - 1(65536 size) used buffers - 609/614 (recycle/alloc) - 5/1224 (fetch/transfer)
+D/AudioTrack( 2177): pause(306): 0xb4000078a99424e0, prior state:STATE_ACTIVE
+D/AudioTrackShared( 2177): this(0xb400007739973790), mCblk(0x79d20b3000), front(771456), mIsOut 1, interrupt() FUTEX_WAKE
+D/AudioTrack( 2177): start(306): 0xb4000078a99424e0, prior state:STATE_PAUSED
+D/AudioTrack( 2177): getTimestamp_l(306): device stall time corrected using current time 22791947083665
+D/BufferPoolAccessor2.0( 2177): bufferpool2 0xb4000078c997c138 : 5(327680 size) total buffers - 1(65536 size) used buffers - 773/778 (recycle/alloc) - 5/1554 (fetch/transfer)
