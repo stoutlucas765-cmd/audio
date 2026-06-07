@@ -1,0 +1,161 @@
+E/ActivityThread( 8231): Failed to find provider info for com.zte.intellitext.IntelliTextProvider
+D/ConfigUtil( 8231): config null
+D/IntelliTextControl( 8231): load info error
+W/reproductor_mp3( 8231): userfaultfd: MOVE ioctl seems unsupported: Connection timed out
+I/reproductor_mp3( 8231): Background concurrent mark compact GC freed 3935KB AllocSpace bytes, 8(212KB) LOS objects, 87% free, 3460KB/27MB, paused 249us,2.950ms total 165.923ms
+I/mali_gralloc( 8231): register: id=0x29f0000140b, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f000013f1, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f0000140c, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f00001402, base=0x0, importpid=8231
+D/InputMethodManager( 8231): showSoftInput() view=io.flutter.embedding.android.FlutterView{f587cf4 VFE...... .F....ID 0,0-720,1532 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+D/InputMethodManager( 8231): showSoftInput() view=io.flutter.embedding.android.FlutterView{f587cf4 VFE...... .F....ID 0,0-720,1532 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+I/AssistStructure( 8231): Flattened final assist data: 480 bytes, containing 1 windows, 3 views
+W/OnBackInvokedCallback( 8231): OnBackInvokedCallback is not enabled for the application.
+W/OnBackInvokedCallback( 8231): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+D/InsetsController( 8231): show(ime(), fromIme=true)
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/InsetsController( 8231): show(ime(), fromIme=true)
+I/mali_gralloc( 8231): register: id=0x29f00001414, importpid=-1
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+I/mali_gralloc( 8231): register: id=0x29f00001415, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f00001403, base=0x0, importpid=8231
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/VRI[MainActivity]( 8231): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=1
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+I/mali_gralloc( 8231): unregister: id=0x29f00001408, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001414, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001406, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f0000140b, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f0000140c, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f00001418, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f0000140a, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001407, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f0000141e, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f00001415, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001409, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f0000141f, importpid=-1
+I/mali_gralloc( 8231): register: id=0x29f00001420, importpid=-1
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+W/OnBackInvokedCallback( 8231): OnBackInvokedCallback is not enabled for the application.
+W/OnBackInvokedCallback( 8231): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+I/mali_gralloc( 8231): register: id=0x29f00001428, importpid=-1
+I/mali_gralloc( 8231): register: id=0x29f0000142a, importpid=-1
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/VRI[MainActivity]( 8231): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=1
+I/mali_gralloc( 8231): unregister: id=0x29f00001418, base=0x0, importpid=8231
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+I/mali_gralloc( 8231): unregister: id=0x29f0000141e, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001420, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f0000142c, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f0000141f, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f00001432, importpid=-1
+I/mali_gralloc( 8231): register: id=0x29f00001433, importpid=-1
+I/mali_gralloc( 8231): register: id=0x29f00001434, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f0000142a, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001428, base=0x0, importpid=8231
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+W/OnBackInvokedCallback( 8231): OnBackInvokedCallback is not enabled for the application.
+W/OnBackInvokedCallback( 8231): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+I/mali_gralloc( 8231): register: id=0x29f00001444, importpid=-1
+I/mali_gralloc( 8231): register: id=0x29f00001445, importpid=-1
+I/ExoPlayerImpl( 8231): Init 350a6a8 [AndroidXMedia3/1.4.1] [P606F13, Z2359, ZTE, 33]
+I/reproductor_mp3( 8231): hiddenapi: Accessing hidden method Landroid/media/AudioTrack;->getLatency()I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/media3/exoplayer/audio/AudioTrackPositionTracker; (domain=app, TargetSdkVersion=35) using reflection: allowed
+I/flutter ( 8231): 🚀 Ecualizador enlazado con éxito a la sesión activa: 561
+W/AudioCapabilities( 8231): Unsupported mime audio/ima-adpcm
+W/AudioCapabilities( 8231): Unsupported mime audio/mpeg-L1
+W/AudioCapabilities( 8231): Unsupported mime audio/mpeg-L2
+I/DMCodecAdapterFactory( 8231): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 8231): allocate(c2.unisoc.mp3.decoder)
+I/Codec2Client( 8231): Available Codec2 services: "default" "software"
+I/CCodec  ( 8231): setting up 'default' as default (vendor) store
+I/CCodec  ( 8231): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 8231): read media type: audio/mpeg
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 8231): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 8231): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 8231): c2 config diff is Dict {
+D/CCodecConfig( 8231):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 8231):   c2::float algo.rate.value = -1
+D/CCodecConfig( 8231):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 8231):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 8231):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 8231):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 8231):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 8231):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 8231):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 8231): }
+I/MediaCodec( 8231): MediaCodec will operate in async mode
+D/MediaCodec( 8231): flushMediametrics
+D/CCodec  ( 8231): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 8231): no c2 equivalents for log-session-id
+D/CCodecConfig( 8231): no c2 equivalents for flags
+D/CCodecConfig( 8231): config failed => CORRUPTED
+D/CCodecConfig( 8231): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 8231): query -- param skipped: index = 1107298332.
+D/CCodec  ( 8231): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 8231): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 8231): encoding statistics level = 0
+D/CCodec  ( 8231): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 8231):   int32_t bitrate = 64000
+D/CCodec  ( 8231):   int32_t channel-count = 2
+D/CCodec  ( 8231):   int32_t max-input-size = 8192
+D/CCodec  ( 8231):   string mime = "audio/mpeg"
+D/CCodec  ( 8231):   int32_t priority = 0
+D/CCodec  ( 8231):   int32_t sample-rate = 44100
+D/CCodec  ( 8231): }
+D/CCodec  ( 8231): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 8231):   int32_t channel-count = 2
+D/CCodec  ( 8231):   string mime = "audio/raw"
+D/CCodec  ( 8231):   int32_t priority = 0
+D/CCodec  ( 8231):   int32_t sample-rate = 44100
+D/CCodec  ( 8231):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 8231): }
+I/CCodecConfig( 8231): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 8231): keep callback message for reclaim
+W/Codec2Client( 8231): query -- param skipped: index = 1342179345.
+W/Codec2Client( 8231): query -- param skipped: index = 2415921170.
+W/Codec2Client( 8231): query -- param skipped: index = 2684356609.
+D/C2Store ( 8231): Using ION
+D/CCodecBufferChannel( 8231): [c2.unisoc.mp3.decoder#637] Created input block pool with allocatorID 16 => poolID 17 - OK (0)
+I/CCodecBufferChannel( 8231): [c2.unisoc.mp3.decoder#637] Created output block pool with allocatorID 16 => poolID 46 - OK
+D/CCodecBufferChannel( 8231): [c2.unisoc.mp3.decoder#637] Configured output block pool ids 46 => OK
+I/flutter ( 8231): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 561
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+D/VRI[MainActivity]( 8231): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=1
+I/mali_gralloc( 8231): unregister: id=0x29f0000142c, base=0x0, importpid=8231
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+I/mali_gralloc( 8231): unregister: id=0x29f00001432, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001434, base=0x0, importpid=8231
+I/mali_gralloc( 8231): unregister: id=0x29f00001445, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f00001451, importpid=-1
+I/AudioTrack( 8231): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 561, transferType 3, uid -1, pid -1
+I/AudioTrack( 8231): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/mali_gralloc( 8231): unregister: id=0x29f00001433, base=0x0, importpid=8231
+I/AudioTrack( 8231): start(83): prior state:STATE_STOPPED
+W/AidlConversion( 8231): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 8231): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+I/mali_gralloc( 8231): register: id=0x29f00001454, importpid=-1
+I/mali_gralloc( 8231): unregister: id=0x29f00001444, base=0x0, importpid=8231
+I/mali_gralloc( 8231): register: id=0x29f00001456, importpid=-1
+D/FlutterJNI( 8231): Sending viewport metrics to the engine.
+I/mali_gralloc( 8231): register: id=0x29f00001458, importpid=-1
+D/AudioTrack( 8231): getTimestamp_l(83): device stall time corrected using current time 27606019317062
+W/OnBackInvokedCallback( 8231): OnBackInvokedCallback is not enabled for the application.
+W/OnBackInvokedCallback( 8231): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+I/mali_gralloc( 8231): register: id=0x29f0000145c, importpid=-1
