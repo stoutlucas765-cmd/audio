@@ -1,0 +1,735 @@
+Launching lib\main.dart on Z2359 in debug mode...
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): file_picker, flutter_sharing_intent, shared_preferences_android
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+√ Built build\app\outputs\flutter-apk\app-debug.apk
+D/FlutterJNI( 9901): Beginning load of flutter...
+D/FlutterJNI( 9901): flutter (null) was loaded normally!
+I/flutter ( 9901): [IMPORTANT:flutter/shell/common/shell.cc(528)] [Action Required]: Impeller opt-out deprecated.
+I/flutter ( 9901):     The application opted out of Impeller by either using the
+I/flutter ( 9901):     `--no-enable-impeller` flag or the
+I/flutter ( 9901):     `io.flutter.embedding.android.EnableImpeller` `AndroidManifest.xml` entry.
+I/flutter ( 9901):     These options are going to go away in an upcoming Flutter release. Remove
+I/flutter ( 9901):     the explicit opt-out. If you need to opt-out, please report a bug describing
+I/flutter ( 9901):     the issue.
+I/flutter ( 9901):
+I/flutter ( 9901):     https://github.com/flutter/flutter/issues/new?template=02_bug.yml
+I/flutter ( 9901):
+D/FlutterRenderer( 9901): Width is zero. 0,0
+I/Choreographer( 9901): Skipped 193 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 193 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/reproductor_mp3( 9901): Compiler allocated 4113KB to compile void android.view.ViewRootImpl.performTraversals()
+D/FlutterRenderer( 9901): Width is zero. 0,0
+D/VRI[MainActivity]( 9901): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=3
+D/FlutterJNI( 9901): Sending viewport metrics to the engine.
+D/CompatibilityChangeReporter( 9901): Compat change id reported: 160794467; UID 10360; state: ENABLED
+I/System.out( 9901): flutterEngine warmed up
+D/FlutterJNI( 9901): Sending viewport metrics to the engine.
+Connecting to VM Service at ws://127.0.0.1:61975/5dMdaQXn5bk=/ws
+Connected to the VM Service.
+I/mali_gralloc( 9901): register: id=0x29f000016c1, importpid=-1
+I/Choreographer( 9901): Skipped 163 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 163 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/mali_gralloc( 9901): register: id=0x29f000016c2, importpid=-1
+I/Choreographer( 9901): Skipped 38 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 38 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/mali_gralloc( 9901): register: id=0x29f000016c3, importpid=-1
+I/mali_gralloc( 9901): register: id=0x29f000016c4, importpid=-1
+W/Parcel  ( 9901): Expecting binder but got null!
+W/libc    ( 9901): Access denied finding property "persist.unipnp.debug"
+W/reproductor_mp3( 9901): type=1400 audit(0.0:16812): avc: denied { read } for name="u:object_r:unipnp_prop:s0" dev="tmpfs" ino=15889 scontext=u:r:untrusted_app:s0:c104,c257,c512,c768 tcontext=u:object_r:unipnp_prop:s0 tclass=file permissive=0 app=com.example.reproductor_mp3
+W/libc    ( 9901): Access denied finding property "persist.unipnp.debug"
+I/mali_gralloc( 9901): register: id=0x29f000016c5, importpid=-1
+W/reproductor_mp3( 9901): type=1400 audit(0.0:16813): avc: denied { read } for name="u:object_r:unipnp_prop:s0" dev="tmpfs" ino=15889 scontext=u:r:untrusted_app:s0:c104,c257,c512,c768 tcontext=u:object_r:unipnp_prop:s0 tclass=file permissive=0 app=com.example.reproductor_mp3
+D/FlutterJNI( 9901): Sending viewport metrics to the engine.
+D/ProfileInstaller( 9901): Installing profile for com.example.reproductor_mp3
+E/ActivityThread( 9901): Failed to find provider info for com.zte.intellitext.IntelliTextProvider
+D/ConfigUtil( 9901): config null
+D/IntelliTextControl( 9901): load info error
+W/reproductor_mp3( 9901): userfaultfd: MOVE ioctl seems unsupported: Try again
+I/reproductor_mp3( 9901): Background concurrent mark compact GC freed 3914KB AllocSpace bytes, 8(212KB) LOS objects, 87% free, 3448KB/27MB, paused 286us,2.971ms total 161.765ms
+I/mali_gralloc( 9901): register: id=0x29f000016c6, importpid=-1
+I/ExoPlayerImpl( 9901): Init 4ba1e92 [AndroidXMedia3/1.4.1] [P606F13, Z2359, ZTE, 33]
+I/reproductor_mp3( 9901): hiddenapi: Accessing hidden method Landroid/media/AudioTrack;->getLatency()I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/media3/exoplayer/audio/AudioTrackPositionTracker; (domain=app, TargetSdkVersion=35) using reflection: allowed
+I/flutter ( 9901): 🚀 Ecualizador enlazado con éxito a la sesión activa: 593
+W/AudioCapabilities( 9901): Unsupported mime audio/ima-adpcm
+W/AudioCapabilities( 9901): Unsupported mime audio/mpeg-L1
+W/AudioCapabilities( 9901): Unsupported mime audio/mpeg-L2
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/Codec2Client( 9901): Available Codec2 services: "default" "software"
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/C2Store ( 9901): Using ION
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] Created input block pool with allocatorID 16 => poolID 17 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] Created output block pool with allocatorID 16 => poolID 71 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] Configured output block pool ids 71 => OK
+I/flutter ( 9901): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 593
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 593, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(121): prior state:STATE_STOPPED
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack( 9901): getTimestamp_l(121): device stall time corrected using current time 28237848226610
+I/AudioTrack( 9901): stop(121): prior state:STATE_FLUSHED
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#642:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#642:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/AudioTrack( 9901): destructor portId(121)
+I/AudioTrack( 9901): stop(121): prior state:STATE_FLUSHED
+D/MediaCodec( 9901): keep callback message for reclaim
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#642] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+D/MediaCodec( 9901): flushMediametrics
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] Created input block pool with allocatorID 16 => poolID 18 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] Created output block pool with allocatorID 16 => poolID 72 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] Configured output block pool ids 72 => OK
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 593, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(122): prior state:STATE_STOPPED
+I/flutter ( 9901): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 593
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack( 9901): getTimestamp_l(122): device stall time corrected using current time 28240191824031
+I/AudioTrack( 9901): stop(122): prior state:STATE_FLUSHED
+D/MediaCodec( 9901): keep callback message for reclaim
+D/AudioTrack( 9901): destructor portId(122)
+I/AudioTrack( 9901): stop(122): prior state:STATE_FLUSHED
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#235] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+D/MediaCodec( 9901): flushMediametrics
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] Created input block pool with allocatorID 16 => poolID 19 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] Created output block pool with allocatorID 16 => poolID 73 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] Configured output block pool ids 73 => OK
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 593, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(123): prior state:STATE_STOPPED
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack( 9901): getTimestamp_l(123): device stall time corrected using current time 28241087597800
+I/flutter ( 9901): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 593
+I/Choreographer( 9901): Skipped 67 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 67 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/Choreographer( 9901): Skipped 35 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 35 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/AudioTrack( 9901): stop(123): prior state:STATE_FLUSHED
+D/AudioTrack( 9901): destructor portId(123)
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#415:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#415:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#415:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/MediaCodec( 9901): keep callback message for reclaim
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+I/AudioTrack( 9901): stop(123): prior state:STATE_FLUSHED
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#415] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+D/MediaCodec( 9901): flushMediametrics
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] Created input block pool with allocatorID 16 => poolID 20 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] Created output block pool with allocatorID 16 => poolID 74 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] Configured output block pool ids 74 => OK
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 593, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(124): prior state:STATE_STOPPED
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+I/Choreographer( 9901): Skipped 32 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 32 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+D/AudioTrack( 9901): getTimestamp_l(124): device stall time corrected using current time 28242747720453
+D/MediaCodec( 9901): keep callback message for reclaim
+I/AudioTrack( 9901): stop(124): prior state:STATE_FLUSHED
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/AudioTrack( 9901): destructor portId(124)
+I/AudioTrack( 9901): stop(124): prior state:STATE_FLUSHED
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#42] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+D/MediaCodec( 9901): flushMediametrics
+I/flutter ( 9901): Error play source: Connection aborted
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] Created input block pool with allocatorID 16 => poolID 21 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] Created output block pool with allocatorID 16 => poolID 75 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] Configured output block pool ids 75 => OK
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 593, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(125): prior state:STATE_STOPPED
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack( 9901): getTimestamp_l(125): device stall time corrected using current time 28243039390606
+I/AudioTrack( 9901): stop(125): prior state:STATE_FLUSHED
+D/AudioTrack( 9901): destructor portId(125)
+I/AudioTrack( 9901): stop(125): prior state:STATE_FLUSHED
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#351:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#351:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/MediaCodec( 9901): keep callback message for reclaim
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#351] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+I/flutter ( 9901): Error play source: Connection aborted
+D/MediaCodec( 9901): flushMediametrics
+I/flutter ( 9901): Error play source: Connection aborted
+I/flutter ( 9901): Error play current: Connection aborted
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] Created input block pool with allocatorID 16 => poolID 22 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] Created output block pool with allocatorID 16 => poolID 76 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] Configured output block pool ids 76 => OK
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 593, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(126): prior state:STATE_STOPPED
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack( 9901): getTimestamp_l(126): device stall time corrected using current time 28243408697529
+I/ExoPlayerImpl( 9901): Release 4ba1e92 [AndroidXMedia3/1.4.1] [P606F13, Z2359, ZTE, 33] [media3.common, media3.exoplayer, media3.decoder, media3.datasource, media3.extractor]
+I/AudioTrack( 9901): stop(126): prior state:STATE_FLUSHED
+D/AudioTrack( 9901): destructor portId(126)
+I/AudioTrack( 9901): stop(126): prior state:STATE_FLUSHED
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#927:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 0
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#927:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 1
+D/CCodecBuffers( 9901): [c2.unisoc.mp3.decoder#927:1D-Output.Impl[N]] Client returned a buffer it does not own according to our record: 2
+D/MediaCodec( 9901): keep callback message for reclaim
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#927] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+D/MediaCodec( 9901): flushMediametrics
+I/flutter ( 9901): Error play source: Connection aborted
+I/flutter ( 9901): Error play current: Connection aborted
+I/flutter ( 9901): Error play current: Connection aborted
+I/Choreographer( 9901): Skipped 59 frames!  The application may be doing too much work on its main thread.
+I/Choreographer( 9901): Skipped 59 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play current: Connection aborted
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/Choreographer( 9901): Skipped 23 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play source: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+I/flutter ( 9901): Error play current: Loading interrupted
+D/BufferPoolAccessor2.0( 9901): bufferpool2 0xb4000079cbeeb248 : 0(0 size) total buffers - 0(0 size) used buffers - 48/53 (recycle/alloc) - 5/94 (fetch/transfer)
+D/BufferPoolAccessor2.0( 9901): bufferpool2 0xb4000079cbf3fb18 : 0(0 size) total buffers - 0(0 size) used buffers - 104/109 (recycle/alloc) - 5/206 (fetch/transfer)
+D/BufferPoolAccessor2.0( 9901): evictor expired: 2, evicted: 2
+I/ExoPlayerImpl( 9901): Init f619d64 [AndroidXMedia3/1.4.1] [P606F13, Z2359, ZTE, 33]
+I/flutter ( 9901): 🚀 Ecualizador enlazado con éxito a la sesión activa: 601
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] Created input block pool with allocatorID 16 => poolID 23 - OK (0)
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] Created output block pool with allocatorID 16 => poolID 77 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] Configured output block pool ids 77 => OK
+D/BufferPoolAccessor2.0( 9901): Destruction - bufferpool2 0xb4000079cbf3fb18 cached: 0/0M, 0/0% in use; allocs: 109, 95% recycled; transfers: 206, 98% unfetched
+I/flutter ( 9901): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 601
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 601, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(127): prior state:STATE_STOPPED
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack( 9901): getTimestamp_l(127): device stall time corrected using current time 28245941185796
+I/AudioTrack( 9901): stop(127): prior state:STATE_FLUSHED
+D/MediaCodec( 9901): keep callback message for reclaim
+D/AudioTrack( 9901): destructor portId(127)
+I/AudioTrack( 9901): stop(127): prior state:STATE_FLUSHED
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#231] MediaCodec discarded an unknown buffer
+I/hw-BpHwBinder( 9901): onLastStrongRef automatically unlinking death recipients
+D/MediaCodec( 9901): flushMediametrics
+D/MediaCodec( 9901): flushMediametrics
+I/DMCodecAdapterFactory( 9901): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  ( 9901): allocate(c2.unisoc.mp3.decoder)
+I/CCodec  ( 9901): setting up 'default' as default (vendor) store
+I/CCodec  ( 9901): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig( 9901): read media type: audio/mpeg
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 9901): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig( 9901): c2 config diff is Dict {
+D/CCodecConfig( 9901):   c2::i32 algo.priority.value = -1
+D/CCodecConfig( 9901):   c2::float algo.rate.value = -1
+D/CCodecConfig( 9901):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 9901):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig( 9901):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 9901):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig( 9901):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 9901):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 9901):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig( 9901): }
+I/MediaCodec( 9901): MediaCodec will operate in async mode
+D/MediaCodec( 9901): flushMediametrics
+D/CCodec  ( 9901): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 9901): no c2 equivalents for log-session-id
+D/CCodecConfig( 9901): no c2 equivalents for flags
+D/CCodecConfig( 9901): config failed => CORRUPTED
+D/CCodecConfig( 9901): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client( 9901): query -- param skipped: index = 1107298332.
+D/CCodec  ( 9901): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  ( 9901): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  ( 9901): encoding statistics level = 0
+D/CCodec  ( 9901): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t bitrate = 64000
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   int32_t max-input-size = 8192
+D/CCodec  ( 9901):   string mime = "audio/mpeg"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901): }
+D/CCodec  ( 9901): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 9901):   int32_t channel-count = 2
+D/CCodec  ( 9901):   string mime = "audio/raw"
+D/CCodec  ( 9901):   int32_t priority = 0
+D/CCodec  ( 9901):   int32_t sample-rate = 44100
+D/CCodec  ( 9901):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 9901): }
+I/CCodecConfig( 9901): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec( 9901): keep callback message for reclaim
+W/Codec2Client( 9901): query -- param skipped: index = 1342179345.
+W/Codec2Client( 9901): query -- param skipped: index = 2415921170.
+W/Codec2Client( 9901): query -- param skipped: index = 2684356609.
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#123] Created input block pool with allocatorID 16 => poolID 24 - OK (0)
+D/BufferPoolAccessor2.0( 9901): Destruction - bufferpool2 0xb4000079cbeeb248 cached: 0/0M, 0/0% in use; allocs: 53, 91% recycled; transfers: 94, 95% unfetched
+I/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#123] Created output block pool with allocatorID 16 => poolID 78 - OK
+D/CCodecBufferChannel( 9901): [c2.unisoc.mp3.decoder#123] Configured output block pool ids 78 => OK
+I/AudioTrack( 9901): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 601, transferType 3, uid -1, pid -1
+I/AudioTrack( 9901): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack( 9901): start(128): prior state:STATE_STOPPED
+I/flutter ( 9901): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 601
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion( 9901): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/BufferPoolAccessor2.0( 9901): bufferpool2 0xb4000079cbf080c8 : 0(0 size) total buffers - 0(0 size) used buffers - 77/82 (recycle/alloc) - 5/152 (fetch/transfer)
+D/BufferPoolAccessor2.0( 9901): evictor expired: 1, evicted: 1
+D/BufferPoolAccessor2.0( 9901): bufferpool2 0xb4000079cbf40208 : 0(0 size) total buffers - 0(0 size) used buffers - 24/29 (recycle/alloc) - 5/46 (fetch/transfer)
+D/BufferPoolAccessor2.0( 9901): bufferpool2 0xb4000079cbf17398 : 0(0 size) total buffers - 0(0 size) used buffers - 28/33 (recycle/alloc) - 5/54 (fetch/transfer)
+D/BufferPoolAccessor2.0( 9901): bufferpool2 0xb4000079cbeb81f8 : 0(0 size) total buffers - 0(0 size) used buffers - 28/33 (recycle/alloc) - 5/54 (fetch/transfer)
+D/BufferPoolAccessor2.0( 9901): evictor expired: 3, evicted: 3
