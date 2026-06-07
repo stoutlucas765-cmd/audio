@@ -1,0 +1,1419 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart' as session_pkg;
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:path/path.dart' as p;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+late MyAudioHandler _audioHandler;
+
+// ---------------- Equalizer (3 bands) ----------------
+class EqualizerGains {
+  final double bass;
+  final double mid;
+  final double treble;
+
+  const EqualizerGains({
+    required this.bass,
+    required this.mid,
+    required this.treble,
+  });
+
+  static const zero = EqualizerGains(bass: 0, mid: 0, treble: 0);
+}
+
+/// Controller para ecualizador nativo (Android) vía MethodChannel.
+class EqualizerController {
+  EqualizerController();
+
+  final MethodChannel _methodChannel = const MethodChannel(
+    'reproductor_mp3/equalizer',
+  );
+
+  bool _initialized = false;
+  bool _isSupported = false;
+
+  /// Inicia el ecualizador con un audioSessionId.
+  Future<void> init(int sessionId, {required int audioSessionId}) async {
+    if (_initialized) return;
+
+    try {
+      final bool ok =
+          (await _methodChannel.invokeMethod<bool>('init', {
+            'audioSessionId': audioSessionId,
+          })) ??
+          false;
+      _isSupported = ok;
+    } catch (_) {
+      _isSupported = false;
+    } finally {
+      _initialized = true;
+    }
+  }
+
+  Future<void> setGains({
+    required double bass,
+    required double mid,
+    required double treble,
+  }) async {
+    if (!_initialized || !_isSupported) return;
+
+    try {
+      await _methodChannel.invokeMethod('setGains', {
+        'bass': bass,
+        'mid': mid,
+        'treble': treble,
+      });
+    } catch (_) {
+      // best-effort
+    }
+  }
+
+  Future<void> release() async {
+    if (!_initialized) return;
+    try {
+      await _methodChannel.invokeMethod('release');
+    } catch (_) {
+      // best-effort
+    } finally {
+      _initialized = false;
+      _isSupported = false;
+    }
+  }
+}
+
+final EqualizerController _equalizerController = EqualizerController();
+
+// -----------------------------------------------------
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  _audioHandler = await AudioService.init(
+    builder: () => MyAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.example.reproductor_mp3.channel.audio',
+      androidNotificationChannelName: 'Reproductor Luks-Player',
+      androidShowNotificationBadge: true,
+      androidNotificationIcon: 'mipmap/ic_launcher',
+      androidStopForegroundOnPause: false,
+    ),
+  );
+
+  runApp(const MyMp3PlayerApp());
+}
+
+class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
+  final AudioPlayer _player = AudioPlayer();
+  VoidCallback? onNextRequested;
+  VoidCallback? onPrevRequested;
+
+  @override
+  Future<void> click([MediaButton button = MediaButton.media]) async {
+    switch (button) {
+      case MediaButton.media:
+        if (playbackState.value.playing) {
+          await pause();
+        } else {
+          await play();
+        }
+        break;
+      case MediaButton.next:
+        await skipToNext();
+        break;
+      case MediaButton.previous:
+        await skipToPrevious();
+        break;
+    }
+  }
+
+  MyAudioHandler() {
+    playbackState.add(
+      PlaybackState(
+        controls: const [
+          MediaControl.skipToPrevious,
+          MediaControl.play,
+          MediaControl.skipToNext,
+        ],
+        systemActions: const {
+          MediaAction.seek,
+          MediaAction.playPause,
+          MediaAction.skipToNext,
+          MediaAction.skipToPrevious,
+        },
+        processingState: AudioProcessingState.idle,
+        playing: false,
+      ),
+    );
+
+    _player.durationStream.listen((d) {
+      if (d != null && mediaItem.value != null) {
+        mediaItem.add(mediaItem.value!.copyWith(duration: d));
+      }
+    });
+
+    _player.positionStream.listen((pos) {
+      playbackState.add(
+        playbackState.value.copyWith(
+          updatePosition: pos,
+          speed: _player.playing ? 1.0 : 0.0,
+        ),
+      );
+    });
+
+    _player.playerStateStream.listen((state) {
+      final playing = state.playing;
+
+      playbackState.add(
+        playbackState.value.copyWith(
+          playing: playing,
+          processingState: const {
+            ProcessingState.idle: AudioProcessingState.idle,
+            ProcessingState.loading: AudioProcessingState.loading,
+            ProcessingState.buffering: AudioProcessingState.buffering,
+            ProcessingState.ready: AudioProcessingState.ready,
+            ProcessingState.completed: AudioProcessingState.completed,
+          }[state.processingState]!,
+          controls: [
+            MediaControl.skipToPrevious,
+            playing ? MediaControl.pause : MediaControl.play,
+            MediaControl.skipToNext,
+          ],
+          systemActions: const {
+            MediaAction.seek,
+            MediaAction.playPause,
+            MediaAction.skipToNext,
+            MediaAction.skipToPrevious,
+          },
+        ),
+      );
+    });
+  }
+
+  @override
+  Future<void> play() async => await _player.play();
+
+  @override
+  Future<void> pause() async => await _player.pause();
+
+  @override
+  Future<void> seek(Duration position) async => await _player.seek(position);
+
+  @override
+  Future<void> stop() async => await _player.stop();
+
+  @override
+  Future<void> skipToNext() async {
+    if (onNextRequested != null) onNextRequested!();
+  }
+
+  @override
+  Future<void> skipToPrevious() async {
+    if (onPrevRequested != null) onPrevRequested!();
+  }
+
+  Future<void> playLocalFile(String path) async {
+    final title = p.basename(path).replaceAll('.mp3', '');
+
+    try {
+      final session = await session_pkg.AudioSession.instance;
+      await session.configure(
+        const session_pkg.AudioSessionConfiguration(
+          avAudioSessionCategory: session_pkg.AVAudioSessionCategory.playback,
+          avAudioSessionMode: session_pkg.AVAudioSessionMode.defaultMode,
+          androidAudioAttributes: session_pkg.AndroidAudioAttributes(
+            contentType: session_pkg.AndroidAudioContentType.music,
+            usage: session_pkg.AndroidAudioUsage.media,
+          ),
+          androidAudioFocusGainType: session_pkg.AndroidAudioFocusGainType.gain,
+        ),
+      );
+      await session.setActive(true);
+    } catch (e) {
+      debugPrint("Error session: $e");
+    }
+
+    mediaItem.add(
+      MediaItem(
+        id: path,
+        album: "Luks-Player",
+        title: title,
+        artist: "Archivo Local",
+        duration: Duration.zero,
+      ),
+    );
+
+    try {
+      await _player.setAudioSource(
+        AudioSource.uri(
+          Uri.file(path),
+          // Forzamos la configuración de metadatos nativos para que Android active el DSP de efectos
+          tag: MediaItem(
+            id: path,
+            album: "Luks-Player",
+            title: title,
+            artist: "Archivo Local",
+          ),
+        ),
+        preload: true,
+      );
+       final sessionId = _player.androidAudioSessionId; 
+      if (sessionId != null) {
+        // Inicializa y activa el ecualizador usando el parámetro nombrado correcto
+        await _equalizerController.init(sessionId, audioSessionId: 0); 
+        
+        // BORRAMOS la línea de setEnabled porque no existe en EqualizerController ❌
+        
+        debugPrint("🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: $sessionId");
+      }
+      //
+      _player.play();
+
+      _player.durationStream.first.then((realDuration) {
+        if (realDuration != null && mediaItem.value != null) {
+          mediaItem.add(mediaItem.value!.copyWith(duration: realDuration));
+        }
+      });
+    } catch (e) {
+      debugPrint("Error play source: $e");
+      await _player.stop();
+      rethrow;
+    }
+
+    playbackState.add(
+      playbackState.value.copyWith(
+        playing: true,
+        processingState: AudioProcessingState.ready,
+      ),
+    );
+  }
+
+  void actualizarColaSistema(List<String> paths, int indiceActual) {
+    final List<MediaItem> nuevaCola = [];
+
+    for (int i = 0; i < paths.length; i++) {
+      final nombreTrack = p.basename(paths[i]).replaceAll('.mp3', '');
+      nuevaCola.add(
+        MediaItem(
+          id: paths[i],
+          title: nombreTrack,
+          album: "Luks-Player",
+          artist: "Archivo Local",
+        ),
+      );
+    }
+
+    queue.add(nuevaCola);
+
+    if (indiceActual >= 0 && indiceActual < paths.length) {
+      final bool estaSonando = playbackState.value.playing;
+
+      playbackState.add(
+        playbackState.value.copyWith(
+          queueIndex: indiceActual,
+          controls: [
+            MediaControl.skipToPrevious,
+            estaSonando ? MediaControl.pause : MediaControl.play,
+            MediaControl.skipToNext,
+          ],
+          systemActions: const {
+            MediaAction.seek,
+            MediaAction.playPause,
+            MediaAction.skipToNext,
+            MediaAction.skipToPrevious,
+          },
+        ),
+      );
+    }
+  }
+
+  AudioPlayer get playerInstance => _player;
+}
+
+class MyMp3PlayerApp extends StatelessWidget {
+  const MyMp3PlayerApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Luks-Player',
+      theme: ThemeData.dark(useMaterial3: true).copyWith(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+          brightness: Brightness.dark,
+        ),
+      ),
+      home: const MainPlayerScreen(),
+    );
+  }
+}
+
+class MainPlayerScreen extends StatefulWidget {
+  const MainPlayerScreen({super.key});
+
+  @override
+  State<MainPlayerScreen> createState() => _MainPlayerScreenState();
+}
+
+class _MainPlayerScreenState extends State<MainPlayerScreen> {
+  final ScrollController _scrollController = ScrollController();
+  final Map<String, GlobalKey> _songKeys = {};
+  final TextEditingController _searchController = TextEditingController();
+
+  List<String> _playlist = List<String>.empty(growable: true);
+  List<int> _shuffledIndices = List<int>.empty(growable: true);
+
+  int _currentIndex = -1;
+  bool _isPlaying = false;
+  final AudioPlayer player = AudioPlayer(); // Tu reproductor existente
+
+  // Agrega esta línea para exponerlo:
+  AudioPlayer get playerInstance => player;
+  bool _isShuffle = false;
+
+  // Mantener el estado aunque actualmente no se usa directamente en la UI.
+  bool _isAudioLoading = false;
+
+  Duration _duration = Duration.zero;
+  Duration _position = Duration.zero;
+
+  Timer? _searchDebounce;
+
+  bool _isSearching = false;
+  String _searchQuery = "";
+
+  StreamSubscription<Duration?>? _durationSub;
+  StreamSubscription<Duration>? _positionSub;
+  StreamSubscription<PlayerState>? _playerStateSub;
+  StreamSubscription<PlaybackState>? _playbackStateSub;
+
+  // Equalizer UI (3 bands)
+  bool _showEqualizer = false;
+  double _bassDb = 0.0;
+  double _midDb = 0.0;
+  double _trebleDb = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _solicitarPermisoBluetooth();
+    _initAudioListeners();
+    _loadSavedPlaylist();
+
+    _playbackStateSub = _audioHandler.playbackState.listen((state) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = state.playing;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchDebounce?.cancel();
+
+    _durationSub?.cancel();
+    _positionSub?.cancel();
+    _playerStateSub?.cancel();
+    _playbackStateSub?.cancel();
+
+    _searchController.dispose();
+    _scrollController.dispose();
+
+    // best-effort cleanup
+    _equalizerController.release();
+
+    super.dispose();
+  }
+
+  List<String> _getVisiblePlaylist() {
+    if (!_isSearching || _searchQuery.isEmpty) return _playlist;
+
+    final query = _searchQuery.toLowerCase();
+    return _playlist
+        .where((songPath) => p.basename(songPath).toLowerCase().contains(query))
+        .toList();
+  }
+
+  void _scrollToCurrentSong(int indexVisual) {
+    if (indexVisual < 0 || !_scrollController.hasClients) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+
+      final double viewportHeight =
+          _scrollController.position.viewportDimension;
+
+      final double songTopOffset = indexVisual * 48.0;
+      final double targetOffset = songTopOffset - (viewportHeight / 2) + 24.0;
+
+      final double maxScroll = _scrollController.position.maxScrollExtent;
+      _scrollController.jumpTo(targetOffset.clamp(0.0, maxScroll));
+    });
+  }
+
+  Future<void> _solicitarPermisoBluetooth() async {
+    if (await Permission.bluetoothConnect.isDenied) {
+      await Permission.bluetoothConnect.request();
+    }
+  }
+
+  void _initAudioListeners() {
+    _audioHandler.playerInstance.androidAudioSessionIdStream.listen((id) async {
+      if (id != null && id > 0) {
+        try {
+          // 1. Apagamos cualquier rastro del ecualizador anterior para liberar el chip de sonido
+          await _equalizerController.release();
+
+          // 2. Inicializamos el ecualizador inyectándole el ID EXACTO que acaba de crear el reproductor (ej. 1401)
+          await _equalizerController.init(id, audioSessionId: 0);
+
+          // 3. Le enviamos inmediatamente los decibelios de tus sliders
+          await _equalizerController.setGains(
+            bass: _bassDb.toDouble(),
+            mid: _midDb.toDouble(),
+            treble: _trebleDb.toDouble(),
+          );
+
+          print("🚀 Ecualizador enlazado con éxito a la sesión activa: $id");
+        } catch (e) {
+          print("Error al sincronizar ecualizador en tiempo real: $e");
+        }
+      }
+    });
+
+    _durationSub = _audioHandler.playerInstance.durationStream.listen(
+      (d) => setState(() => _duration = d ?? Duration.zero),
+    );
+
+    _positionSub = _audioHandler.playerInstance.positionStream.listen((p) {
+      if (!mounted) return;
+
+      setState(() {
+        _position = p.inMilliseconds > _duration.inMilliseconds ? _duration : p;
+      });
+    });
+
+    _playerStateSub = _audioHandler.playerInstance.playerStateStream.listen((
+      state,
+    ) {
+      if (!mounted) return;
+
+      setState(() {
+        _isPlaying = state.playing;
+      });
+
+      if (state.playing && _currentIndex != -1 && _playlist.isNotEmpty) {
+        final String currentPath = _playlist[_currentIndex];
+        final int visualIndex = _isSearching
+            ? _getVisiblePlaylist().indexOf(currentPath)
+            : _currentIndex;
+
+        _scrollToCurrentSong(visualIndex);
+      }
+
+      if (state.processingState == ProcessingState.completed) {
+        _nextSongWithShuffle();
+      }
+    });
+
+    _audioHandler.onNextRequested = () => _nextSongWithShuffle();
+    _audioHandler.onPrevRequested = () => _prevSongWithShuffle();
+  }
+
+  Future<void> _playCurrent() async {
+    if (_currentIndex < 0 || _currentIndex >= _playlist.length) return;
+
+    final String path = _playlist[_currentIndex];
+    final int visualIndex = _isSearching
+        ? _getVisiblePlaylist().indexOf(path)
+        : _currentIndex;
+
+    _scrollToCurrentSong(visualIndex);
+
+    _searchDebounce?.cancel();
+
+    _searchDebounce = Timer(const Duration(milliseconds: 150), () async {
+      if (!mounted) return;
+
+      try {
+        setState(() => _isAudioLoading = true);
+
+        final file = File(path);
+
+        if (!await file.exists() || await file.length() == 0) {
+          debugPrint("Archivo dañado o vacío (0 bytes): $path");
+          _nextSongWithShuffle();
+          return;
+        }
+
+        await _audioHandler.playLocalFile(path);
+      } catch (e) {
+        debugPrint("Error play current: $e");
+        _nextSongWithShuffle();
+      } finally {
+        if (mounted) {
+          Future.delayed(const Duration(milliseconds: 50), () {
+            if (mounted) setState(() => _isAudioLoading = false);
+          });
+        }
+      }
+    });
+  }
+
+  Future<void> _loadSavedPlaylist() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedList = prefs.getStringList('saved_playlist') ?? [];
+    if (savedList.isNotEmpty) {
+      setState(() {
+        _playlist = savedList;
+        _currentIndex = 0;
+      });
+    }
+  }
+
+  Future<void> _savePlaylist() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('saved_playlist', _playlist);
+  }
+
+  void _mostrarMenuCarpetas(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+       isScrollControlled: true,
+      backgroundColor: Colors.grey[900],
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "Seleccionar origen de música",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.download, color: Colors.teal),
+                title: const Text("Carpeta Descargas (Downloads)"),
+                subtitle: const Text(
+                  "Escanear música de la carpeta principal del sistema",
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _openDownloadsDirectly();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.folder_copy, color: Colors.teal),
+                title: const Text("Elegir otra carpeta"),
+                subtitle: const Text(
+                  "Abrir el explorador para buscar otras subcarpetas",
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickFolder();
+                },
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _pickFolder() async {
+    try {
+      if (await Permission.audio.request().isGranted ||
+          await Permission.storage.request().isGranted) {
+        final String? directoryPath = await FilePicker.platform
+            .getDirectoryPath();
+        if (directoryPath == null) return;
+        _scanDirectory(directoryPath);
+      }
+    } catch (e) {
+      debugPrint("Error carpeta: $e");
+    }
+  }
+
+  Future<void> _openDownloadsDirectly() async {
+    try {
+      var status = await Permission.manageExternalStorage.status;
+      if (!status.isGranted) {
+        status = await Permission.manageExternalStorage.request();
+      }
+
+      if (status.isGranted) {
+        _scanDirectory('/storage/emulated/0/Download');
+      } else {
+        if (await Permission.manageExternalStorage.isPermanentlyDenied) {
+          openAppSettings();
+        }
+      }
+    } catch (e) {
+      debugPrint("Error downloads: $e");
+    }
+  }
+
+  Future<void> _scanDirectory(String path) async {
+    final dir = Directory(path);
+    final List<String> nuevosMp3 = <String>[];
+
+    await for (final entity in dir.list(recursive: false, followLinks: false)) {
+      if (entity is File && p.extension(entity.path).toLowerCase() == '.mp3') {
+        if (!_playlist.contains(entity.path)) {
+          nuevosMp3.add(entity.path);
+        }
+      }
+    }
+
+    if (nuevosMp3.isNotEmpty) {
+      nuevosMp3.sort((a, b) => p.basename(a).compareTo(b));
+
+      setState(() {
+        _playlist.addAll(nuevosMp3);
+        if (_currentIndex == -1) _currentIndex = 0;
+      });
+
+      await _savePlaylist();
+      if (_isShuffle) {
+        _rebuildShuffleIndices();
+      }
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Se añadieron ${nuevosMp3.length} canciones a la lista.',
+            ),
+            backgroundColor: Colors.teal,
+          ),
+        );
+      }
+
+      if (!_isPlaying && _currentIndex == _playlist.indexOf(nuevosMp3.first)) {
+        await _playCurrent();
+      }
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'No se encontraron canciones nuevas en esta carpeta.',
+            ),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _eliminarCancion(int index) async {
+    try {
+      if (_playlist.isEmpty || index < 0 || index >= _playlist.length) return;
+
+      final bool borroLaCancionActual = (_currentIndex == index);
+
+      String? proximaCancionPath;
+      if (borroLaCancionActual && _playlist.length > 1) {
+        if (_isShuffle && _shuffledIndices.isNotEmpty) {
+          final int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+          final int nextShufflePos =
+              (currentShufflePos + 1) % _shuffledIndices.length;
+          proximaCancionPath = _playlist[_shuffledIndices[nextShufflePos]];
+        } else {
+          final int siguienteIndiceFisico = (index + 1) % _playlist.length;
+          proximaCancionPath = _playlist[siguienteIndiceFisico];
+        }
+      }
+
+      setState(() {
+        if (borroLaCancionActual) {
+          _playlist.removeAt(index);
+          _isPlaying = false;
+        } else {
+          if (_currentIndex > index) _currentIndex--;
+          _playlist.removeAt(index);
+        }
+      });
+
+      await _savePlaylist();
+
+      if (_isShuffle) {
+        _rebuildShuffleIndices();
+      }
+
+      if (borroLaCancionActual && _playlist.isNotEmpty) {
+        if (proximaCancionPath != null &&
+            _playlist.contains(proximaCancionPath)) {
+          _currentIndex = _playlist.indexOf(proximaCancionPath);
+        } else {
+          _currentIndex = _playlist.isNotEmpty ? 0 : -1;
+        }
+
+        if (_currentIndex != -1) {
+          await _playCurrent();
+        }
+      } else if (_playlist.isEmpty) {
+        _currentIndex = -1;
+        await _audioHandler.stop();
+      }
+    } catch (e) {
+      debugPrint("Error eliminar canción con shuffle: $e");
+    }
+  }
+
+  Future<void> _clearPlaylist() async {
+    await _audioHandler.stop();
+    setState(() {
+      _playlist.clear();
+      _currentIndex = -1;
+      _isPlaying = false;
+      _isShuffle = false;
+      _shuffledIndices.clear();
+      _duration = Duration.zero;
+      _position = Duration.zero;
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('saved_playlist');
+  }
+
+  void _togglePlay() async {
+    try {
+      if (_playlist.isEmpty) return;
+
+      if (_isPlaying) {
+        await _audioHandler.pause();
+        return;
+      }
+
+      if (_currentIndex >= 0 && _currentIndex < _playlist.length) {
+        if (_position != Duration.zero) {
+          await _audioHandler.play();
+        } else {
+          await _playCurrent();
+        }
+      }
+    } catch (e) {
+      debugPrint("Error toggle: $e");
+    }
+  }
+
+  void _toggleShuffle() {
+    setState(() {
+      _isShuffle = !_isShuffle;
+      if (_isShuffle) {
+        _rebuildShuffleIndices();
+      }
+    });
+  }
+
+  void _rebuildShuffleIndices() {
+    _shuffledIndices = List.generate(_playlist.length, (i) => i);
+    _shuffledIndices.shuffle();
+
+    if (_currentIndex != -1) {
+      _shuffledIndices.remove(_currentIndex);
+      _shuffledIndices.insert(0, _currentIndex);
+    }
+  }
+
+  void _nextSongWithShuffle() {
+    if (_playlist.isEmpty) return;
+
+    setState(() {
+      if (_isShuffle && _shuffledIndices.isNotEmpty) {
+        final int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+        final int nextShufflePos =
+            (currentShufflePos + 1) % _shuffledIndices.length;
+        _currentIndex = _shuffledIndices[nextShufflePos];
+      } else {
+        _currentIndex = (_currentIndex + 1) % _playlist.length;
+      }
+    });
+
+    _audioHandler.actualizarColaSistema(_playlist, _currentIndex);
+    _playCurrent();
+
+    final String currentPath = _playlist[_currentIndex];
+    final int visualIndex = _isSearching
+        ? _getVisiblePlaylist().indexOf(currentPath)
+        : _currentIndex;
+
+    if (visualIndex != -1) {
+      _scrollToCurrentSong(visualIndex);
+    }
+  }
+
+  void _prevSongWithShuffle() {
+    if (_playlist.isEmpty) return;
+
+    setState(() {
+      if (_isShuffle && _shuffledIndices.isNotEmpty) {
+        final int currentShufflePos = _shuffledIndices.indexOf(_currentIndex);
+        final int prevShufflePos =
+            (currentShufflePos - 1 + _shuffledIndices.length) %
+            _shuffledIndices.length;
+        _currentIndex = _shuffledIndices[prevShufflePos];
+      } else {
+        _currentIndex =
+            (_currentIndex - 1 + _playlist.length) % _playlist.length;
+      }
+    });
+
+    _audioHandler.actualizarColaSistema(_playlist, _currentIndex);
+    _playCurrent();
+
+    final String currentPath = _playlist[_currentIndex];
+    final int visualIndex = _isSearching
+        ? _getVisiblePlaylist().indexOf(currentPath)
+        : _currentIndex;
+
+    if (visualIndex != -1) {
+      _scrollToCurrentSong(visualIndex);
+    }
+  }
+
+  void _mostrarDialogoConfirmacion(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.grey[900],
+          title: const Text(
+            '¿Vaciar lista?',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          content: const Text(
+            'Esto eliminará todas las canciones del listado de reproducción actual. Los archivos físicos no se borrarán.',
+            style: TextStyle(color: Colors.grey),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.teal),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+              ),
+              onPressed: () async {
+                Navigator.pop(context);
+                await _clearPlaylist();
+              },
+              child: const Text(
+                'Vaciar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
+
+  void _toggleEqualizer() {
+    setState(() {
+      _showEqualizer = !_showEqualizer;
+    });
+    // Eliminamos todo el código de inicialización manual de aquí adentro.
+    // Ahora la música se ecualiza sola en segundo plano gracias a _initAudioListeners().
+  }
+
+  Future<void> _applyEqualizerGains() async {
+    _equalizerController.setGains(
+      bass: _bassDb.toDouble(),
+      mid: _midDb.toDouble(),
+      treble: _trebleDb.toDouble(),
+    );
+  }
+
+  Widget _buildBandSlider({
+    required String label,
+    required double valueDb,
+    required ValueChanged<double> onChanged,
+  }) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              '${valueDb.toStringAsFixed(0)} dB',
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
+        ),
+        Slider(
+          activeColor: Colors.teal,
+          inactiveColor: Colors.grey,
+          min: -10,
+          max: 10,
+          value: valueDb.clamp(-10, 10),
+          onChanged: (v) => onChanged(v),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final String currentTrackName =
+        (_currentIndex != -1 && _playlist.isNotEmpty)
+        ? p.basename(_playlist[_currentIndex])
+        : "Ninguna canción seleccionada";
+
+    final List<String> filteredPlaylist = _getVisiblePlaylist();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: _isSearching
+            ? TextField(
+                controller: _searchController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: "Buscar canción...",
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+              )
+            : const Text(
+                'Luks-Player',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal,
+                ),
+              ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: PopupMenuButton(
+          icon: const Icon(Icons.menu, color: Colors.teal),
+          onSelected: (value) async {
+            if (value == 'agregar') {
+              _mostrarMenuCarpetas(context);
+            } else if (value == 'limpiar') {
+              _mostrarDialogoConfirmacion(context);
+            } else if (value == 'cerrar') {
+              await _audioHandler.stop();
+              if (Platform.isAndroid) {
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              } else {
+                exit(0);
+              }
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+            const PopupMenuItem(
+              value: 'agregar',
+              child: Row(
+                children: [
+                  Icon(Icons.create_new_folder, color: Colors.teal, size: 20),
+                  SizedBox(width: 10),
+                  Text('Añadir Carpeta'),
+                ],
+              ),
+            ),
+            if (_playlist.isNotEmpty)
+              const PopupMenuItem(
+                value: 'limpiar',
+                child: Row(
+                  children: [
+                    Icon(Icons.delete_sweep, color: Colors.redAccent, size: 20),
+                    SizedBox(width: 10),
+                    Text('Vaciar lista'),
+                  ],
+                ),
+              ),
+            const PopupMenuDivider(),
+            const PopupMenuItem(
+              value: 'cerrar',
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.power_settings_new,
+                    color: Colors.orangeAccent,
+                    size: 20,
+                  ),
+                  SizedBox(width: 10),
+                  Text('Cerrar'),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          if (_playlist.isNotEmpty)
+            IconButton(
+              icon: Icon(
+                _isSearching ? Icons.close : Icons.search,
+                color: Colors.teal,
+              ),
+              onPressed: () {
+                setState(() {
+                  if (_isSearching) {
+                    _isSearching = false;
+                    _searchController.clear();
+                    _searchQuery = "";
+                  } else {
+                    _isSearching = true;
+                  }
+                });
+              },
+            ),
+          IconButton(
+            tooltip: 'Ecualizador',
+            icon: Icon(
+              _showEqualizer ? Icons.tune : Icons.tune_outlined,
+              color: _showEqualizer ? Colors.tealAccent : Colors.teal,
+            ),
+            onPressed: () {
+              _toggleEqualizer();
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: filteredPlaylist.isEmpty
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(24.0),
+                      child: Text(
+                        'No hay canciones.',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemExtent: 48.0,
+                    itemCount: filteredPlaylist.length,
+                    itemBuilder: (context, index) {
+                      final String songPath = filteredPlaylist[index];
+                      final String songName = p
+                          .basename(songPath)
+                          .replaceAll('.mp3', '');
+                      final int originalIndex = _playlist.indexOf(songPath);
+                      final bool isSelected = _currentIndex == originalIndex;
+
+                      _songKeys.putIfAbsent(songPath, () => GlobalKey());
+
+                      return Dismissible(
+                        key: Key(songPath),
+                        direction: DismissDirection.horizontal,
+                        onDismissed: (_) => _eliminarCancion(originalIndex),
+                        child: Container(
+                          key: _songKeys[songPath],
+                          child: ListTile(
+                            dense: true,
+                            visualDensity: VisualDensity.compact,
+                            leading: Icon(
+                              Icons.music_note,
+                              color: isSelected ? Colors.teal : Colors.grey,
+                              size: 20,
+                            ),
+                            title: Text(
+                              songName,
+                              style: TextStyle(
+                                color: isSelected ? Colors.teal : Colors.white,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            onTap: () async {
+                              _currentIndex = originalIndex;
+                              await _playCurrent();
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+          if (_showEqualizer)
+            Container(
+              padding: const EdgeInsets.only(
+                top: 12,
+                bottom: 12,
+                left: 16,
+                right: 16,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black38,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                border: Border(
+                  top: BorderSide(color: Colors.white.withAlpha(13)),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Ecualizador',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.tealAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildBandSlider(
+                    label: 'BASS',
+                    valueDb: _bassDb,
+                    onChanged: (v) {
+                      setState(() => _bassDb = v);
+                      _equalizerController.setGains(
+                        bass: _bassDb.toDouble(),
+                        mid: _midDb.toDouble(),
+                        treble: _trebleDb.toDouble(),
+                      );
+                    },
+                  ),
+                  _buildBandSlider(
+                    label: 'MID',
+                    valueDb: _midDb,
+                    onChanged: (v) {
+                      setState(() => _midDb = v);
+                      _equalizerController.setGains(
+                        bass: _bassDb.toDouble(),
+                        mid: _midDb.toDouble(),
+                        treble: _trebleDb.toDouble(),
+                      );
+                    },
+                  ),
+                  _buildBandSlider(
+                    label: 'TREBLE',
+                    valueDb: _trebleDb,
+                    onChanged: (v) {
+                      setState(() => _trebleDb = v);
+                      _equalizerController.setGains(
+                        bass: _bassDb.toDouble(),
+                        mid: _midDb.toDouble(),
+                        treble: _trebleDb.toDouble(),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 6),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _bassDb = 0.0;
+                        _midDb = 0.0;
+                        _trebleDb = 0.0;
+                      });
+                      _applyEqualizerGains();
+                    },
+                    child: const Text(
+                      'Reset',
+                      style: TextStyle(color: Colors.tealAccent),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          Container(
+            padding: const EdgeInsets.only(
+              bottom: 24,
+              top: 12,
+              left: 16,
+              right: 16,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black38,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              border: Border(
+                top: BorderSide(color: Colors.white.withAlpha(13)),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  currentTrackName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text(
+                      _formatDuration(_position),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        activeColor: Colors.teal,
+                        inactiveColor: Colors.grey,
+                        value: _position.inMilliseconds.toDouble().clamp(
+                          0.0,
+                          _duration.inMilliseconds.toDouble() > 0
+                              ? _duration.inMilliseconds.toDouble()
+                              : 1.0,
+                        ),
+                        max: _duration.inMilliseconds.toDouble() > 0
+                            ? _duration.inMilliseconds.toDouble()
+                            : 1.0,
+                        onChanged: (value) {
+                          final int nuevaPos = value.toInt();
+                          if (nuevaPos >= 0 &&
+                              nuevaPos <= _duration.inMilliseconds) {
+                            setState(() {
+                              _position = Duration(milliseconds: nuevaPos);
+                            });
+                            _audioHandler.seek(
+                              Duration(milliseconds: nuevaPos),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    Text(
+                      _formatDuration(_duration),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Bloque Izquierdo: Ocupa la mitad del espacio restante
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              _isShuffle
+                                  ? Icons.shuffle_on_rounded
+                                  : Icons.shuffle_rounded,
+                              size: 26,
+                            ),
+                            iconSize: 24,
+                            color: _isShuffle ? Colors.tealAccent : Colors.grey,
+                            onPressed: _playlist.isEmpty
+                                ? null
+                                : _toggleShuffle,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.skip_previous_rounded,
+                              size: 40,
+                            ),
+                            iconSize:
+                                40, // Ajustado para que el contenedor no corte el icono de 40
+                            onPressed: _playlist.isEmpty
+                                ? null
+                                : _prevSongWithShuffle,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // BOTÓN PLAY CENTRAL: Queda inmóvil en el centro exacto de la pantalla
+                    IconButton(
+                      icon: Icon(
+                        _isPlaying
+                            ? Icons.pause_circle_filled_rounded
+                            : Icons.play_circle_filled_rounded,
+                        size: 64,
+                      ),
+                      iconSize:
+                          64, // Ajustado para que coincida con el tamaño real del icono
+                      color: Colors.tealAccent,
+                      onPressed: _playlist.isEmpty ? null : _togglePlay,
+                    ),
+
+                    // Bloque Derecho: Ocupa exactamente la misma proporción que el izquierdo
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.skip_next_rounded, size: 40),
+                            iconSize:
+                                40, // Ajustado para que el contenedor no corte el icono de 40
+                            onPressed: _playlist.isEmpty
+                                ? null
+                                : _nextSongWithShuffle,
+                          ),
+                          // Espacio invisible equivalente al botón Shuffle para centrar el Play de forma matemática
+                          const SizedBox(width: 48),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
