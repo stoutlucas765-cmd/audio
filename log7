@@ -1,0 +1,380 @@
+D/FlutterRenderer(28893): Width is zero. 0,0
+Connecting to VM Service at ws://127.0.0.1:59269/n4Baw15z3jo=/ws
+Connected to the VM Service.
+I/Choreographer(28893): Skipped 232 frames!  The application may be doing too much work on its main thread.
+I/Choreographer(28893): Skipped 232 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+D/FlutterRenderer(28893): Width is zero. 0,0
+D/VRI[MainActivity](28893): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=0
+D/FlutterRenderer(28893): Width is zero. 0,0
+I/reproductor_mp3(28893): Compiler allocated 4113KB to compile void android.view.ViewRootImpl.performTraversals()
+D/CompatibilityChangeReporter(28893): Compat change id reported: 160794467; UID 10360; state: ENABLED
+I/System.out(28893): flutterEngine warmed up
+D/FlutterRenderer(28893): Width is zero. 0,0
+I/Choreographer(28893): Skipped 36 frames!  The application may be doing too much work on its main thread.
+I/Choreographer(28893): Skipped 36 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+D/FlutterRenderer(28893): Width is zero. 0,0
+D/VRI[MainActivity](28893): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=3
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+I/mali_gralloc(28893): register: id=0x29f00000c45, importpid=-1
+I/mali_gralloc(28893): register: id=0x29f00000c46, importpid=-1
+W/Parcel  (28893): Expecting binder but got null!
+I/mali_gralloc(28893): register: id=0x29f00000c47, importpid=-1
+W/libc    (28893): Access denied finding property "persist.unipnp.debug"
+W/libc    (28893): Access denied finding property "persist.unipnp.debug"
+W/reproductor_mp3(28893): type=1400 audit(0.0:16122): avc: denied { read } for name="u:object_r:unipnp_prop:s0" dev="tmpfs" ino=15889 scontext=u:r:untrusted_app:s0:c104,c257,c512,c768 tcontext=u:object_r:unipnp_prop:s0 tclass=file permissive=0 app=com.example.reproductor_mp3
+W/reproductor_mp3(28893): type=1400 audit(0.0:16123): avc: denied { read } for name="u:object_r:unipnp_prop:s0" dev="tmpfs" ino=15889 scontext=u:r:untrusted_app:s0:c104,c257,c512,c768 tcontext=u:object_r:unipnp_prop:s0 tclass=file permissive=0 app=com.example.reproductor_mp3
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+I/mali_gralloc(28893): register: id=0x29f00000c48, importpid=-1
+D/ProfileInstaller(28893): Installing profile for com.example.reproductor_mp3
+W/reproductor_mp3(28893): userfaultfd: MOVE ioctl seems unsupported: Connection timed out
+I/reproductor_mp3(28893): Background concurrent mark compact GC freed 3950KB AllocSpace bytes, 8(212KB) LOS objects, 87% free, 3412KB/27MB, paused 229us,3.300ms total 164.936ms
+E/ActivityThread(28893): Failed to find provider info for com.zte.intellitext.IntelliTextProvider
+D/ConfigUtil(28893): config null
+D/IntelliTextControl(28893): load info error
+I/mali_gralloc(28893): register: id=0x29f00000c49, importpid=-1
+I/ExoPlayerImpl(28893): Init f587cf4 [AndroidXMedia3/1.4.1] [P606F13, Z2359, ZTE, 33]
+I/reproductor_mp3(28893): hiddenapi: Accessing hidden method Landroid/media/AudioTrack;->getLatency()I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/media3/exoplayer/audio/AudioTrackPositionTracker; (domain=app, TargetSdkVersion=35) using reflection: allowed
+I/flutter (28893): 🚀 Ecualizador enlazado con éxito a la sesión activa: 537
+W/AudioCapabilities(28893): Unsupported mime audio/ima-adpcm
+W/AudioCapabilities(28893): Unsupported mime audio/mpeg-L1
+W/AudioCapabilities(28893): Unsupported mime audio/mpeg-L2
+I/DMCodecAdapterFactory(28893): Creating an asynchronous MediaCodec adapter for track type audio
+D/CCodec  (28893): allocate(c2.unisoc.mp3.decoder)
+I/Codec2Client(28893): Available Codec2 services: "default" "software"
+I/CCodec  (28893): setting up 'default' as default (vendor) store
+I/CCodec  (28893): Created component [c2.unisoc.mp3.decoder]
+D/CCodecConfig(28893): read media type: audio/mpeg
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater(28893): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig(28893): query failed after returning 9 values (BAD_INDEX)
+D/CCodecConfig(28893): c2 config diff is Dict {
+D/CCodecConfig(28893):   c2::i32 algo.priority.value = -1
+D/CCodecConfig(28893):   c2::float algo.rate.value = -1
+D/CCodecConfig(28893):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig(28893):   c2::u32 input.buffers.max-size.value = 8192
+D/CCodecConfig(28893):   c2::u32 input.delay.value = 0
+D/CCodecConfig(28893):   string input.media-type.value = "audio/mpeg"
+D/CCodecConfig(28893):   string output.media-type.value = "audio/raw"
+D/CCodecConfig(28893):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig(28893):   c2::u32 raw.sample-rate.value = 44100
+D/CCodecConfig(28893): }
+I/MediaCodec(28893): MediaCodec will operate in async mode
+D/MediaCodec(28893): flushMediametrics
+D/CCodec  (28893): [c2.unisoc.mp3.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig(28893): no c2 equivalents for log-session-id
+D/CCodecConfig(28893): no c2 equivalents for flags
+D/CCodecConfig(28893): config failed => CORRUPTED
+D/CCodecConfig(28893): c2 config diff is   c2::i32 algo.priority.value = 0
+W/Codec2Client(28893): query -- param skipped: index = 1107298332.
+D/CCodec  (28893): client requested max input size 4096, which is smaller than what component recommended (8192); overriding with component recommendation.
+W/CCodec  (28893): This behavior is subject to change. It is recommended that app developers double check whether the requested max input size is in reasonable range.
+D/CCodec  (28893): encoding statistics level = 0
+D/CCodec  (28893): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  (28893):   int32_t bitrate = 64000
+D/CCodec  (28893):   int32_t channel-count = 2
+D/CCodec  (28893):   int32_t max-input-size = 8192
+D/CCodec  (28893):   string mime = "audio/mpeg"
+D/CCodec  (28893):   int32_t priority = 0
+D/CCodec  (28893):   int32_t sample-rate = 44100
+D/CCodec  (28893): }
+D/CCodec  (28893): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  (28893):   int32_t channel-count = 2
+D/CCodec  (28893):   string mime = "audio/raw"
+D/CCodec  (28893):   int32_t priority = 0
+D/CCodec  (28893):   int32_t sample-rate = 44100
+D/CCodec  (28893):   int32_t android._config-pcm-encoding = 2
+D/CCodec  (28893): }
+I/CCodecConfig(28893): query failed after returning 9 values (BAD_INDEX)
+D/MediaCodec(28893): keep callback message for reclaim
+W/Codec2Client(28893): query -- param skipped: index = 1342179345.
+W/Codec2Client(28893): query -- param skipped: index = 2415921170.
+W/Codec2Client(28893): query -- param skipped: index = 2684356609.
+D/C2Store (28893): Using ION
+D/CCodecBufferChannel(28893): [c2.unisoc.mp3.decoder#690] Created input block pool with allocatorID 16 => poolID 17 - OK (0)
+I/CCodecBufferChannel(28893): [c2.unisoc.mp3.decoder#690] Created output block pool with allocatorID 16 => poolID 37 - OK
+D/CCodecBufferChannel(28893): [c2.unisoc.mp3.decoder#690] Configured output block pool ids 37 => OK
+I/flutter (28893): 🚀 Ecualizador re-enlazado en tiempo de ejecución a la sesión: 537
+I/AudioTrack(28893): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 14176, flags #0, notificationFrames 0, sessionId 537, transferType 3, uid -1, pid -1
+I/AudioTrack(28893): set(): Building AudioTrack with attributes: usage=1 content=2 flags=0xa00 tags=[]
+I/AudioTrack(28893): start(70): prior state:STATE_STOPPED
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/AudioTrack(28893): getTimestamp_l(70): device stall time corrected using current time 25234318193258
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 200/205 (recycle/alloc) - 5/406 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 400/405 (recycle/alloc) - 5/806 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 600/605 (recycle/alloc) - 5/1206 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 800/805 (recycle/alloc) - 5/1606 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 1000/1005 (recycle/alloc) - 5/2006 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 1200/1205 (recycle/alloc) - 5/2406 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 1400/1405 (recycle/alloc) - 5/2806 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 1600/1605 (recycle/alloc) - 5/3206 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 1800/1805 (recycle/alloc) - 5/3606 (fetch/transfer)
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+D/VRI[MainActivity](28893): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=1
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+I/mali_gralloc(28893): unregister: id=0x29f00000c45, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c4f, importpid=-1
+I/mali_gralloc(28893): unregister: id=0x29f00000c46, base=0x0, importpid=28893
+I/mali_gralloc(28893): unregister: id=0x29f00000c47, base=0x0, importpid=28893
+I/Choreographer(28893): Skipped 20 frames by ZTE_SUPERKILLER_SKIPPED_FRAME_GAUGE, going to report to SuperKiller
+I/mali_gralloc(28893): register: id=0x29f00000c56, importpid=-1
+I/mali_gralloc(28893): register: id=0x29f00000c57, importpid=-1
+
+════════ Exception caught by rendering library ═════════════════════════════════
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 238 pixels on the bottom.
+
+The relevant error-causing widget was:
+    Column Column:file:///C:/Users/Admin/reproductor_mp3/lib/main.dart:1123:13
+
+: To inspect this widget in Flutter DevTools, visit: http://127.0.0.1:9100/#/inspector?uri=http%3A%2F%2F127.0.0.1%3A59269%2Fn4Baw15z3jo%3D%2F&inspectorRef=inspector-0
+
+The overflowing RenderFlex has an orientation of Axis.vertical.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be seen. If the content is legitimately bigger than the available space, consider clipping it with a ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex, like a ListView.
+The specific RenderFlex in question is: RenderFlex#747d0 relayoutBoundary=up1 OVERFLOWING
+    needs compositing
+    parentData: offset=Offset(0.0, 105.5); id=_ScaffoldSlot.body (can use size)
+    constraints: BoxConstraints(0.0<=w<=726.0, 0.0<=h<=254.5)
+    size: Size(726.0, 254.5)
+    direction: vertical
+    mainAxisAlignment: start
+    mainAxisSize: max
+    crossAxisAlignment: center
+    verticalDirection: down
+    spacing: 0.0
+    child 1: RenderClipRect#bb6ed relayoutBoundary=up2
+        needs compositing
+        parentData: offset=Offset(0.0, 0.0); flex=1; fit=FlexFit.tight (can use size)
+        constraints: BoxConstraints(0.0<=w<=726.0, h=0.0)
+        size: Size(726.0, 0.0)
+        child: RenderTransform#4e1ba relayoutBoundary=up3
+            needs compositing
+            parentData: <none> (can use size)
+            constraints: BoxConstraints(0.0<=w<=726.0, h=0.0)
+            size: Size(726.0, 0.0)
+            transform matrix: [0] 1.0,0.0,0.0,0.0
+[1] 0.0,1.0,0.0,0.0
+[2] 0.0,0.0,1.0,0.0
+[3] 0.0,0.0,0.0,1.0
+            origin: null
+            alignment: AlignmentDirectional.bottomCenter
+            textDirection: ltr
+            transformHitTests: true
+            child: _RenderScrollSemantics#5edb2 relayoutBoundary=up4
+                needs compositing
+                parentData: <none> (can use size)
+                constraints: BoxConstraints(0.0<=w<=726.0, h=0.0)
+                semantic boundary
+                size: Size(726.0, 0.0)
+                child: RenderPointerListener#25cb6 relayoutBoundary=up5
+                    needs compositing
+                    parentData: <none> (can use size)
+                    constraints: BoxConstraints(0.0<=w<=726.0, h=0.0)
+                    size: Size(726.0, 0.0)
+                    behavior: deferToChild
+                    listeners: signal
+    child 2: RenderDecoratedBox#6ffaf relayoutBoundary=up2
+        needs compositing
+        parentData: offset=Offset(0.0, 0.0); flex=null; fit=null (can use size)
+        constraints: BoxConstraints(0.0<=w<=726.0, 0.0<=h<=Infinity)
+        size: Size(726.0, 302.0)
+        decoration: BoxDecoration
+            color: Color(alpha: 0.3804, red: 0.0000, green: 0.0000, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+            border: Border(top: BorderSide(color: Color(alpha: 0.0510, red: 1.0000, green: 1.0000, blue: 1.0000, colorSpace: ColorSpace.sRGB)))
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))
+        configuration: ImageConfiguration(bundle: PlatformAssetBundle#d7aea(), devicePixelRatio: 2.0, locale: en_US, textDirection: TextDirection.ltr, platform: android)
+        child: RenderPadding#90faf relayoutBoundary=up3
+            needs compositing
+            parentData: <none> (can use size)
+            constraints: BoxConstraints(0.0<=w<=726.0, 0.0<=h<=Infinity)
+            size: Size(726.0, 302.0)
+            padding: EdgeInsets(16.0, 13.0, 16.0, 12.0)
+            textDirection: ltr
+            child: RenderFlex#4dabb relayoutBoundary=up4
+                needs compositing
+                parentData: offset=Offset(16.0, 13.0) (can use size)
+                constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                size: Size(694.0, 277.0)
+                direction: vertical
+                mainAxisAlignment: start
+                mainAxisSize: min
+                crossAxisAlignment: center
+                verticalDirection: down
+                spacing: 0.0
+                child 1: RenderParagraph#b9826 relayoutBoundary=up5
+                    parentData: offset=Offset(309.0, 0.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(76.1, 20.0)
+                    textAlign: start
+                    textDirection: ltr
+                    softWrap: wrapping at box width
+                    overflow: clip
+                    locale: en_US
+                    maxLines: unlimited
+                child 2: RenderConstrainedBox#800db relayoutBoundary=up5
+                    parentData: offset=Offset(347.0, 20.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(0.0, 8.0)
+                    additionalConstraints: BoxConstraints(0.0<=w<=Infinity, h=8.0)
+                child 3: RenderFlex#1f2bb relayoutBoundary=up5
+                    needs compositing
+                    parentData: offset=Offset(0.0, 28.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(694.0, 65.0)
+                    direction: vertical
+                    mainAxisAlignment: start
+                    mainAxisSize: max
+                    crossAxisAlignment: center
+                    verticalDirection: down
+                    spacing: 0.0
+                child 4: RenderFlex#e6a4b relayoutBoundary=up5
+                    needs compositing
+                    parentData: offset=Offset(0.0, 93.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(694.0, 65.0)
+                    direction: vertical
+                    mainAxisAlignment: start
+                    mainAxisSize: max
+                    crossAxisAlignment: center
+                    verticalDirection: down
+                    spacing: 0.0
+                child 5: RenderFlex#69b2f relayoutBoundary=up5
+                    needs compositing
+                    parentData: offset=Offset(0.0, 158.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(694.0, 65.0)
+                    direction: vertical
+                    mainAxisAlignment: start
+                    mainAxisSize: max
+                    crossAxisAlignment: center
+                    verticalDirection: down
+                    spacing: 0.0
+                child 6: RenderConstrainedBox#e0298 relayoutBoundary=up5
+                    parentData: offset=Offset(347.0, 223.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(0.0, 6.0)
+                    additionalConstraints: BoxConstraints(0.0<=w<=Infinity, h=6.0)
+                child 7: RenderSemanticsAnnotations#cb0aa relayoutBoundary=up5
+                    parentData: offset=Offset(315.0, 229.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    semantic boundary
+                    size: Size(64.0, 48.0)
+    child 3: RenderDecoratedBox#ba0ad relayoutBoundary=up2
+        needs compositing
+        parentData: offset=Offset(0.0, 302.0); flex=null; fit=null (can use size)
+        constraints: BoxConstraints(0.0<=w<=726.0, 0.0<=h<=Infinity)
+        size: Size(726.0, 190.0)
+        decoration: BoxDecoration
+            color: Color(alpha: 0.3804, red: 0.0000, green: 0.0000, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+            border: Border(top: BorderSide(color: Color(alpha: 0.0510, red: 1.0000, green: 1.0000, blue: 1.0000, colorSpace: ColorSpace.sRGB)))
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))
+        configuration: ImageConfiguration(bundle: PlatformAssetBundle#d7aea(), devicePixelRatio: 2.0, locale: en_US, textDirection: TextDirection.ltr, platform: android)
+        child: RenderPadding#417fe relayoutBoundary=up3
+            needs compositing
+            parentData: <none> (can use size)
+            constraints: BoxConstraints(0.0<=w<=726.0, 0.0<=h<=Infinity)
+            size: Size(726.0, 190.0)
+            padding: EdgeInsets(16.0, 13.0, 16.0, 24.0)
+            textDirection: ltr
+            child: RenderFlex#a04b2 relayoutBoundary=up4
+                needs compositing
+                parentData: offset=Offset(16.0, 13.0) (can use size)
+                constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                size: Size(694.0, 153.0)
+                direction: vertical
+                mainAxisAlignment: start
+                mainAxisSize: min
+                crossAxisAlignment: center
+                verticalDirection: down
+                spacing: 0.0
+                child 1: RenderParagraph#3deda relayoutBoundary=up5
+                    parentData: offset=Offset(155.1, 0.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(383.7, 21.0)
+                    textAlign: start
+                    textDirection: ltr
+                    softWrap: wrapping at box width
+                    overflow: ellipsis
+                    locale: en_US
+                    maxLines: 1
+                child 2: RenderConstrainedBox#e851e relayoutBoundary=up5
+                    parentData: offset=Offset(347.0, 21.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(0.0, 4.0)
+                    additionalConstraints: BoxConstraints(0.0<=w<=Infinity, h=4.0)
+                child 3: RenderFlex#27d04 relayoutBoundary=up5
+                    needs compositing
+                    parentData: offset=Offset(0.0, 25.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(694.0, 48.0)
+                    direction: horizontal
+                    mainAxisAlignment: start
+                    mainAxisSize: max
+                    crossAxisAlignment: center
+                    textDirection: ltr
+                    verticalDirection: down
+                    spacing: 0.0
+                child 4: RenderFlex#dffda relayoutBoundary=up5
+                    parentData: offset=Offset(0.0, 73.0); flex=null; fit=null (can use size)
+                    constraints: BoxConstraints(0.0<=w<=694.0, 0.0<=h<=Infinity)
+                    size: Size(694.0, 80.0)
+                    direction: horizontal
+                    mainAxisAlignment: center
+                    mainAxisSize: max
+                    crossAxisAlignment: center
+                    textDirection: ltr
+                    verticalDirection: down
+                    spacing: 0.0
+◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤
+════════════════════════════════════════════════════════════════════════════════
+I/mali_gralloc(28893): register: id=0x29f00000c5b, importpid=-1
+I/mali_gralloc(28893): unregister: id=0x29f00000c49, base=0x0, importpid=28893
+I/mali_gralloc(28893): unregister: id=0x29f00000c48, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c5c, importpid=-1
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+W/AidlConversion(28893): aidl2legacy_AudioChannelLayout_audio_channel_mask_t: no legacy output audio_channel_mask_t found for AudioChannelLayout{layoutMask: 16}
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 2001/2006 (recycle/alloc) - 5/4008 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 2201/2206 (recycle/alloc) - 5/4408 (fetch/transfer)
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+D/VRI[MainActivity](28893): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=1
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+I/mali_gralloc(28893): unregister: id=0x29f00000c4f, base=0x0, importpid=28893
+I/mali_gralloc(28893): unregister: id=0x29f00000c57, base=0x0, importpid=28893
+I/mali_gralloc(28893): unregister: id=0x29f00000c5b, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c60, importpid=-1
+I/mali_gralloc(28893): unregister: id=0x29f00000c56, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c66, importpid=-1
+I/mali_gralloc(28893): register: id=0x29f00000c67, importpid=-1
+I/mali_gralloc(28893): unregister: id=0x29f00000c5c, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c6c, importpid=-1
+I/mali_gralloc(28893): register: id=0x29f00000c71, importpid=-1
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 2402/2407 (recycle/alloc) - 5/4810 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 2602/2607 (recycle/alloc) - 5/5210 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 2802/2807 (recycle/alloc) - 5/5610 (fetch/transfer)
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+D/VRI[MainActivity](28893): performTraversals relayoutWindow: maybeSyncSeqId=-1 ,mSyncSeqId=0 ,relayoutResult=1
+I/mali_gralloc(28893): unregister: id=0x29f00000c60, base=0x0, importpid=28893
+D/FlutterJNI(28893): Sending viewport metrics to the engine.
+I/mali_gralloc(28893): unregister: id=0x29f00000c6c, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c74, importpid=-1
+I/mali_gralloc(28893): unregister: id=0x29f00000c66, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c75, importpid=-1
+I/mali_gralloc(28893): register: id=0x29f00000c76, importpid=-1
+I/mali_gralloc(28893): unregister: id=0x29f00000c71, base=0x0, importpid=28893
+I/mali_gralloc(28893): unregister: id=0x29f00000c67, base=0x0, importpid=28893
+I/mali_gralloc(28893): register: id=0x29f00000c7d, importpid=-1
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 3002/3007 (recycle/alloc) - 5/6010 (fetch/transfer)
+I/mali_gralloc(28893): register: id=0x29f00000c81, importpid=-1
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 3202/3207 (recycle/alloc) - 5/6410 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 3402/3407 (recycle/alloc) - 5/6810 (fetch/transfer)
+D/BufferPoolAccessor2.0(28893): bufferpool2 0xb4000079cbebade8 : 5(40960 size) total buffers - 1(8192 size) used buffers - 3602/3607 (recycle/alloc) - 5/7210 (fetch/transfer)
