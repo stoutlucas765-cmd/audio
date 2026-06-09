@@ -1,0 +1,1482 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+
+import 'models/models.dart';
+
+/// App principal del taller mecánico.
+/// - Hive como DB local
+/// - Home: búsqueda por patente, CRUD y menú por vehículo
+/// - Presupuesto: carga de logo, cálculo de total, generación de PDF y compartir
+class TallerApp extends StatefulWidget {
+  const TallerApp({super.key});
+
+  @override
+  State<TallerApp> createState() => _TallerAppState();
+}
+
+class _TallerAppState extends State<TallerApp> {
+  final _searchCtrl = TextEditingController();
+
+  late Box<Vehiculo> _vehiculosBox;
+  late Box<Historial> _historialBox;
+  late Box<EmpresaPresupuesto> _empresaBox;
+
+  bool _ready = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    await Hive.initFlutter();
+
+    // Adaptadores (generados por hive_generator)
+    Hive.registerAdapter(VehiculoAdapter());
+    Hive.registerAdapter(HistorialAdapter());
+    Hive.registerAdapter(TipoAccionAdapter());
+    Hive.registerAdapter(EmpresaPresupuestoAdapter());
+
+    _vehiculosBox = await Hive.openBox<Vehiculo>('vehiculos');
+    _historialBox = await Hive.openBox<Historial>('historial');
+    _empresaBox = await Hive.openBox<EmpresaPresupuesto>('empresa_presupuesto');
+
+
+    if (!mounted) return;
+    setState(() => _ready = true);
+  }
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
+  }
+
+  List<Vehiculo> get _filtered {
+    final q = _searchCtrl.text.trim().toLowerCase();
+    final all = _vehiculosBox.values.toList();
+    if (q.isEmpty) return all;
+    return all.where((v) => v.patente.toLowerCase().contains(q)).toList();
+  }
+
+  void _addHistorial({
+    required String patente,
+    required TipoAccion tipo,
+    required String detalle,
+  }) {
+    _historialBox.add(
+      Historial(
+        fechaHora: DateTime.now(),
+        patente: patente,
+        tipoAccion: tipo,
+        detalleTexto: detalle,
+      ),
+    );
+  }
+
+  String _vehiculoDetalle(Vehiculo v) {
+    return 'Patente: ${v.patente}\n'
+        'Marca: ${v.marca}\n'
+        'Modelo: ${v.modelo}\n'
+        'Año: ${v.anio}\n'
+        'Kilometraje: ${v.kilometraje}\n'
+        'Dueño: ${v.duenio}\n'
+        'Teléfono: ${v.telefono}\n'
+        'Mano de obra: ${v.valorManoDeObra.toStringAsFixed(2)}\n'
+        'Notas: ${v.notas}';
+  }
+
+  String _detalleModificacion(Vehiculo oldV, Vehiculo newV) {
+    final diffs = <String>[];
+
+    if (oldV.marca != newV.marca) diffs.add('Marca: "${oldV.marca}" → "${newV.marca}"');
+    if (oldV.modelo != newV.modelo) diffs.add('Modelo: "${oldV.modelo}" → "${newV.modelo}"');
+    if (oldV.anio != newV.anio) diffs.add('Año: ${oldV.anio} → ${newV.anio}');
+    if (oldV.kilometraje != newV.kilometraje) {
+      diffs.add('Kilometraje: ${oldV.kilometraje} → ${newV.kilometraje}');
+    }
+    if (oldV.duenio != newV.duenio) diffs.add('Dueño: "${oldV.duenio}" → "${newV.duenio}"');
+    if (oldV.telefono != newV.telefono) diffs.add('Teléfono: "${oldV.telefono}" → "${newV.telefono}"');
+    if (oldV.valorManoDeObra != newV.valorManoDeObra) {
+      diffs.add('Mano de obra: ${oldV.valorManoDeObra.toStringAsFixed(2)} → ${newV.valorManoDeObra.toStringAsFixed(2)}');
+    }
+    if (oldV.notas != newV.notas) diffs.add('Notas: (modificadas)');
+
+    if (diffs.isEmpty) return 'Sin cambios.';
+    return diffs.join('\n');
+  }
+
+  Future<Uint8List?> _pickLogoBytes() async {
+    final picker = ImagePicker();
+    final x = await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
+    if (x == null) return null;
+    return x.readAsBytes();
+  }
+
+  Future<void> _showAddEditDialog({Vehiculo? existing}) async {
+    final isEdit = existing != null;
+
+    final patenteCtrl = TextEditingController(text: existing?.patente ?? '');
+    final marcaCtrl = TextEditingController(text: existing?.marca ?? '');
+    final modeloCtrl = TextEditingController(text: existing?.modelo ?? '');
+    final anioCtrl = TextEditingController(text: existing?.anio.toString() ?? '');
+    final kmCtrl = TextEditingController(text: existing?.kilometraje.toString() ?? '');
+    final duenioCtrl = TextEditingController(text: existing?.duenio ?? '');
+    final telefonoCtrl = TextEditingController(text: existing?.telefono ?? '');
+    final manoCtrl = TextEditingController(text: (existing?.valorManoDeObra ?? 0).toStringAsFixed(2));
+    final notasCtrl = TextEditingController(text: existing?.notas ?? '');
+
+    final formKey = GlobalKey<FormState>();
+
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text(isEdit ? 'Modificar Vehículo' : 'Agregar Vehículo'),
+          content: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: patenteCtrl,
+                    enabled: !isEdit,
+                    decoration: const InputDecoration(labelText: 'Patente'),
+                    validator: (v) => (v == null || v.trim().isEmpty) ? 'Requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: marcaCtrl,
+                    decoration: const InputDecoration(labelText: 'Marca'),
+                    validator: (v) => (v == null || v.trim().isEmpty) ? 'Requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: modeloCtrl,
+                    decoration: const InputDecoration(labelText: 'Modelo'),
+                    validator: (v) => (v == null || v.trim().isEmpty) ? 'Requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: anioCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Año'),
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) return 'Requerido';
+                      return int.tryParse(v.trim()) == null ? 'Número inválido' : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: kmCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Kilometraje'),
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) return 'Requerido';
+                      return int.tryParse(v.trim()) == null ? 'Número inválido' : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: duenioCtrl,
+                    decoration: const InputDecoration(labelText: 'Dueño'),
+                    validator: (v) => (v == null || v.trim().isEmpty) ? 'Requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: telefonoCtrl,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(labelText: 'Teléfono'),
+                    validator: (v) => (v == null || v.trim().isEmpty) ? 'Requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: manoCtrl,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(labelText: 'Valor Mano de Obra'),
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) return 'Requerido';
+                      return double.tryParse(v.trim().replaceAll(',', '.')) == null ? 'Número inválido' : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: notasCtrl,
+                    minLines: 3,
+                    maxLines: 6,
+                    decoration: const InputDecoration(labelText: 'Notas'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('Cancelar')),
+            ElevatedButton(
+              onPressed: () {
+                if (!formKey.currentState!.validate()) return;
+
+                final patente = patenteCtrl.text.trim();
+                final marca = marcaCtrl.text.trim();
+                final modelo = modeloCtrl.text.trim();
+                final anio = int.parse(anioCtrl.text.trim());
+                final kilometraje = int.parse(kmCtrl.text.trim());
+                final duenio = duenioCtrl.text.trim();
+                final telefono = telefonoCtrl.text.trim();
+                final valorMO = double.parse(manoCtrl.text.trim().replaceAll(',', '.'));
+                final notas = notasCtrl.text.trim();
+
+                final nueva = Vehiculo(
+                  patente: patente,
+                  marca: marca,
+                  modelo: modelo,
+                  anio: anio,
+                  kilometraje: kilometraje,
+                  duenio: duenio,
+                  telefono: telefono,
+                  valorManoDeObra: valorMO,
+                  notas: notas,
+                );
+
+                if (!isEdit) {
+                  if (_vehiculosBox.containsKey(patente)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Ya existe una patente con ese ID.')),
+                    );
+                    return;
+                  }
+
+                  _vehiculosBox.put(patente, nueva);
+                  _addHistorial(
+                    patente: nueva.patente,
+                    tipo: TipoAccion.creacion,
+                    detalle: _vehiculoDetalle(nueva),
+                  );
+                } else {
+                  final oldV = existing!;
+                  final detalle = _detalleModificacion(oldV, nueva);
+                  _vehiculosBox.put(nueva.patente, nueva);
+                  _addHistorial(
+                    patente: nueva.patente,
+                    tipo: TipoAccion.modificacion,
+                    detalle: detalle,
+                  );
+                }
+
+                Navigator.of(ctx).pop();
+              },
+              child: Text(isEdit ? 'Guardar Cambios' : 'Agregar'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  Future<void> _showDeleteDialog(Vehiculo v) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Confirmar Borrado'),
+          content: Text('¿Borrar el vehículo ${v.patente}?'),
+          actions: [
+            TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Cancelar')),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('Borrar'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (ok != true) return;
+
+    _vehiculosBox.delete(v.patente);
+    _addHistorial(
+      patente: v.patente,
+      tipo: TipoAccion.eliminacion,
+      detalle: 'Vehículo eliminado: ${v.patente}',
+    );
+
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  void _showVehicleMenu(Vehiculo v) async {
+    final action = await showModalBottomSheet<String>(
+      context: context,
+      showDragHandle: true,
+      builder: (sheetCtx) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.edit),
+                title: const Text('Modificar'),
+                onTap: () => Navigator.of(sheetCtx).pop('modificar'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.history),
+                title: const Text('Historial de Cambios'),
+                onTap: () => Navigator.of(sheetCtx).pop('historial'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.receipt_long),
+                title: const Text('Generar Presupuesto'),
+                onTap: () => Navigator.of(sheetCtx).pop('presupuesto'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.delete, color: Colors.red),
+                title: const Text('Borrar', style: TextStyle(color: Colors.red)),
+                onTap: () => Navigator.of(sheetCtx).pop('borrar'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (action == null) return;
+
+    switch (action) {
+      case 'modificar':
+        await _showAddEditDialog(existing: v);
+        break;
+      case 'historial':
+        if (!mounted) return;
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => HistoryPage(
+              historialBox: _historialBox,
+              vehiculosBox: _vehiculosBox,
+              patente: v.patente,
+            ),
+          ),
+        );
+        break;
+      case 'borrar':
+        await _showDeleteDialog(v);
+        break;
+      case 'presupuesto':
+        _openPresupuesto(context, v);
+        break;
+    }
+  }
+
+  void _openPresupuesto(BuildContext ctx, Vehiculo? vehiculo) {
+    Navigator.of(ctx).push(
+      MaterialPageRoute(
+          builder: (_) => PresupuestoPage(
+          vehiculoSeleccionado: vehiculo,
+          empresaPresupuestoBox: _empresaBox,
+        ),
+
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_ready) {
+      return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        ),
+      );
+    }
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Taller Mecánico',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Taller Mecánico'),
+          actions: [
+            IconButton(
+              tooltip: 'Generar Presupuesto',
+              icon: const Icon(Icons.receipt_long),
+              onPressed: () => _openPresupuesto(context, null),
+            ),
+            IconButton(
+              tooltip: 'Configuraciones',
+              icon: const Icon(Icons.settings),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (_) => ConfigPage(
+                    vehiculosBox: _vehiculosBox,
+                    historialBox: _historialBox,
+                    empresaPresupuestoBox: _empresaBox,
+                  ),
+                ),
+              ),
+            ),
+
+          ],
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: TextField(
+                controller: _searchCtrl,
+                decoration: InputDecoration(
+                  hintText: 'Buscar por Patente...',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _searchCtrl.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            _searchCtrl.clear();
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.close),
+                        )
+                      : null,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  setState(() {});
+                },
+                child: _filtered.isEmpty
+                    ? const Center(child: Text('No hay vehículos para mostrar.'))
+                    : ListView.separated(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        itemCount: _filtered.length,
+                        separatorBuilder: (_, __) => const Divider(height: 1),
+                        itemBuilder: (ctx, i) {
+                          final v = _filtered[i];
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.green.shade100,
+                              child: Text(v.patente.substring(0, 1).toUpperCase()),
+                            ),
+                            title: Text(v.patente, style: const TextStyle(fontWeight: FontWeight.bold)),
+                            subtitle: Text('${v.marca} ${v.modelo} • ${v.anio}'),
+                            trailing: Text(v.valorManoDeObra.toStringAsFixed(0)),
+                            onTap: () => _showVehicleMenu(v),
+                          );
+                        },
+                      ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => _showAddEditDialog(),
+          label: const Text('Agregar Vehículo'),
+          icon: const Icon(Icons.add),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () => _openPresupuesto(context, null),
+              icon: const Icon(Icons.receipt_long),
+              label: const Text('Generar Presupuesto'),
+              style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 14)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HistoryPage extends StatefulWidget {
+  final Box<Historial> historialBox;
+  final Box<Vehiculo> vehiculosBox;
+  final String patente;
+
+  const HistoryPage({
+    super.key,
+    required this.historialBox,
+    required this.vehiculosBox,
+    required this.patente,
+  });
+
+  @override
+  State<HistoryPage> createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  late List<({dynamic key, Historial value})> _items;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  void _refresh() {
+    _items = widget.historialBox.keys
+        .map((k) {
+          final h = widget.historialBox.get(k);
+          if (h == null) return null;
+          return (key: k, value: h);
+        })
+        .whereType<({dynamic key, Historial value})>()
+        .where((e) => e.value.patente == widget.patente)
+        .toList()
+      ..sort((a, b) => b.value.fechaHora.compareTo(a.value.fechaHora));
+  }
+
+  Future<void> _showAddCambio(Vehiculo v) async {
+    final kmCtrl = TextEditingController(text: v.kilometraje.toString());
+    final notasCtrl = TextEditingController(text: v.notas);
+    final manoCtrl = TextEditingController(text: v.valorManoDeObra.toStringAsFixed(2));
+
+    final formKey = GlobalKey<FormState>();
+
+    await showDialog<void>(
+      context: context,
+      builder: (dialogCtx) {
+        return AlertDialog(
+          title: const Text('Agregar cambio'),
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: kmCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Kilometraje nuevo'),
+                    validator: (val) {
+                      if (val == null || val.trim().isEmpty) return 'Requerido';
+                      return int.tryParse(val.trim()) == null ? 'Número inválido' : null;
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: notasCtrl,
+                    minLines: 3,
+                    maxLines: 6,
+                    decoration: const InputDecoration(labelText: 'Notas'),
+                  ),
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: manoCtrl,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(labelText: 'Mano de obra (cobro)'),
+                    validator: (val) {
+                      if (val == null || val.trim().isEmpty) return 'Requerido';
+                      return double.tryParse(val.trim().replaceAll(',', '.')) == null ? 'Número inválido' : null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.of(dialogCtx).pop(), child: const Text('Cancelar')),
+            ElevatedButton(
+              onPressed: () {
+                if (!formKey.currentState!.validate()) return;
+
+                final kmNuevo = int.parse(kmCtrl.text.trim());
+                final notas = notasCtrl.text.trim();
+                final manoCobro = double.parse(manoCtrl.text.trim().replaceAll(',', '.'));
+
+                final updated = Vehiculo(
+                  patente: v.patente,
+                  marca: v.marca,
+                  modelo: v.modelo,
+                  anio: v.anio,
+                  kilometraje: kmNuevo,
+                  duenio: v.duenio,
+                  telefono: v.telefono,
+                  valorManoDeObra: manoCobro,
+                  notas: notas,
+                );
+
+                widget.vehiculosBox.put(v.patente, updated);
+
+                final detalle = [
+                  if (v.kilometraje != updated.kilometraje) 'Kilometraje: ${v.kilometraje} → ${updated.kilometraje}',
+                  'Notas: ${notas.isEmpty ? '-' : notas}',
+                  'Mano de obra cobrada: ${manoCobro.toStringAsFixed(2)}',
+                ].join('\n');
+
+                widget.historialBox.add(
+                  Historial(
+                    fechaHora: DateTime.now(),
+                    patente: v.patente,
+                    tipoAccion: TipoAccion.modificacion,
+                    detalleTexto: detalle,
+                  ),
+                );
+
+                Navigator.of(dialogCtx).pop();
+              },
+              child: const Text('Guardar'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (!mounted) return;
+    setState(_refresh);
+  }
+
+  Future<void> _showDeleteHistorialDialog(({dynamic key, Historial value}) item) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Confirmar borrado'),
+          content: const Text('¿Eliminar esta entrada del historial?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('Cancelar'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (ok != true) return;
+
+    widget.historialBox.delete(item.key);
+
+    if (!mounted) return;
+    setState(_refresh);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final df = DateFormat('dd/MM/yyyy HH:mm');
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Historial - ${widget.patente}')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Cambios del vehículo con patente ${widget.patente}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    final v = widget.vehiculosBox.get(widget.patente);
+                    if (v == null) return;
+                    _showAddCambio(v);
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text('Agregar cambio'),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          Expanded(
+            child: _items.isEmpty
+                ? const Center(child: Text('Sin historial de cambios.'))
+                : ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    itemCount: _items.length,
+                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    itemBuilder: (ctx, i) {
+                      final item = _items[i];
+                      final h = item.value;
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(h.tipoAccion.label),
+                        subtitle: Text('${df.format(h.fechaHora)}\n${h.detalleTexto}'),
+                        trailing: IconButton(
+                          tooltip: 'Eliminar entrada del historial',
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => _showDeleteHistorialDialog(item),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class EditPresupuestoConfigPage extends StatefulWidget {
+  final Box<EmpresaPresupuesto> empresaPresupuestoBox;
+
+  const EditPresupuestoConfigPage({
+    super.key,
+    required this.empresaPresupuestoBox,
+  });
+
+  @override
+  State<EditPresupuestoConfigPage> createState() => _EditPresupuestoConfigPageState();
+}
+
+class _EditPresupuestoConfigPageState extends State<EditPresupuestoConfigPage> {
+  Uint8List? _logo;
+
+  final nombreCtrl = TextEditingController();
+  final telefonoCtrl = TextEditingController();
+  final direccionCtrl = TextEditingController();
+  final emailCtrl = TextEditingController();
+
+  bool _busy = false;
+
+  Future<EmpresaPresupuesto?> _load() async {
+    if (widget.empresaPresupuestoBox.values.isEmpty) return null;
+    final firstKey = widget.empresaPresupuestoBox.keys.first;
+    return widget.empresaPresupuestoBox.get(firstKey);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _load().then((cfg) {
+      if (cfg == null) return;
+      setState(() {
+        _logo = cfg.logoBytes;
+        nombreCtrl.text = cfg.nombre;
+        telefonoCtrl.text = cfg.telefono;
+        direccionCtrl.text = cfg.direccion;
+        emailCtrl.text = cfg.email;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    nombreCtrl.dispose();
+    telefonoCtrl.dispose();
+    direccionCtrl.dispose();
+    emailCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickAndSetLogo() async {
+    final bytes = await _pickLogoBytes();
+    if (bytes == null) return;
+    setState(() => _logo = bytes);
+  }
+
+  Future<Uint8List?> _pickLogoBytes() async {
+    final picker = ImagePicker();
+    final x = await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
+    if (x == null) return null;
+    return x.readAsBytes();
+  }
+
+  Future<void> _save() async {
+    setState(() => _busy = true);
+    try {
+      final nombre = nombreCtrl.text.trim();
+      final telefono = telefonoCtrl.text.trim();
+      final direccion = direccionCtrl.text.trim();
+      final email = emailCtrl.text.trim();
+
+      final newCfg = EmpresaPresupuesto(
+        nombre: nombre,
+        telefono: telefono,
+        direccion: direccion,
+        email: email,
+        logoBytes: _logo,
+      );
+
+      final keys = widget.empresaPresupuestoBox.keys.toList();
+      if (keys.isNotEmpty) {
+        widget.empresaPresupuestoBox.put(keys.first, newCfg);
+      } else {
+        widget.empresaPresupuestoBox.add(newCfg);
+      }
+
+      if (!mounted) return;
+      Navigator.of(context).pop(true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Editar presupuesto')),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: GestureDetector(
+                  onTap: _pickAndSetLogo,
+                  child: Container(
+                    width: 180,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).colorScheme.outline),
+                      borderRadius: BorderRadius.circular(12),
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                    child: _logo == null
+                        ? const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add_photo_alternate_outlined),
+                              SizedBox(height: 6),
+                              Text('Cargar Logo'),
+                            ],
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.memory(_logo!, fit: BoxFit.contain),
+                          ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              TextField(
+                controller: nombreCtrl,
+                decoration: const InputDecoration(labelText: 'Nombre empresa'),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: telefonoCtrl,
+                decoration: const InputDecoration(labelText: 'Teléfono'),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: direccionCtrl,
+                decoration: const InputDecoration(labelText: 'Dirección'),
+                minLines: 2,
+                maxLines: 4,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: emailCtrl,
+                decoration: const InputDecoration(labelText: 'Email'),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _busy ? null : _save,
+                  icon: const Icon(Icons.save),
+                  label: Text(_busy ? 'Guardando...' : 'Guardar'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ConfigPage extends StatefulWidget {
+
+  final Box<Vehiculo> vehiculosBox;
+  final Box<Historial> historialBox;
+  final Box<EmpresaPresupuesto> empresaPresupuestoBox;
+
+  const ConfigPage({
+    super.key,
+    required this.vehiculosBox,
+    required this.historialBox,
+    required this.empresaPresupuestoBox,
+  });
+
+  @override
+  State<ConfigPage> createState() => _ConfigPageState();
+}
+
+class _ConfigPageState extends State<ConfigPage> {
+  bool _busy = false;
+
+
+
+  Future<String> _defaultFilePath() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return '${dir.path}/taller_backup.txt';
+  }
+
+  Future<void> _importFromFile() async {
+    setState(() => _busy = true);
+    try {
+      final filePath = await _defaultFilePath();
+      final f = File(filePath);
+      if (!await f.exists()) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No se encontró el backup taller_backup.txt')),
+        );
+        return;
+      }
+
+      final raw = await f.readAsString();
+
+      final data = _parseBackup(raw);
+      if (data == null) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Backup inválido o corrupto')),
+        );
+        return;
+      }
+
+      // Borrar primero
+      await widget.vehiculosBox.clear();
+      await widget.historialBox.clear();
+
+      final vehiculos = (data['vehiculos'] as List?) ?? [];
+      for (final item in vehiculos) {
+        if (item is! Map) continue;
+        final v = item.cast<String, dynamic>();
+        final patente = (v['patente'] ?? '').toString();
+        if (patente.isEmpty) continue;
+
+        final nueva = Vehiculo(
+          patente: patente,
+          marca: (v['marca'] ?? '').toString(),
+          modelo: (v['modelo'] ?? '').toString(),
+          anio: (v['anio'] as num?)?.toInt() ?? int.tryParse((v['anio'] ?? '').toString()) ?? 0,
+          kilometraje: (v['kilometraje'] as num?)?.toInt() ?? int.tryParse((v['kilometraje'] ?? '').toString()) ?? 0,
+          duenio: (v['duenio'] ?? '').toString(),
+          telefono: (v['telefono'] ?? '').toString(),
+          valorManoDeObra:
+              (v['valorManoDeObra'] as num?)?.toDouble() ?? double.tryParse((v['valorManoDeObra'] ?? '').toString()) ?? 0.0,
+          notas: (v['notas'] ?? '').toString(),
+        );
+
+        widget.vehiculosBox.put(patente, nueva);
+      }
+
+      final historial = (data['historial'] as List?) ?? [];
+      for (final item in historial) {
+        if (item is! Map) continue;
+        final h = item.cast<String, dynamic>();
+
+        final fechaStr = (h['fechaHora'] ?? '').toString();
+        final fecha = DateTime.tryParse(fechaStr);
+        if (fecha == null) continue;
+
+        final tipoIndex = (h['tipoAccionIndex'] as num?)?.toInt() ??
+            int.tryParse((h['tipoAccionIndex'] ?? '').toString()) ??
+            0;
+        final tipo = _tipoAccionFromIndex(tipoIndex);
+
+        widget.historialBox.add(
+          Historial(
+            fechaHora: fecha,
+            patente: (h['patente'] ?? '').toString(),
+            tipoAccion: tipo,
+            detalleTexto: (h['detalleTexto'] ?? '').toString(),
+          ),
+        );
+      }
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Backup restaurado correctamente')),
+      );
+      setState(() {});
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Map<String, dynamic>? _parseBackup(String raw) {
+    // El export usa data.toString(), no JSON real. Intentamos decode JSON y fallback de parse legacy.
+    try {
+      final decoded = _tryJsonDecode(raw);
+      if (decoded is Map<String, dynamic>) return decoded;
+    } catch (_) {}
+
+    try {
+      return _legacyParseMap(raw);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  dynamic _tryJsonDecode(String raw) {
+    try {
+      return jsonDecode(raw);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Map<String, dynamic>? _legacyParseMap(String raw) {
+    var s = raw.trim();
+    if (s.isEmpty) return null;
+
+    s = s.replaceAllMapped(RegExp(r"\bvehiculos\b"), (_) => '"vehiculos"');
+    s = s.replaceAllMapped(RegExp(r"\bhistorial\b"), (_) => '"historial"');
+    s = s.replaceAllMapped(RegExp(r"\bpatente\b"), (_) => '"patente"');
+    s = s.replaceAllMapped(RegExp(r"\bmarca\b"), (_) => '"marca"');
+    s = s.replaceAllMapped(RegExp(r"\bmodelo\b"), (_) => '"modelo"');
+    s = s.replaceAllMapped(RegExp(r"\banio\b"), (_) => '"anio"');
+    s = s.replaceAllMapped(RegExp(r"\bkilometraje\b"), (_) => '"kilometraje"');
+    s = s.replaceAllMapped(RegExp(r"\bduenio\b"), (_) => '"duenio"');
+    s = s.replaceAllMapped(RegExp(r"\btelefono\b"), (_) => '"telefono"');
+    s = s.replaceAllMapped(RegExp(r"\bvalorManoDeObra\b"), (_) => '"valorManoDeObra"');
+    s = s.replaceAllMapped(RegExp(r"\bnotas\b"), (_) => '"notas"');
+
+    s = s.replaceAllMapped(RegExp(r"\bfechaHora\b"), (_) => '"fechaHora"');
+    s = s.replaceAllMapped(RegExp(r"\btipoAccionIndex\b"), (_) => '"tipoAccionIndex"');
+    s = s.replaceAllMapped(RegExp(r"\bdetalleTexto\b"), (_) => '"detalleTexto"');
+
+    try {
+      final decoded = jsonDecode(s);
+      if (decoded is Map<String, dynamic>) return decoded;
+      return null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  TipoAccion _tipoAccionFromIndex(int index) {
+    for (final v in TipoAccion.values) {
+      if (v.index == index) return v;
+    }
+    return TipoAccion.creacion;
+  }
+
+  Future<void> _exportToFile() async {
+    setState(() => _busy = true);
+    try {
+      final filePath = await _defaultFilePath();
+
+      // Texto JSON simple (backup)
+      final data = {
+        'vehiculos':
+            widget.vehiculosBox.values.map((v) => {
+                  'patente': v.patente,
+                  'marca': v.marca,
+                  'modelo': v.modelo,
+                  'anio': v.anio,
+                  'kilometraje': v.kilometraje,
+                  'duenio': v.duenio,
+                  'telefono': v.telefono,
+                  'valorManoDeObra': v.valorManoDeObra,
+                  'notas': v.notas,
+                }).toList(),
+        'historial': widget.historialBox.values.map((h) => {
+              'fechaHora': h.fechaHora.toIso8601String(),
+              'patente': h.patente,
+              'tipoAccionIndex': h.tipoAccion.index,
+              'detalleTexto': h.detalleTexto,
+            }).toList(),
+      };
+
+      final jsonStr = data.toString();
+      final f = File(filePath);
+      await f.writeAsString(jsonStr);
+
+      if (!mounted) return;
+      await Share.shareXFiles([XFile(filePath)], text: 'Backup del taller');
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Configuraciones')),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          const Text(
+            'Backup (backup) local',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: _busy ? null : _exportToFile,
+              icon: const Icon(Icons.upload_file),
+              label: Text(_busy ? 'Exportando...' : 'Exportar backup'),
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: _busy ? null : _importFromFile,
+              icon: const Icon(Icons.download),
+              label: Text(_busy ? 'Importando...' : 'Importar / Restaurar backup'),
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => EditPresupuestoConfigPage(
+                      empresaPresupuestoBox: widget.empresaPresupuestoBox,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.edit_note),
+              label: const Text('Editar presupuesto'),
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'El backup se restaura desde el mismo archivo (taller_backup.txt).',
+          ),
+        ],
+
+      ),
+    );
+  }
+}
+
+class PresupuestoPage extends StatefulWidget {
+  final Vehiculo? vehiculoSeleccionado;
+  final Box<EmpresaPresupuesto> empresaPresupuestoBox;
+
+  const PresupuestoPage({
+    super.key,
+    required this.vehiculoSeleccionado,
+    required this.empresaPresupuestoBox,
+  });
+
+
+  @override
+  State<PresupuestoPage> createState() => _PresupuestoPageState();
+}
+
+class _PresupuestoPageState extends State<PresupuestoPage> {
+  Uint8List? _logo;
+
+  final clienteCtrl = TextEditingController();
+  final vehiculoCtrl = TextEditingController();
+  final descCtrl = TextEditingController();
+  final repuestosCtrl = TextEditingController(text: '0');
+  final manoCtrl = TextEditingController(text: '0');
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.vehiculoSeleccionado != null) {
+      vehiculoCtrl.text = widget.vehiculoSeleccionado!.patente;
+      // Presupuesto nuevo: arrancar con montos en 0 para que el cliente los edite.
+      manoCtrl.text = '0';
+      repuestosCtrl.text = '0';
+      clienteCtrl.text = widget.vehiculoSeleccionado!.duenio;
+      descCtrl.text = widget.vehiculoSeleccionado!.notas;
+    }
+
+
+    _loadEmpresaPresupuesto();
+  }
+
+
+  @override
+  void dispose() {
+    clienteCtrl.dispose();
+    vehiculoCtrl.dispose();
+    descCtrl.dispose();
+    repuestosCtrl.dispose();
+    manoCtrl.dispose();
+    super.dispose();
+  }
+
+  double _parseMoney(TextEditingController c) {
+    final v = c.text.trim().replaceAll(',', '.');
+    return double.tryParse(v) ?? 0.0;
+  }
+
+  double get _total => _parseMoney(repuestosCtrl) + _parseMoney(manoCtrl);
+
+  Future<void> _loadEmpresaPresupuesto() async {
+    final config = widget.empresaPresupuestoBox.values.isNotEmpty ? widget.empresaPresupuestoBox.get(widget.empresaPresupuestoBox.keys.first) : null;
+    // Nota: usando la primera key porque guardamos un único registro en la box.
+    if (config == null) return;
+    setState(() {
+      _logo = config.logoBytes;
+      clienteCtrl.text = config.nombre;
+    });
+  }
+
+
+  Future<void> _generateAndShare() async {
+    final repuestos = _parseMoney(repuestosCtrl);
+    final mano = _parseMoney(manoCtrl);
+    final total = _total;
+
+    final doc = pw.Document();
+    final df = DateFormat('dd/MM/yyyy HH:mm');
+    final currency = NumberFormat.currency(symbol: r'$ ', decimalDigits: 2);
+
+
+    pw.Widget logoWidget;
+    if (_logo == null) {
+      logoWidget = pw.Container(
+        width: 120,
+        height: 60,
+        decoration: pw.BoxDecoration(border: pw.Border.all(color: PdfColors.grey300)),
+        child: pw.Center(
+          child: pw.Text('LOGO', style: pw.TextStyle(color: PdfColors.grey600)),
+        ),
+      );
+    } else {
+      final img = pw.MemoryImage(_logo!);
+      logoWidget = pw.Container(
+        width: 140,
+        height: 70,
+        child: pw.Image(img, fit: pw.BoxFit.contain),
+      );
+    }
+
+    doc.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (_) {
+          return pw.Padding(
+            padding: const pw.EdgeInsets.all(24),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                        pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            logoWidget,
+                            pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.end,
+                              children: [
+                                pw.Text(
+                                  'PRESUPUESTO',
+                                  style: pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.SizedBox(height: 8),
+                                pw.Text(widget.empresaPresupuestoBox.values.isNotEmpty ? widget.empresaPresupuestoBox.get(widget.empresaPresupuestoBox.keys.first)!.nombre : '-'),
+                                pw.Text(widget.empresaPresupuestoBox.values.isNotEmpty ? widget.empresaPresupuestoBox.get(widget.empresaPresupuestoBox.keys.first)!.telefono : '-'),
+                                pw.SizedBox(height: 6),
+                                pw.Text(widget.empresaPresupuestoBox.values.isNotEmpty ? widget.empresaPresupuestoBox.get(widget.empresaPresupuestoBox.keys.first)!.direccion : '-'),
+                                pw.Text(widget.empresaPresupuestoBox.values.isNotEmpty ? widget.empresaPresupuestoBox.get(widget.empresaPresupuestoBox.keys.first)!.email : '-'),
+
+                                pw.SizedBox(height: 8),
+                                pw.Text(df.format(DateTime.now())),
+
+                              ],
+                            ),
+                          ],
+                        ),
+                        pw.SizedBox(height: 22),
+
+                _sectionTitle('Datos del Cliente'),
+                pw.SizedBox(height: 8),
+                pw.Text('Nombre: ${clienteCtrl.text.trim().isEmpty ? '-' : clienteCtrl.text.trim()}'),
+                pw.Text('Vehículo: ${vehiculoCtrl.text.trim().isEmpty ? '-' : vehiculoCtrl.text.trim()}'),
+                pw.SizedBox(height: 16),
+                _sectionTitle('Descripción del Trabajo'),
+                pw.SizedBox(height: 8),
+                pw.Text(descCtrl.text.trim().isEmpty ? '-' : descCtrl.text.trim()),
+                pw.SizedBox(height: 18),
+                _sectionTitle('Costos'),
+                pw.SizedBox(height: 10),
+                pw.Table(
+                  border: pw.TableBorder.all(color: PdfColors.grey300),
+                  columnWidths: const {
+                    0: pw.FlexColumnWidth(1),
+                    1: pw.FlexColumnWidth(1),
+                  },
+                  children: [
+                    _tableRow('Costo de Repuestos', currency.format(repuestos)),
+                    _tableRow('Costo de Mano de Obra', currency.format(mano)),
+                    _tableRow('Total', currency.format(total), isTotal: true),
+                  ],
+                ),
+                pw.SizedBox(height: 18),
+                pw.Text(
+                  '*Este presupuesto tiene una validez de 7 dias.',
+                  style: pw.TextStyle(color: PdfColors.grey600),
+                ),
+              ],
+
+            ),
+          );
+        },
+      ),
+    );
+
+    final dir = await getTemporaryDirectory();
+    final file = File('${dir.path}/presupuesto_${DateTime.now().millisecondsSinceEpoch}.pdf');
+    await file.writeAsBytes(await doc.save());
+
+    await Share.shareXFiles(
+      [XFile(file.path)],
+      text: 'Presupuesto generado desde tu taller',
+    );
+  }
+
+  pw.Widget _sectionTitle(String text) {
+    return pw.Container(
+      padding: const pw.EdgeInsets.symmetric(vertical: 6),
+      child: pw.Text(text, style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold)),
+    );
+  }
+
+  pw.TableRow _tableRow(String left, String right, {bool isTotal = false}) {
+    return pw.TableRow(
+      decoration: isTotal ? pw.BoxDecoration(color: PdfColors.grey200) : null,
+      children: [
+        pw.Padding(
+          padding: const pw.EdgeInsets.all(8),
+          child: pw.Text(
+            left,
+            style: pw.TextStyle(fontWeight: isTotal ? pw.FontWeight.bold : pw.FontWeight.normal),
+          ),
+        ),
+        pw.Padding(
+          padding: const pw.EdgeInsets.all(8),
+          child: pw.Align(
+            alignment: pw.Alignment.centerRight,
+            child: pw.Text(
+              right,
+              style: pw.TextStyle(fontWeight: isTotal ? pw.FontWeight.bold : pw.FontWeight.normal),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return Scaffold(
+      appBar: AppBar(title: const Text('Generar Presupuesto')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: GestureDetector(
+                onTap: () {},
+
+                child: Container(
+                  width: 180,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).colorScheme.outline),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  child: _logo == null
+                      ? const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add_photo_alternate_outlined),
+                            SizedBox(height: 6),
+                            Text('Cargar Logo'),
+                          ],
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.memory(_logo!, fit: BoxFit.contain),
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: clienteCtrl,
+              decoration: const InputDecoration(labelText: 'Nombre del Cliente'),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: vehiculoCtrl,
+              decoration: const InputDecoration(labelText: 'Vehículo'),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: descCtrl,
+              minLines: 4,
+              maxLines: 6,
+              decoration: const InputDecoration(labelText: 'Descripción del Trabajo'),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: repuestosCtrl,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(labelText: 'Costo de Repuestos'),
+                    onChanged: (_) => setState(() {}),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextField(
+                    controller: manoCtrl,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(labelText: 'Costo de Mano de Obra'),
+                    onChanged: (_) => setState(() {}),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              readOnly: true,
+              decoration: const InputDecoration(labelText: 'Total (calculado)'),
+              controller: TextEditingController(text: _total.toStringAsFixed(2)),
+            ),
+            const SizedBox(height: 18),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _generateAndShare,
+                icon: const Icon(Icons.picture_as_pdf),
+                label: const Text('Generar y Compartir PDF'),
+                style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
